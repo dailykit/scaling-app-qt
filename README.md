@@ -1,0 +1,2 @@
+# DailyKit
+DailyKit QT project
