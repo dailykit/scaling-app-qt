@@ -1,4 +1,4 @@
-QT += quick
+QT += quick core
 QT += network
 CONFIG += c++11
 
@@ -14,7 +14,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        External/retrievewebappdata.cpp \
+        DailyKitCore/Models/ingredientdetails.cpp \
+        DailyKitCore/Models/itemdetails.cpp \
+        DailyKitCore/Models/orderdetails.cpp \
+        DailyKitCore/ViewModels/orderviewmodel.cpp \
+        DailyKitCore/External/WebServices/retrievewebappdata.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -38,4 +42,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    External/retrievewebappdata.h
+    DailyKitCore/Models/ingredientdetails.h \
+    DailyKitCore/Models/itemdetails.h \
+    DailyKitCore/Models/orderdetails.h \
+    DailyKitCore/ViewModels/orderviewmodel.h \
+    DailyKitCore/External/WebServices/retrievewebappdata.h

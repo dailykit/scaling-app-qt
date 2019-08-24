@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQuickView>
 #include <QQmlApplicationEngine>
-#include "retrievewebappdata.h"
+#include "DailyKitCore/External/WebServices/retrievewebappdata.h"
 
 int main(int argc, char *argv[])
 {

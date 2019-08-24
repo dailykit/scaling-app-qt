@@ -1,6 +1,18 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>WeighingScale.qml</file>
+        <file>QML/Components/OrderPages/WeighingScale.qml</file>
+        <file>QML/ApplicationCore/Style/Images.qml</file>
+        <file>QML/ApplicationCore/Style/Interface.qml</file>
+        <file>QML/ApplicationCore/Style/Themes.qml</file>
+        <file>QML/ApplicationCore/Style/Themes/Dark.qml</file>
+        <file>QML/ComponentsCore/Shapes/RoundedRectangle.qml</file>
+        <file>QML/ComponentsCore/Buttons/HorizontalViewButton.qml</file>
+        <file>QML/ComponentsCore/Buttons/VerticalViewButton.qml</file>
+        <file>QML/ComponentsCore/Buttons/ToggleButton.qml</file>
+        <file>QML/ComponentsCore/Shapes/VerticalLine.qml</file>
+        <file>QML/ComponentsCore/Shapes/HorizontalLine.qml</file>
+        <file>QML/ComponentsCore/Buttons/SquareIcon.qml</file>
+        <file>QML/ComponentsCore/Views/AppTreeView.qml</file>
     </qresource>
 </RCC>
