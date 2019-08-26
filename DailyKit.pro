@@ -14,7 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        DailyKitCore/Models/ingredientdetails.cpp \
+        DailyKitCore/Models/ingredients.cpp \
         DailyKitCore/Models/itemdetails.cpp \
         DailyKitCore/Models/orderdetails.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
@@ -42,7 +42,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    DailyKitCore/Models/ingredientdetails.h \
+    DailyKitCore/Models/ingredients.h \
     DailyKitCore/Models/itemdetails.h \
     DailyKitCore/Models/orderdetails.h \
     DailyKitCore/ViewModels/orderviewmodel.h \

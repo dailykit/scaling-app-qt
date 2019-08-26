@@ -13,6 +13,6 @@
         <file>QML/ComponentsCore/Shapes/VerticalLine.qml</file>
         <file>QML/ComponentsCore/Shapes/HorizontalLine.qml</file>
         <file>QML/ComponentsCore/Buttons/SquareIcon.qml</file>
-        <file>QML/ComponentsCore/Views/AppTreeView.qml</file>
+        <file>QML/ComponentsCore/Views/AppListView.qml</file>
     </qresource>
 </RCC>

@@ -48,6 +48,8 @@ QByteArray byteArray = orderData->readAll();
         qDebug() << "Is Array? " << jsonDocument.isArray();
 
         QJsonObject jsonObject = jsonDocument.object();
+
+        emit webDataChanged(jsonObject); // catch this data in model and manipulate the data there
         QJsonValue agentsArrayValue = jsonObject.value("all_orders");
             QJsonArray agentsArray = agentsArrayValue.toArray();
 

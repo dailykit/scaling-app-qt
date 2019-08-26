@@ -13,12 +13,5 @@ int main(int argc, char *argv[])
 
        RetrieveWebAppData *webData = new RetrieveWebAppData();
 
-
-//    QQuickView *view = new QQuickView;
-//       view->setSource(QUrl("qrc:/main.qml"));
-//       view->setResizeMode(QQuickView::SizeRootObjectToView);
-//       view->show();
-
-
     return app.exec();
 }

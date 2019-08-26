@@ -17,6 +17,9 @@ public slots:
 
    void onDataReceived(QNetworkReply* orderData);
 
+signals:
+  void webDataChanged(QJsonObject& webData);
+
 private:
    QNetworkAccessManager *m_AccessManager;
    static const QString WEB_APP_URL;
