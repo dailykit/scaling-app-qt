@@ -18,10 +18,14 @@ public:
     static void connectToDatabase();
     static void createOrderTable();
     static void createItemTable();
+    static void createIngredientTable();
+    static void createIngredientDetailTable();
 
-   static const QString DRIVER;
-   static const QString ORDERTABLE;
-   static const QString ITEMSTABLE;
+    static const QString DRIVER;
+    static const QString ORDERTABLE;
+    static const QString ITEMSTABLE;
+    static const QString INGREDIENT_TABLE;
+    static const QString INGREDIENT_DETAIL_TABLE;
 };
 
 #endif // DBMANAGER_H

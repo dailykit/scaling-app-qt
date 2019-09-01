@@ -24,6 +24,7 @@ private:
    QNetworkAccessManager *m_AccessManager;
    static const QString WEB_APP_URL;
    static const QString CONTENT_HEADER;
+   static const QString TAG;
 
 };
 
