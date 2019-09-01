@@ -8,6 +8,7 @@
 
 #include <QObject>
 
+
 #include "../External/WebServices/retrievewebappdata.h"
 
 class OrderDetails : public QObject
@@ -19,7 +20,7 @@ public:
 signals:
 
 public slots:
-    void onWebDataChanged(QJsonObject &data);
+//    void onWebDataChanged(QJsonObject &data);
 };
 
 #endif // ORDERDETAILS_H

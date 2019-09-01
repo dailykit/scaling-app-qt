@@ -1,5 +1,9 @@
 import QtQuick 2.0
 
-Item {
+QtObject{
+    id: root
 
+    readonly property QtObject font: QtObject {
+        readonly property real size12: 12
+    }
 }

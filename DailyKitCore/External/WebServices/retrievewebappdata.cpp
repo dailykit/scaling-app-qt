@@ -1,5 +1,5 @@
 #include "retrievewebappdata.h"
-
+#include <QSqlQuery>
 
 const QString RetrieveWebAppData::WEB_APP_URL = "http://ec2-18-188-115-230.us-east-2.compute.amazonaws.com:3000/getData";
 const QString RetrieveWebAppData::CONTENT_HEADER ="application/json";
@@ -57,12 +57,25 @@ QByteArray byteArray = orderData->readAll();
             {
                 qDebug() << v.toObject().value("order_id").toString();
                 qDebug() << v.toObject().value("order_number").toInt();
+
+                 QSqlQuery query;
+                 query.prepare("INSERT INTO itemDetails(itemOrderId, itemSku, itemName, itemStatus,  itemNumber) "
+                                  "VALUES (:itemOrderId, :itemSku, :itemName, :itemStatus,  :itemNumber)");
                 QJsonArray itemsArray = v.toObject().value("items").toArray();
                 foreach (const QJsonValue & item, itemsArray)
                 {
                     qDebug() << "items inside order";
+                    query.prepare("INSERT INTO itemDetails(itemOrderId, itemSku, itemName, itemServing, itemQuantity, itemStatus,  itemNumber) "
+                                     "VALUES (:itemOrderId, :itemSku, :itemName, :itemServing, :itemQuantity, :itemStatus,  :itemNumber)");
                    qDebug() << item.toObject().value("item_order_id").toString();
                    qDebug() << item.toObject().value("order_status").toString();
+                   query.bindValue(":itemOrderId", item.toObject().value("item_order_id").toString());
+                   query.bindValue(":itemSku", item.toObject().value("recipe_sku").toString());
+                   query.bindValue(":itemName", item.toObject().value("recipe_name").toString());
+//                   query.bindValue(":itemServing",item.toObject().value("recipe_servings").toString());
+//                   query.bindValue(":itemQuantity", item.toObject().value("recipe_quantity").toString());
+                   query.bindValue(":itemStatus", item.toObject().value("order_status").toString());
+                   query.exec();
 
                    QJsonArray ingredientsArray = item.toObject().value("ingredients").toArray();
                    foreach (const QJsonValue & ingredients, ingredientsArray)

@@ -5,7 +5,7 @@
 #include <QList>
 #include <QMetaType>
 #include "../Models/itemdetails.h"
-
+#include <QSqlTableModel>
 class OrderViewModel : public QAbstractListModel
 {
 public:
