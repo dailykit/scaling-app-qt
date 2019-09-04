@@ -1,5 +1,6 @@
 #include "retrievewebappdata.h"
 #include <QSqlQuery>
+#include <QSqlError>
 
 const QString RetrieveWebAppData::WEB_APP_URL = "http://ec2-18-188-115-230.us-east-2.compute.amazonaws.com:3000/getData";
 const QString RetrieveWebAppData::CONTENT_HEADER ="application/json";
@@ -11,7 +12,7 @@ RetrieveWebAppData::RetrieveWebAppData(QObject *parent) : QObject(parent),m_Acce
     {
         connect(m_AccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onDataReceived(QNetworkReply*)));
     }
-    getOrderList();
+
 }
 
 void RetrieveWebAppData::getOrderList()
@@ -48,33 +49,45 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
 
         QJsonObject jsonObject = jsonDocument.object();
 
-        emit webDataChanged(jsonObject); // catch this data in model and manipulate the data there
+        // catch this data in model and manipulate the data there
         QJsonValue agentsArrayValue = jsonObject.value("all_orders");
         QJsonArray agentsArray = agentsArrayValue.toArray();
+        QSqlQuery q;
+        q.exec("DELETE from itemDetails");
+        q.exec("DELETE from ingredients");
+        q.exec("DELETE from ingredient_detail");
 
         foreach (const QJsonValue & v, agentsArray)
         {
             //qDebug() << v.toObject().value("order_id").toString();
             //qDebug() << v.toObject().value("order_number").toInt();
 
-            QSqlQuery query;
-            query.prepare("INSERT INTO itemDetails(itemOrderId, itemSku, itemName, itemStatus,  itemNumber) "
-                          "VALUES (:itemOrderId, :itemSku, :itemName, :itemStatus,  :itemNumber)");
+
             QJsonArray itemsArray = v.toObject().value("items").toArray();
             foreach (const QJsonValue & item, itemsArray)
             {
-                //qDebug() << "items inside order";
-                query.prepare("INSERT INTO itemDetails(itemOrderId, itemSku, itemName, itemServing, itemQuantity, itemStatus,  itemNumber) "
-                              "VALUES (:itemOrderId, :itemSku, :itemName, :itemServing, :itemQuantity, :itemStatus,  :itemNumber)");
-                //qDebug() << item.toObject().value("item_order_id").toString();
-                //qDebug() << item.toObject().value("order_status").toString();
+
+                QSqlQuery query;
+                query.prepare("INSERT INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
+                              "VALUES (:itemOrderId, :orderId, :itemSku, :itemName, :itemStatus)");
+//                              " ON DUPLICATE KEY UPDATE itemOrderId = :itemOrderId, itemSku = :itemSku,"
+//                              "itemName = :itemName, itemStatus = :itemStatus");
+
+qDebug() << item.toObject().value("recipe_name").toString();
                 query.bindValue(":itemOrderId", item.toObject().value("item_order_id").toString());
+                query.bindValue(":orderId", item.toObject().value("order_id").toString());
                 query.bindValue(":itemSku", item.toObject().value("recipe_sku").toString());
                 query.bindValue(":itemName", item.toObject().value("recipe_name").toString());
                 //query.bindValue(":itemServing",item.toObject().value("recipe_servings").toString());
                 //query.bindValue(":itemQuantity", item.toObject().value("recipe_quantity").toString());
                 query.bindValue(":itemStatus", item.toObject().value("order_status").toString());
-                query.exec();
+                if(!query.exec()){
+
+                    qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
+                } else {
+                    qDebug() << "Order details created";
+                }
+
 
                 QJsonArray ingredientsArray = item.toObject().value("ingredients").toArray();
                 foreach (const QJsonValue & ingredients, ingredientsArray)
@@ -102,7 +115,7 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
                         //qDebug()<<TAG<<"ingredients_details";
                         //qDebug()<<TAG<<ingredientDetail.toObject().value("ingredient_name").toString();
 
-                        query.prepare("INSERT INTO ingredient(ingredientDetailId, ingredientId, ingredientName, ingredientQuantity, ingredientMsr, ingredientSection,  ingredientProcess, isPacked,  ingredientPackTimestamp,  isDeleted,  isWeighed,  ingredientDetailIndex,  ingredientDetailPosition,  ingredientMeasuredWeight) "
+                        query.prepare("INSERT INTO ingredient_detail(ingredientDetailId, ingredientId, ingredientName, ingredientQuantity, ingredientMsr, ingredientSection,  ingredientProcess, isPacked,  ingredientPackTimestamp,  isDeleted,  isWeighed,  ingredientDetailIndex,  ingredientDetailPosition,  ingredientMeasuredWeight) "
                                       "VALUES (:ingredientDetailId, :ingredientId, :ingredientName, :ingredientQuantity, :ingredientMsr, :ingredientSection,  :ingredientProcess, :isPacked,  :ingredientPackTimestamp,  :isDeleted,  :isWeighed,  :ingredientDetailIndex,  :ingredientDetailPosition,  :ingredientMeasuredWeight)");
                         query.bindValue(":ingredientDetailId", ingredientDetail.toObject().value("ingredient_detail_id").toString());
                         query.bindValue(":ingredientId", ingredientDetail.toObject().value("ingredient_id").toString());
@@ -122,7 +135,10 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
                     }
                 }
             }
+
         qDebug() << "--------------------";
         }
+        qDebug() << "Data updated";
+     emit webDataChanged();
     }
 }

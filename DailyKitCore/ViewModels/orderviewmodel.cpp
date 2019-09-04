@@ -1,19 +1,23 @@
 #include "orderviewmodel.h"
 
+
+const QString OrderViewModel::OrderViewQuery = "select * from itemDetails";
+
 OrderViewModel::OrderViewModel(QObject *parent) :
-    QAbstractListModel (parent)
+    QSqlQueryModel(parent),
+    m_recordCount(0),
+    dataPage(new RetrieveWebAppData)
 {
 
+    setQuery(OrderViewQuery);
+   bool t = connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::onWebDataChanged);
+   qDebug()  << "signal connected"<< t;
 }
 
-OrderViewModel::OrderViewModel(const OrderViewModel &obj)
-{
-    m_itemsList = obj.m_itemsList;
-}
 
 OrderViewModel::~OrderViewModel()
 {
-
+qDebug() << "deleted";
 }
 
 int OrderViewModel::rowCount(const QModelIndex &parent) const
@@ -21,38 +25,55 @@ int OrderViewModel::rowCount(const QModelIndex &parent) const
     if(parent.isValid())
         return 0;
 
-    return m_itemsList.count();
+    return m_recordCount;
 
 }
 
-QVariant OrderViewModel::data(const QModelIndex &index, int role) const
+void OrderViewModel::setQuery(const QString &queryString)
 {
-    if(!index.isValid() || m_itemsList.size() == 0)
-        return QVariant();
+    QSqlQueryModel::setQuery(queryString);
 
-    ItemDetailsPtr item = m_itemsList.at(index.row());
-    if(item.isNull())
-        return QVariant();
+    if (this->query().record().isEmpty()) {
+        qWarning() << "SQLiteModel::setQuery() -" << this->query().lastError();
 
-    switch(role) {
-    case OrderId:
-        return item->orderId();
-    case RecipeName:
-        return item->recipeName();
-    case Servings:
-        return item->recipeServings();
     }
 
-    return QVariant();
+    m_recordCount = record().count();
+    qDebug() << "Records: " << m_recordCount;
+
+
+}
+
+void OrderViewModel::onWebDataChanged()
+{
+    qDebug() << "Web data changed";
+    setQuery(OrderViewQuery);
 
 }
 
 QHash<int, QByteArray> OrderViewModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;
-       roles[OrderId] = "orderId";
-       roles[RecipeName] = "recipeName";
-       roles[Servings] = "servings";
-       return roles;
+    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
+    for( int i = 0; i < record().count(); i++) {
+        qDebug() << "roles" << record().fieldName(i).toLatin1();
+        roles[Qt::UserRole + i + 1] = record().fieldName(i).toLatin1();
+    }
+    return roles;
+}
 
+QVariant OrderViewModel::data(const QModelIndex &index, int role) const
+{
+    QVariant value = QSqlQueryModel::data(index, role);
+    if(role < Qt::UserRole)
+    {
+        value = QSqlQueryModel::data(index, role).toString();
+    }
+    else
+    {
+        int columnIdx = role - Qt::UserRole - 1;
+        QModelIndex modelIndex = this->index(index.row(), columnIdx);
+        value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
+        qDebug() << "value" << value;
+    }
+    return value;
 }

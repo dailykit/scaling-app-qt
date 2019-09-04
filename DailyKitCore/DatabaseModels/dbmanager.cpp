@@ -32,7 +32,8 @@ void DBManager::connectToDatabase()
         qFatal("Failed to create writable directory at %s", qPrintable(writeDir.absolutePath()));
 
     // Ensure that we have a writable location on all devices.
-    const QString fileName = writeDir.absolutePath() + "dailyKit-database.db";
+    const QString fileName = writeDir.absolutePath() + "/dailyKit-database.db";
+    qDebug() << "path" << writeDir.absolutePath();
     // When using the SQLite driver, open() will create the SQLite database if it doesn't exist.
     database.setDatabaseName(fileName);
     if (!database.open()) {
@@ -81,12 +82,13 @@ void DBManager::createItemTable()
     if (!query.exec(
         "CREATE TABLE IF NOT EXISTS 'itemDetails' ("
         "'itemOrderId' TEXT PRIMARY KEY NOT NULL,"
+                "'orderId' TEXT NOT NULL,"
                 "'itemSku' TEXT NOT NULL,"
                 "'itemName' Text NOT NULL,"
                 "'itemServing' TEXT,"
                 "'itemQuantity' Text,"
                 "'itemStatus' TEXT NOT NULL,"
-                "'itemNumber' Text NOT NULL,"
+                "'itemNumber' Text,"
                 "'selectedPosition' INTEGER,"
                 "'customerPhone' Text,"
                 "'customerName' TEXT,"
@@ -157,7 +159,7 @@ void DBManager::createIngredientDetailTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'ingredient' ("
+        "CREATE TABLE IF NOT EXISTS 'ingredient_detail' ("
         "'ingredientDetailId' TEXT PRIMARY KEY NOT NULL,"
         "'ingredientId' TEXT NOT NULL,"
         "'ingredientName' TEXT NOT NULL,"

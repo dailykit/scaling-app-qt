@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import "QML/Components/OrderPages"
+import "QML/ComponentsCore/Views"
 
 Window {
     visible: true
@@ -46,17 +47,46 @@ Window {
         }
 
     }
-    Rectangle {
+    AppListView {
         id: trialRect
         width: parent.width * 0.4
         height: parent.height * 0.9
+
         anchors {
             top: parent.top
             topMargin: parent.height * 0.09
             left: idWeightDetails.right
             leftMargin: parent.width * 0.03
         }
-        color: "grey"
+
+        model: orderView
+        delegate:
+            Text {
+            id: trialll
+            text: itemName
+            color: "Grey"
+        }
+
+
+        sectionProperty: "orderId"
+        sectionDelegate: sectionDelegate1
+
+        Component {
+            id: sectionDelegate1
+            Rectangle{
+                width: parent.width * 0.6
+                height: 20
+                color: "white"
+                Text {
+                    width: 30
+                    height: 20
+                    text: section
+                    color: "black"
+                }
+            }
+        }
+
+
     }
 
     Rectangle {
