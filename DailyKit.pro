@@ -17,6 +17,9 @@ SOURCES += \
         DailyKitCore/Models/ingredients.cpp \
         DailyKitCore/Models/itemdetails.cpp \
         DailyKitCore/Models/orderdetails.cpp \
+        DailyKitCore/ViewModels/ingredientdetailviewmodel.cpp \
+        DailyKitCore/ViewModels/ingredientviewmodel.cpp \
+        DailyKitCore/ViewModels/itemviewmodel.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
         main.cpp
@@ -47,6 +50,9 @@ HEADERS += \
     DailyKitCore/Models/ingredients.h \
     DailyKitCore/Models/itemdetails.h \
     DailyKitCore/Models/orderdetails.h \
+    DailyKitCore/ViewModels/ingredientdetailviewmodel.h \
+    DailyKitCore/ViewModels/ingredientviewmodel.h \
+    DailyKitCore/ViewModels/itemviewmodel.h \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h
 
