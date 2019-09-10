@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+pragma Singleton
 import "Themes"
 
 // Different themes can be selected, all the properties
@@ -7,7 +7,7 @@ import "Themes"
 
 QtObject {
     id: root
-    readonly property var selectedTheme: style
+    readonly property var selectedTheme: style[0]
 
     readonly property var style: [dark]
 

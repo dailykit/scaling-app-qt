@@ -1,6 +1,7 @@
 #include "retrievewebappdata.h"
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlDriver>
 
 const QString RetrieveWebAppData::WEB_APP_URL = "http://ec2-18-188-115-230.us-east-2.compute.amazonaws.com:3000/getData";
 const QString RetrieveWebAppData::CONTENT_HEADER ="application/json";
@@ -53,7 +54,7 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
         QJsonValue agentsArrayValue = jsonObject.value("all_orders");
         QJsonArray agentsArray = agentsArrayValue.toArray();
         QSqlQuery q;
-        q.exec("DELETE from itemDetails");
+       // q.exec("DELETE from itemDetails");
         q.exec("DELETE from ingredients");
         q.exec("DELETE from ingredient_detail");
 
@@ -68,19 +69,24 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
             {
 
                 QSqlQuery query;
-                query.prepare("INSERT INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
-                              "VALUES (:itemOrderId, :orderId, :itemSku, :itemName, :itemStatus)");
-//                              " ON DUPLICATE KEY UPDATE itemOrderId = :itemOrderId, itemSku = :itemSku,"
-//                              "itemName = :itemName, itemStatus = :itemStatus");
+//                query.prepare("INSERT INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
+//                              "VALUES (:itemOrderId, :orderId, :itemSku, :itemName, :itemStatus)"
+//                              " ON DUPLICATE KEY UPDATE, itemSku = :itemSku,"
+//                             "itemName = :itemName, itemStatus = :itemStatus");
 
-qDebug() << item.toObject().value("recipe_name").toString();
-                query.bindValue(":itemOrderId", item.toObject().value("item_order_id").toString());
-                query.bindValue(":orderId", item.toObject().value("order_id").toString());
-                query.bindValue(":itemSku", item.toObject().value("recipe_sku").toString());
-                query.bindValue(":itemName", item.toObject().value("recipe_name").toString());
+//                query.prepare("UPDATE itemDetails SET ")
+
+                query.prepare("INSERT OR IGNORE INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
+                                             "VALUES (?, ?, ?, ?, ?)");
+
+qDebug() << item.toObject().value("recipe_name").toString() <<query.driver()->hasFeature(QSqlDriver::PositionalPlaceholders);
+                query.addBindValue( item.toObject().value("item_order_id").toString());
+                query.addBindValue( item.toObject().value("order_id").toString());
+                query.addBindValue( item.toObject().value("recipe_sku").toString());
+                query.addBindValue( item.toObject().value("recipe_name").toString());
                 //query.bindValue(":itemServing",item.toObject().value("recipe_servings").toString());
                 //query.bindValue(":itemQuantity", item.toObject().value("recipe_quantity").toString());
-                query.bindValue(":itemStatus", item.toObject().value("order_status").toString());
+                query.addBindValue( item.toObject().value("order_status").toString());
                 if(!query.exec()){
 
                     qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));

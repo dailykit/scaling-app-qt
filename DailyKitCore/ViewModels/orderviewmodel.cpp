@@ -9,15 +9,17 @@ OrderViewModel::OrderViewModel(QObject *parent) :
     dataPage(new RetrieveWebAppData)
 {
 
+    if(dataPage) {
+        dataPage->getOrderList();
+        connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::onWebDataChanged);
+    }
     setQuery(OrderViewQuery);
-   bool t = connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::onWebDataChanged);
-   qDebug()  << "signal connected"<< t;
 }
 
 
 OrderViewModel::~OrderViewModel()
 {
-qDebug() << "deleted";
+    qDebug() << "deleted";
 }
 
 int OrderViewModel::rowCount(const QModelIndex &parent) const
@@ -73,7 +75,6 @@ QVariant OrderViewModel::data(const QModelIndex &index, int role) const
         int columnIdx = role - Qt::UserRole - 1;
         QModelIndex modelIndex = this->index(index.row(), columnIdx);
         value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
-        qDebug() << "value" << value;
     }
     return value;
 }

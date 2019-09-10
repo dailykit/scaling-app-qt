@@ -3,11 +3,13 @@ import QtQuick.Window 2.2
 import "QML/Components/OrderPages"
 import "QML/ComponentsCore/Views"
 
+import "QML/ApplicationCore/Style"
 Window {
     visible: true
-    width: 1240
-    height: 550
     color: "black"
+
+    width: Screen.width
+    height: Screen.height
 
     Rectangle {
         id: idTopMargin
@@ -49,7 +51,7 @@ Window {
     }
     AppListView {
         id: trialRect
-        width: parent.width * 0.4
+        width: parent.width * 0.6
         height: parent.height * 0.9
 
         anchors {
@@ -74,9 +76,9 @@ Window {
         Component {
             id: sectionDelegate1
             Rectangle{
-                width: parent.width * 0.6
-                height: 20
-                color: "white"
+                height: Interface.orderView.rowHeight
+                width: Interface.orderView.rowWidth
+                color: Themes.selectedTheme.colors.appWhite
                 Text {
                     width: 30
                     height: 20
@@ -85,8 +87,6 @@ Window {
                 }
             }
         }
-
-
     }
 
     Rectangle {
@@ -99,5 +99,9 @@ Window {
             rightMargin: parent.width * 0.055
             top: idTopMargin.bottom
         }
+    }
+
+    Component.onCompleted: {
+        console.log("screen", Screen.width, Screen.height)
     }
 }

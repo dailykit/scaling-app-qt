@@ -21,7 +21,8 @@ SOURCES += \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    images.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -49,4 +50,5 @@ HEADERS += \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h
 
-DISTFILES +=
+DISTFILES += \
+    QML/ApplicationCore/Style/qmldir

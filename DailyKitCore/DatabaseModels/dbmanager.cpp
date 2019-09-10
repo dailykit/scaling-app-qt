@@ -118,7 +118,7 @@ void DBManager::createItemTable()
         ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     } else {
-qDebug() << "created tabel item";
+        qDebug() << "created tabel item";
 }
     //"FOREIGN KEY('ingredientId') REFERENCES IngredientDetails (ingredientId)"
 }

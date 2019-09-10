@@ -27,7 +27,11 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
     void setQuery(const QString &query);
+
 public slots:
+    /**
+    * @brief onWebDataChanged - when the web data changes, this slot is called to update the list
+    */
    void onWebDataChanged();
 
 private:

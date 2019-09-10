@@ -5,6 +5,7 @@
         <file>QML/ApplicationCore/Style/Images.qml</file>
         <file>QML/ApplicationCore/Style/Interface.qml</file>
         <file>QML/ApplicationCore/Style/Themes.qml</file>
+        <file>QML/ApplicationCore/Style/qmldir</file>
         <file>QML/ApplicationCore/Style/Themes/Dark.qml</file>
         <file>QML/ComponentsCore/Shapes/RoundedRectangle.qml</file>
         <file>QML/ComponentsCore/Buttons/HorizontalViewButton.qml</file>
@@ -14,5 +15,6 @@
         <file>QML/ComponentsCore/Shapes/HorizontalLine.qml</file>
         <file>QML/ComponentsCore/Buttons/SquareIcon.qml</file>
         <file>QML/ComponentsCore/Views/AppListView.qml</file>
+        <file>QML/Components/OrderPages/OrdersDelegate.qml</file>
     </qresource>
 </RCC>

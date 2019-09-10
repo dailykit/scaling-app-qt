@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>QML/Default/background.jpg</file>
+        <file>QML/Default/dailykit.png</file>
+        <file>QML/Default/ic_order_number.png</file>
+        <file>QML/Default/ic_order_time.png</file>
+        <file>QML/Default/weight.png</file>
+    </qresource>
+</RCC>

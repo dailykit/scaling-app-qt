@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     DBManager::connectToDatabase();
 
     OrderViewModel *m_model = new OrderViewModel();
-    RetrieveWebAppData *webData = new RetrieveWebAppData();
-    webData->getOrderList();
+//    RetrieveWebAppData *webData = new RetrieveWebAppData();
+//    webData->getOrderList();
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

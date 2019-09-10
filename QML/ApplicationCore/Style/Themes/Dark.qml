@@ -13,6 +13,6 @@ QtObject {
         readonly property color cardViewGreen: "#00FF5E";
         readonly property color appGrey: "#AAAAAA";
         readonly property color appWhite: "#FFFFFF";
-        readonly property color extremeBlack: "000000";
+        readonly property color extremeBlack: "#000000";
     }
 }
