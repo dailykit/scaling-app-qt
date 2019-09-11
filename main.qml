@@ -1,9 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import "QML/Components/OrderPages"
-import "QML/ComponentsCore/Views"
 
 import "QML/ApplicationCore/Style"
+import "QML/Components/OrderPages"
+import "QML/ComponentsCore/Views"
+import "QML/Screens"
+
 Window {
     visible: true
     color: "black"
@@ -49,43 +51,17 @@ Window {
         }
 
     }
-    AppListView {
-        id: trialRect
-        width: parent.width * 0.6
-        height: parent.height * 0.9
+
+    OrderList {
+        id: orderList
+        width: parent.width * 0.4
+        height: parent.height * 0.72
 
         anchors {
             top: parent.top
             topMargin: parent.height * 0.09
             left: idWeightDetails.right
             leftMargin: parent.width * 0.03
-        }
-
-        model: orderView
-        delegate:
-            Text {
-            id: trialll
-            text: itemName
-            color: "Grey"
-        }
-
-
-        sectionProperty: "orderId"
-        sectionDelegate: sectionDelegate1
-
-        Component {
-            id: sectionDelegate1
-            Rectangle{
-                height: Interface.orderView.rowHeight
-                width: Interface.orderView.rowWidth
-                color: Themes.selectedTheme.colors.appWhite
-                Text {
-                    width: 30
-                    height: 20
-                    text: section
-                    color: "black"
-                }
-            }
         }
     }
 
@@ -101,7 +77,4 @@ Window {
         }
     }
 
-    Component.onCompleted: {
-        console.log("screen", Screen.width, Screen.height)
-    }
 }

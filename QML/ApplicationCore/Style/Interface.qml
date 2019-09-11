@@ -25,16 +25,16 @@ QtObject{
     }
 
     readonly property QtObject fontSize: QtObject {
-        readonly property real textSizeSmall: tscale(30)
-        readonly property real textSizeMedium: tscale(38)
+        readonly property real textSizeSmall: screenWidth * (16 / 9) * 0.007
+        readonly property real textSizeMedium: screenWidth * (16 / 9) * 0.0286
         readonly property real textSizeLarge: tscale(45)
     }
 
 
     readonly property QtObject orderView: QtObject {
         readonly property real ingredientRowSpacing: hscale(15)
-        readonly property real rowWidth: hscale(430)
-        readonly property real rowHeight: vscale(30)
+        readonly property real rowWidth: screenWidth * 0.4
+        readonly property real rowHeight: screenHeight * 0.05
     }
 
 

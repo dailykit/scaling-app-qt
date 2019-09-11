@@ -8,15 +8,25 @@
 #include <QSqlQueryModel>
 #include <QSqlRecord>
 #include <QSqlQuery>
-#include "../Models/itemdetails.h"
-#include "DailyKitCore/External/WebServices/retrievewebappdata.h"
-
+#include  <QAbstractListModel>
 #include <QQmlEngine>
 #include <QJSEngine>
 
-class OrderViewModel : public QSqlQueryModel
+#include "../Models/itemdetails.h"
+#include "DailyKitCore/External/WebServices/retrievewebappdata.h"
+
+class OrderViewModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    enum MyRoles {
+        ItemOrderId = Qt::UserRole + 1,
+        OrderId,
+        ItemName,
+        ItemServing,
+        UserIcon,
+        RightArrow
+    };
 
 public:
 
@@ -26,19 +36,20 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
-    void setQuery(const QString &query);
 
 public slots:
     /**
     * @brief onWebDataChanged - when the web data changes, this slot is called to update the list
     */
-   void onWebDataChanged();
+    void setQuery();
+    void onWebDataChanged();
 
 private:
 
     int m_recordCount;
     static const QString OrderViewQuery;
     RetrieveWebAppData *dataPage;
+    QList<ItemDetailsPtr> m_itemDetails;
 };
 
 //Q_DECLARE_METATYPE(OrderViewModel)

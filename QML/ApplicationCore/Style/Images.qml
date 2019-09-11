@@ -10,4 +10,5 @@ QtObject{
     readonly property string orderNumber: imagesPath + "ic_order_number.png";
     readonly property string orderTime: imagesPath + "ic_order_time.png";
     readonly property string weight: imagesPath + "weight.png";
+    readonly property string userIcon: String.fromCharCode("\u1F464")
 }

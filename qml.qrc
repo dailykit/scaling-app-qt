@@ -16,5 +16,7 @@
         <file>QML/ComponentsCore/Buttons/SquareIcon.qml</file>
         <file>QML/ComponentsCore/Views/AppListView.qml</file>
         <file>QML/Components/OrderPages/OrdersDelegate.qml</file>
+        <file>QML/Components/OrderPages/OrderSectionDelegate.qml</file>
+        <file>QML/Screens/OrderList.qml</file>
     </qresource>
 </RCC>

@@ -76,15 +76,16 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
 
 //                query.prepare("UPDATE itemDetails SET ")
 
-                query.prepare("INSERT OR IGNORE INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
-                                             "VALUES (?, ?, ?, ?, ?)");
+                query.prepare("INSERT OR IGNORE INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemServing ,itemStatus) "
+                                             "VALUES (?, ?, ?, ?, ?, ?)");
 
-qDebug() << item.toObject().value("recipe_name").toString() <<query.driver()->hasFeature(QSqlDriver::PositionalPlaceholders);
+                qDebug() << "order" << item.toObject().value("recipe_servings").toString().at(0);
+
                 query.addBindValue( item.toObject().value("item_order_id").toString());
                 query.addBindValue( item.toObject().value("order_id").toString());
                 query.addBindValue( item.toObject().value("recipe_sku").toString());
                 query.addBindValue( item.toObject().value("recipe_name").toString());
-                //query.bindValue(":itemServing",item.toObject().value("recipe_servings").toString());
+                query.addBindValue(item.toObject().value("recipe_servings").toString().at(0));
                 //query.bindValue(":itemQuantity", item.toObject().value("recipe_quantity").toString());
                 query.addBindValue( item.toObject().value("order_status").toString());
                 if(!query.exec()){
