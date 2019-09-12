@@ -6,6 +6,7 @@
 #include "DailyKitCore/External/WebServices/retrievewebappdata.h"
 #include "DailyKitCore/DatabaseModels/dbmanager.h"
 #include "DailyKitCore/ViewModels/orderviewmodel.h"
+#include "DailyKitCore/ViewModels/ingredientviewmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,8 @@ int main(int argc, char *argv[])
     OrderViewModel *m_model = new OrderViewModel();
 //    RetrieveWebAppData *webData = new RetrieveWebAppData();
 //    webData->getOrderList();
+
+    IngredientViewModel* m_ingre = new IngredientViewModel();
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

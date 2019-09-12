@@ -80,10 +80,29 @@ public:
     QString recipeServings() const;
 
     /**
-     * @brief orderedItems - returns the details of the ingredients of each item
-     * @return QMultiMap
+     * @brief setIngredientCount - set the ingredient count of the item
+     * @param count - int
      */
-    QMultiMap<QString, IngredientsPtr> orderedItems();
+    void setIngredientCount(const int count);
+
+    /**
+     * @brief ingredientCount -  total ingredient count of the item
+     * @return  - int
+     */
+    int ingredientCount() const;
+
+    /**
+     * @brief setPackedIngredients - total ingredients packed
+     * @param packedCount -  int
+     */
+    void setPackedIngredients(const int packedCount);
+
+    /**
+     * @brief packedIngredients - gives the value of packed ingredients
+     * @return - int
+     */
+    int packedIngredients() const;
+
 
 
 private:
@@ -92,8 +111,8 @@ private:
     QString m_orderStatus;
     QString m_recipeName;
     QString m_recipeServings;
-    QMultiMap<QString, IngredientsPtr> m_orderedItems;
-
+    int m_ingredientCount;
+    int m_totalPackedIngredients;
 };
 
 Q_DECLARE_METATYPE(ItemDetails)

@@ -3,8 +3,8 @@
 const QString DBManager::DRIVER = "QSQLITE";
 const QString DBManager::ORDERTABLE = "orderDetails";
 const QString DBManager::ITEMSTABLE = "itemDetails";
-const QString DBManager::INGREDIENT_TABLE = "ingredient";
-const QString DBManager::INGREDIENT_DETAIL_TABLE = "ingredient_detail";
+const QString DBManager::INGREDIENT_TABLE = "ingredients";
+const QString DBManager::INGREDIENT_DETAIL_TABLE = "ingredientDetails";
 
 DBManager::DBManager()
 {
@@ -132,10 +132,10 @@ void DBManager::createIngredientTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'ingredient' ("
+        "CREATE TABLE IF NOT EXISTS 'ingredients' ("
         "'ingredientId' TEXT PRIMARY KEY NOT NULL,"
         "'ingredientItemId' TEXT NOT NULL,"
-        "'ingredientIndex' TEXT NOT NULL,"
+        "'ingredientIndex' INTEGER NOT NULL,"
         "'slipName' TEXT NOT NULL,"
         "'isPackedComplete' INTEGER,"
         "'isDeleted' INTEGER,"
@@ -159,7 +159,7 @@ void DBManager::createIngredientDetailTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'ingredient_detail' ("
+        "CREATE TABLE IF NOT EXISTS 'ingredientDetails' ("
         "'ingredientDetailId' TEXT PRIMARY KEY NOT NULL,"
         "'ingredientId' TEXT NOT NULL,"
         "'ingredientName' TEXT NOT NULL,"
@@ -171,7 +171,7 @@ void DBManager::createIngredientDetailTable()
         "'ingredientPackTimestamp' TEXT NOT NULL,"
         "'isDeleted' INTEGER,"
         "'isWeighed' INTEGER,"
-        "'ingredientDetailIndex' TEXT NOT NULL,"
+        "'ingredientDetailIndex' INTEGER NOT NULL,"
         "'ingredientDetailPosition' INTEGER NOT NULL,"
         "'ingredientMeasuredWeight' REAL NOT NULL"
         ")")) {

@@ -27,8 +27,8 @@ Rectangle {
             spacing: Interface.orderView.ingredientRowSpacing
 
             Text {
-                id: ingredientCount
-                text: "1/14"
+                id: totalIngredient
+                text: packedCount + "/" + ingredientCount
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15

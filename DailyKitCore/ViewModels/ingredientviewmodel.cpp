@@ -1,16 +1,17 @@
 #include "ingredientviewmodel.h"
 
-const QString IngredientViewModel::IngredientViewQuery = "select * from ingredient";
+const QString IngredientViewModel::IngredientViewQuery ="select * from ingredient where ingredientItemId = :itemId";
 const QString IngredientViewModel::TAG ="IngredientViewModel.cpp : ";
 
 IngredientViewModel::IngredientViewModel(QObject *parent)
-    : QSqlTableModel(parent),m_recordCount(0),dataPage(new RetrieveWebAppData)
+    : QAbstractListModel(parent),
+    dataPage(new RetrieveWebAppData)
 {
     if(dataPage) {
         dataPage->getOrderList();
         connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &IngredientViewModel::onWebDataChanged);
     }
-    setQuery(IngredientViewQuery);
+    setQuery("");
 }
 
 IngredientViewModel::~IngredientViewModel()
@@ -18,43 +19,51 @@ IngredientViewModel::~IngredientViewModel()
     qDebug() <<TAG<<"deleted";
 }
 
-void IngredientViewModel::setQuery(const QString &query)
+void IngredientViewModel::setQuery(const QString &itemId)
 {
-    QSqlQueryModel::setQuery(query);
+    QSqlQuery query;
+    query.prepare("select * from ingredients where ingredientItemId = :itemId");
+    query.bindValue(":itemId", itemId);
 
-    if (this->query().record().isEmpty()) {
-        qWarning() <<TAG<< "SQLiteModel::setQuery() -" << this->query().lastError();
+    if (query.exec()) {
+
+        qDebug() << "query exece" << query.size();
+        while (query.next()){
+           qDebug() << query.value(0).toString();
+        }
 
     }
+    else{
+        qDebug() <<"Errors occured with sql statement";
+        qDebug() <<query.lastError();
+    }
 
-    m_recordCount = record().count();
-    qDebug() <<TAG<< "Records: " << m_recordCount;
 }
 
 QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
 {
-    QVariant value = QSqlQueryModel::data(index, role);
-    if(role < Qt::UserRole)
-    {
-        value = QSqlQueryModel::data(index, role).toString();
-    }
-    else
-    {
-        int columnIdx = role - Qt::UserRole - 1;
-        QModelIndex modelIndex = this->index(index.row(), columnIdx);
-        value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
-    }
-    return value;
+//    QVariant value = QSqlQueryModel::data(index, role);
+//    if(role < Qt::UserRole)
+//    {
+//        value = QSqlQueryModel::data(index, role).toString();
+//    }
+//    else
+//    {
+//        int columnIdx = role - Qt::UserRole - 1;
+//        QModelIndex modelIndex = this->index(index.row(), columnIdx);
+//        value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
+//    }
+    return QVariant();
 }
 
 QHash<int, QByteArray> IngredientViewModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
-    for( int i = 0; i < record().count(); i++) {
-        qDebug() << "roles" << record().fieldName(i).toLatin1();
-        roles[Qt::UserRole + i + 1] = record().fieldName(i).toLatin1();
-    }
-    return roles;
+//    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
+//    for( int i = 0; i < record().count(); i++) {
+//        qDebug() << "roles" << record().fieldName(i).toLatin1();
+//        roles[Qt::UserRole + i + 1] = record().fieldName(i).toLatin1();
+//    }
+//    return roles;
 }
 
 int IngredientViewModel::rowCount(const QModelIndex &parent) const
@@ -68,5 +77,5 @@ int IngredientViewModel::rowCount(const QModelIndex &parent) const
 
 void IngredientViewModel::onWebDataChanged()
 {
-    setQuery(IngredientViewQuery);
+    //setQuery(IngredientViewQuery);
 }

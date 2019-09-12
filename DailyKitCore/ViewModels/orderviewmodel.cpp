@@ -1,7 +1,15 @@
 #include "orderviewmodel.h"
 
 
-const QString OrderViewModel::OrderViewQuery = "select itemOrderId, orderId, itemName, itemServing from itemDetails";
+const QString OrderViewModel::OrderViewQuery = "SELECT itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing,"
+                                               "Count(ingredients.ingredientId) as counttotal,"
+                                               "sum(ingredients.isPackedComplete) TotalPacked"
+                                             "FROM itemDetails "
+                                             "LEFT JOIN ingredients  on ingredients.itemId = itemDetails.itemOrderId"
+                                             "GROUP BY itemDetails.itemOrderId";
+//        "select itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing from itemDetails"
+//                                               "select count(ingredientId), SUM(isPackedComplete) from ingredients  ingredients.itemId = itemDetails.itemOrderId ";
+
 
 OrderViewModel::OrderViewModel(QObject *parent) :
     QAbstractListModel(parent),
@@ -35,7 +43,10 @@ void OrderViewModel::setQuery()
 {
     QSqlQuery query;
 
-    if(query.exec(OrderViewQuery)){
+    if(query.exec("SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
+                  ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
+                 ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover FROM itemDetails"
+           )){
         qDebug()<<"sql statement exicuted fine";
     }
     else{
@@ -52,22 +63,15 @@ void OrderViewModel::setQuery()
         ptr->setOrderId(query.value(1).toString());
         ptr->setRecipeName(query.value(2).toString());
         ptr->setRecipeServings(query.value(3).toString());
+        ptr->setIngredientCount(query.value(4).toInt());
+        ptr->setPackedIngredients(query.value(5).toInt());
 
         m_itemDetails.append(ptr);
 
     }
     endResetModel();
-
-
-
 }
 
-void OrderViewModel::onWebDataChanged()
-{
-    qDebug() << "Web data changed";
-    setQuery();
-
-}
 
 QHash<int, QByteArray> OrderViewModel::roleNames() const
 {
@@ -79,6 +83,8 @@ QHash<int, QByteArray> OrderViewModel::roleNames() const
     roles.insert(ItemServing, "itemServing");
     roles.insert(UserIcon, "userIcon");
     roles.insert(RightArrow, "arrow");
+    roles.insert(IngredientCount, "ingredientCount");
+    roles.insert(PackedIngredientCount, "packedCount");
 
     return roles;
 }
@@ -104,6 +110,10 @@ QVariant OrderViewModel::data(const QModelIndex &index, int role) const
         return QString::fromUtf8("\u1F464");
     case RightArrow:
         return QString::fromUtf8("\u3009");
+    case IngredientCount:
+        return m_itemDetails[index.row()]->ingredientCount();
+    case PackedIngredientCount:
+        return m_itemDetails[index.row()]->packedIngredients();
     default:
         return QVariant();
 

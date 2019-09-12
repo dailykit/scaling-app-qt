@@ -35,7 +35,7 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
     qDebug();
     if (orderData->error() != QNetworkReply::NoError)
     {
-       qDebug() << "Got some error " <<orderData->error(); 
+        qDebug() << "Got some error " <<orderData->error();
     }
     else
     {
@@ -54,67 +54,65 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
         QJsonValue agentsArrayValue = jsonObject.value("all_orders");
         QJsonArray agentsArray = agentsArrayValue.toArray();
         QSqlQuery q;
-       // q.exec("DELETE from itemDetails");
-        q.exec("DELETE from ingredients");
-        q.exec("DELETE from ingredient_detail");
+        // q.exec("DELETE from itemDetails");
+        //        q.exec("DELETE from ingredients");
+        //        q.exec("DELETE from ingredientDetails");
 
         foreach (const QJsonValue & v, agentsArray)
         {
-            //qDebug() << v.toObject().value("order_id").toString();
-            //qDebug() << v.toObject().value("order_number").toInt();
 
-
+            int index = 0;
             QJsonArray itemsArray = v.toObject().value("items").toArray();
             foreach (const QJsonValue & item, itemsArray)
             {
 
                 QSqlQuery query;
-//                query.prepare("INSERT INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
-//                              "VALUES (:itemOrderId, :orderId, :itemSku, :itemName, :itemStatus)"
-//                              " ON DUPLICATE KEY UPDATE, itemSku = :itemSku,"
-//                             "itemName = :itemName, itemStatus = :itemStatus");
+                //                query.prepare("INSERT INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemStatus) "
+                //                              "VALUES (:itemOrderId, :orderId, :itemSku, :itemName, :itemStatus)"
+                //                              " ON DUPLICATE KEY UPDATE, itemSku = :itemSku,"
+                //                             "itemName = :itemName, itemStatus = :itemStatus");
 
-//                query.prepare("UPDATE itemDetails SET ")
+                //                query.prepare("UPDATE itemDetails SET ")
+
+
 
                 query.prepare("INSERT OR IGNORE INTO itemDetails(itemOrderId, orderId, itemSku, itemName, itemServing ,itemStatus) "
-                                             "VALUES (?, ?, ?, ?, ?, ?)");
+                              "VALUES (?, ?, ?, ?, ?, ?)");
 
-                qDebug() << "order" << item.toObject().value("recipe_servings").toString().at(0);
-
-                query.addBindValue( item.toObject().value("item_order_id").toString());
-                query.addBindValue( item.toObject().value("order_id").toString());
-                query.addBindValue( item.toObject().value("recipe_sku").toString());
-                query.addBindValue( item.toObject().value("recipe_name").toString());
-                query.addBindValue(item.toObject().value("recipe_servings").toString().at(0));
+                query.addBindValue(item.toObject().value("item_order_id").toString());
+                query.addBindValue(item.toObject().value("order_id").toString());
+                query.addBindValue(item.toObject().value("recipe_sku").toString());
+                query.addBindValue(item.toObject().value("recipe_name").toString());
+                query.addBindValue(item.toObject().value("recipe_servings").toString().at(index));
                 //query.bindValue(":itemQuantity", item.toObject().value("recipe_quantity").toString());
                 query.addBindValue( item.toObject().value("order_status").toString());
                 if(!query.exec()){
 
                     qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
-                } else {
-                    qDebug() << "Order details created";
                 }
 
+                index = index + 3;
 
                 QJsonArray ingredientsArray = item.toObject().value("ingredients").toArray();
                 foreach (const QJsonValue & ingredients, ingredientsArray)
                 {
                     //qDebug()<<TAG<<"ingredients";
-                    //qDebug()<<TAG<<ingredients.toObject().value("slip_name").toString();
-
-                    query.prepare("INSERT INTO ingredient(ingredientId, ingredientItemId, ingredientIndex, slipName, isPackedComplete, isDeleted,  isLabeled, isScanned,  selectedIngredientPosition,  ingredientMeasuredTotalWeight) "
+                    query.prepare("INSERT OR IGNORE INTO ingredients(ingredientId, ingredientItemId, ingredientIndex, slipName, isPackedComplete, isDeleted,  isLabeled, isScanned,  selectedIngredientPosition,  ingredientMeasuredTotalWeight) "
                                   "VALUES (:ingredientId, :ingredientItemId, :ingredientIndex, :slipName, :isPackedComplete, :isDeleted,  :isLabeled, :isScanned,  :selectedIngredientPosition,  :ingredientMeasuredTotalWeight)");
-                    query.bindValue(":ingredientId", ingredients.toObject().value("ingredient_detail_id").toString());
+                    query.bindValue(":ingredientId", ingredients.toObject().value("ingredient_id").toString());
                     query.bindValue(":ingredientItemId", ingredients.toObject().value("item_id").toString());
-                    query.bindValue(":ingredientIndex", ingredients.toObject().value("ingredient_index").toString());
+                    query.bindValue(":ingredientIndex", ingredients.toObject().value("ingredient_index").toInt());
                     query.bindValue(":slipName", ingredients.toObject().value("slip_name").toString());
-                    query.bindValue(":isPackedComplete", ingredients.toObject().value("ingredient_is_packed_complete").toString());
-                    query.bindValue(":isDeleted", ingredients.toObject().value("ingredient_is_deleted").toString());
-                    query.bindValue(":isLabeled", ingredients.toObject().value("ingredient_is_labeled").toString());
-                    query.bindValue(":isScanned", ingredients.toObject().value("ingredient_is_scanned").toString());
-                    query.bindValue(":selectedIngredientPosition", ingredients.toObject().value("selected_ingredient_position").toString());
+                    query.bindValue(":isPackedComplete", ingredients.toObject().value("ingredient_is_packed_complete").toInt());
+                    query.bindValue(":isDeleted", ingredients.toObject().value("ingredient_is_deleted").toInt());
+                    query.bindValue(":isLabeled", ingredients.toObject().value("ingredient_is_labeled").toInt());
+                    query.bindValue(":isScanned", ingredients.toObject().value("ingredient_is_scanned").toInt());
+                    query.bindValue(":selectedIngredientPosition", ingredients.toObject().value("selected_ingredient_position").toInt());
                     query.bindValue(":ingredientMeasuredTotalWeight", ingredients.toObject().value("ingredient_measured_total_weight").toString());
-                    query.exec();
+                    if(!query.exec()){
+
+                        qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
+                    }
 
                     QJsonArray ingredientsDetailArray = ingredients.toObject().value("ingredient_details").toArray();
                     foreach (const QJsonValue & ingredientDetail, ingredientsDetailArray)
@@ -122,7 +120,7 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
                         //qDebug()<<TAG<<"ingredients_details";
                         //qDebug()<<TAG<<ingredientDetail.toObject().value("ingredient_name").toString();
 
-                        query.prepare("INSERT INTO ingredient_detail(ingredientDetailId, ingredientId, ingredientName, ingredientQuantity, ingredientMsr, ingredientSection,  ingredientProcess, isPacked,  ingredientPackTimestamp,  isDeleted,  isWeighed,  ingredientDetailIndex,  ingredientDetailPosition,  ingredientMeasuredWeight) "
+                        query.prepare("INSERT OR IGNORE INTO ingredientDetails(ingredientDetailId, ingredientId, ingredientName, ingredientQuantity, ingredientMsr, ingredientSection,  ingredientProcess, isPacked,  ingredientPackTimestamp,  isDeleted,  isWeighed,  ingredientDetailIndex,  ingredientDetailPosition,  ingredientMeasuredWeight) "
                                       "VALUES (:ingredientDetailId, :ingredientId, :ingredientName, :ingredientQuantity, :ingredientMsr, :ingredientSection,  :ingredientProcess, :isPacked,  :ingredientPackTimestamp,  :isDeleted,  :isWeighed,  :ingredientDetailIndex,  :ingredientDetailPosition,  :ingredientMeasuredWeight)");
                         query.bindValue(":ingredientDetailId", ingredientDetail.toObject().value("ingredient_detail_id").toString());
                         query.bindValue(":ingredientId", ingredientDetail.toObject().value("ingredient_id").toString());
@@ -131,21 +129,21 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
                         query.bindValue(":ingredientMsr", ingredientDetail.toObject().value("ingredient_measure").toString());
                         query.bindValue(":ingredientSection", ingredientDetail.toObject().value("ingredient_section").toString());
                         query.bindValue(":ingredientProcess", ingredientDetail.toObject().value("ingredient_process").toString());
-                        query.bindValue(":isPacked", ingredientDetail.toObject().value("ingredient_is_packed").toString());
+                        query.bindValue(":isPacked", ingredientDetail.toObject().value("ingredient_is_packed").toInt());
                         query.bindValue(":ingredientPackTimestamp", ingredientDetail.toObject().value("ingredient_pack_timestamp").toString());
-                        query.bindValue(":isDeleted", ingredientDetail.toObject().value("ingredient_is_deleted").toString());
-                        query.bindValue(":isWeighed", ingredientDetail.toObject().value("ingredient_is_weighed").toString());
-                        query.bindValue(":ingredientDetailIndex", ingredientDetail.toObject().value("ingredient_detail_index").toString());
-                        query.bindValue(":ingredientDetailPosition", ingredientDetail.toObject().value("ingredient_detail_position").toString());
-                        query.bindValue(":ingredientMeasuredWeight", ingredientDetail.toObject().value("ingredient_measured_weight").toString());
-                        query.exec();
+                        query.bindValue(":isDeleted", ingredientDetail.toObject().value("ingredient_is_deleted").toInt());
+                        query.bindValue(":isWeighed", ingredientDetail.toObject().value("ingredient_is_weighed").toInt());
+                        query.bindValue(":ingredientDetailIndex", ingredientDetail.toObject().value("ingredient_detail_index").toInt());
+                        query.bindValue(":ingredientDetailPosition", ingredientDetail.toObject().value("ingredient_detail_position").toInt());
+                        query.bindValue(":ingredientMeasuredWeight", ingredientDetail.toObject().value("ingredient_measured_weight").toDouble());
+                        if(!query.exec()){
+
+                            qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
+                        }
                     }
                 }
             }
-
-        qDebug() << "--------------------";
         }
-        qDebug() << "Data updated";
-     emit webDataChanged();
+        emit webDataChanged();
     }
 }

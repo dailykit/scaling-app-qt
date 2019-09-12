@@ -25,7 +25,9 @@ class OrderViewModel : public QAbstractListModel
         ItemName,
         ItemServing,
         UserIcon,
-        RightArrow
+        RightArrow,
+        IngredientCount,
+        PackedIngredientCount
     };
 
 public:
@@ -38,11 +40,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
 public slots:
-    /**
-    * @brief onWebDataChanged - when the web data changes, this slot is called to update the list
-    */
+
     void setQuery();
-    void onWebDataChanged();
 
 private:
 
