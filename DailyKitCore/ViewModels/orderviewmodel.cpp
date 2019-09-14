@@ -1,14 +1,9 @@
 #include "orderviewmodel.h"
 
 
-const QString OrderViewModel::OrderViewQuery = "SELECT itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing,"
-                                               "Count(ingredients.ingredientId) as counttotal,"
-                                               "sum(ingredients.isPackedComplete) TotalPacked"
-                                             "FROM itemDetails "
-                                             "LEFT JOIN ingredients  on ingredients.itemId = itemDetails.itemOrderId"
-                                             "GROUP BY itemDetails.itemOrderId";
-//        "select itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing from itemDetails"
-//                                               "select count(ingredientId), SUM(isPackedComplete) from ingredients  ingredients.itemId = itemDetails.itemOrderId ";
+const QString OrderViewModel::OrderViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
+                                               ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
+                                              ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover FROM itemDetails";
 
 
 OrderViewModel::OrderViewModel(QObject *parent) :
@@ -43,10 +38,7 @@ void OrderViewModel::setQuery()
 {
     QSqlQuery query;
 
-    if(query.exec("SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
-                  ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
-                 ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover FROM itemDetails"
-           )){
+    if(query.exec(OrderViewQuery)) {
         qDebug()<<"sql statement exicuted fine";
     }
     else{
@@ -75,7 +67,7 @@ void OrderViewModel::setQuery()
 
 QHash<int, QByteArray> OrderViewModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
+    QHash<int, QByteArray> roles;
 
     roles.insert(ItemOrderId, "itemOrderId");
     roles.insert(OrderId, "orderId");

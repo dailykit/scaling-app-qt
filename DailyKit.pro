@@ -14,6 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         DailyKitCore/DatabaseModels/dbmanager.cpp \
+        DailyKitCore/DatabaseModels/dbproxy.cpp \
         DailyKitCore/Models/ingredients.cpp \
         DailyKitCore/Models/itemdetails.cpp \
         DailyKitCore/Models/orderdetails.cpp \
@@ -47,6 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     DailyKitCore/DatabaseModels/dbmanager.h \
+    DailyKitCore/DatabaseModels/dbproxy.h \
     DailyKitCore/Models/ingredients.h \
     DailyKitCore/Models/itemdetails.h \
     DailyKitCore/Models/orderdetails.h \

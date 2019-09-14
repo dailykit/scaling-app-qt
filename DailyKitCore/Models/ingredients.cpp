@@ -50,13 +50,13 @@ QString Ingredients::ingredientName() const
 }
 
 
-void Ingredients::setIngredientDetail(const QList<IngredientDetailsPtr> ingredientDetails)
+void Ingredients::setIngredientDetail(const IngredientDetailsPtr ingredientDetails)
 {
     m_ingredientDetails = ingredientDetails;
 }
 
 
-QList<IngredientDetailsPtr> Ingredients::ingredientDetails()
+<IngredientDetailsPtr Ingredients::ingredientDetails()
 {
     return m_ingredientDetails;
 }

@@ -18,6 +18,7 @@ struct IngredientDetails {
     QString m_ingredientQuantity;
     QString m_ingredientMeasure;
     QString m_ingredientProcess;
+    int m_isIngredientPacked;
 
     IngredientDetails() {}
     IngredientDetails(const IngredientDetails &details) {
@@ -26,6 +27,7 @@ struct IngredientDetails {
         this->m_ingredientQuantity = details.m_ingredientQuantity;
         this->m_ingredientMeasure = details.m_ingredientMeasure;
         this->m_ingredientProcess = details.m_ingredientProcess;
+        this->m_isIngredientPacked = details.m_isIngredientPacked;
     }
     ~IngredientDetails() {}
 };
@@ -71,18 +73,18 @@ public:
      * @brief setIngredientDetail -  sets the list of the details of the ingredients of an item
      * @param ingredientDetails - QList<IngredientDetails*>
      */
-    void setIngredientDetail(const QList<IngredientDetailsPtr> ingredientDetails);
+    void setIngredientDetail(const IngredientDetailsPtr ingredientDetails);
 
     /**
      * @brief ingredientDetails - gives the list of details about an ingredient of an item
      * @return
      */
-    QList<IngredientDetailsPtr> ingredientDetails();
+    IngredientDetailsPtr ingredientDetails();
 
 private:
     QString m_ingredientId;
     QString m_ingredientSlipName;
-    QList<IngredientDetailsPtr> m_ingredientDetails;
+    IngredientDetailsPtr m_ingredientDetails;
 
 
 };

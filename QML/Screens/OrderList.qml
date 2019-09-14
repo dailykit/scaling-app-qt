@@ -8,12 +8,20 @@ AppListView {
     id: trialRect
 
 
-    model: orderView
+    model: orderModel
     delegate: OrdersDelegate {
         id: delegateOrder
 
         height: Interface.orderView.rowHeight
         width: parent.width
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                console.log("order", model.itemOrderId)
+                ingredientModel.getIngredients(model.itemOrderId)
+            }
+        }
     }
     snapMode: ListView.SnapToItem
 

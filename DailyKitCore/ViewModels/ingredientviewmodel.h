@@ -18,6 +18,17 @@ class IngredientViewModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    enum MyRoles{
+        IngredientId,
+        IngredientSlipName,
+        IngredientDetailId,
+        IngredientName,
+        IngredientProcess,
+        IngredientQuantity,
+        IngredientWeight,
+        IngredientIsPacked,
+    };
+
 public:
     explicit IngredientViewModel(QObject *parent = nullptr);
     virtual ~IngredientViewModel() override;
@@ -27,16 +38,19 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    Q_INVOKABLE void getIngredients(const QString ItemId);
+
 public slots:
 
-   void onWebDataChanged();
    void setQuery(const QString &itemId);
 
 private:
 
-    int m_recordCount;
-    static const QString IngredientViewQuery;
     RetrieveWebAppData *dataPage;
+
+    QList<IngredientsPtr> m_ingredientsList;
+
+    static const QString IngredientViewQuery;
     static const QString TAG;
 };
 

@@ -18,12 +18,13 @@ int main(int argc, char *argv[])
 //    RetrieveWebAppData *webData = new RetrieveWebAppData();
 //    webData->getOrderList();
 
-    IngredientViewModel* m_ingre = new IngredientViewModel();
+    IngredientViewModel* m_ingredient = new IngredientViewModel();
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty("orderView", m_model);
+    engine.rootContext()->setContextProperty("orderModel", m_model);
+    engine.rootContext()->setContextProperty("ingredientModel", m_ingredient);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
