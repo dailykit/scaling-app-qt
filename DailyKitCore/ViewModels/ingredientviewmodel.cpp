@@ -31,7 +31,9 @@ void IngredientViewModel::setQuery(const QString &itemId)
        m_ingredientsList.clear();
         qDebug() << "query exece" << query.size();
         while (query.next()){
+            qDebug() << " query executed";
             IngredientsPtr ptr(new Ingredients());
+
             ptr->ingredientDetails()->IngredientDetails::m_ingredientDetailId  = query.value(0).toString();
             ptr->ingredientDetails()->IngredientDetails::m_ingredientName = query.value(1).toString();
             ptr->ingredientDetails()->IngredientDetails::m_ingredientQuantity = query.value(2).toString();

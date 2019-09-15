@@ -4,6 +4,7 @@ import QtQuick.Window 2.2
 import "QML/ApplicationCore/Style"
 import "QML/Components/OrderPages"
 import "QML/ComponentsCore/Views"
+import "QML/MainPages"
 import "QML/Screens"
 
 Window {
@@ -38,10 +39,39 @@ Window {
         }
     }
 
-    WeighingScale{
-        id: idWeightDetails
-        height: parent.height * 0.4
-        width: parent.width * 0.4
+    //    WeighingScale{
+    //        id: idWeightDetails
+    //        height: parent.height * 0.4
+    //        width: parent.width * 0.4
+
+    //        anchors{
+    //            top: parent.top
+    //            topMargin: parent.height * 0.09
+    //            left: idleftMargin.right
+    //            leftMargin: parent.width * 0.03
+    //        }
+
+    //    }
+
+    //    OrderList {
+    //        id: orderList
+    //        width: parent.width * 0.4
+    //        height: parent.height * 0.72
+
+    //        anchors {
+    //            top: parent.top
+    //            topMargin: parent.height * 0.09
+    //            left: idWeightDetails.right
+    //            leftMargin: parent.width * 0.03
+    //        }
+    //    }
+
+    MainOrdersPage {
+        id: mainOrders
+
+        width: parent.width * 0.8
+        height: parent.height * 0.8
+        spacing: parent.width * 0.03
 
         anchors{
             top: parent.top
@@ -50,19 +80,10 @@ Window {
             leftMargin: parent.width * 0.03
         }
 
-    }
 
-    OrderList {
-        id: orderList
-        width: parent.width * 0.4
-        height: parent.height * 0.72
+        loader.source:  Qt.resolvedUrl( "QML/Screens/OrderList.qml")
 
-        anchors {
-            top: parent.top
-            topMargin: parent.height * 0.09
-            left: idWeightDetails.right
-            leftMargin: parent.width * 0.03
-        }
+
     }
 
     Rectangle {

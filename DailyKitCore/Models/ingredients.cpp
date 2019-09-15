@@ -1,6 +1,7 @@
 #include "ingredients.h"
 
-Ingredients::Ingredients()
+Ingredients::Ingredients() :
+    m_ingredientDetails(new IngredientDetails)
 {
     registerTypes();
 }
@@ -56,7 +57,7 @@ void Ingredients::setIngredientDetail(const IngredientDetailsPtr ingredientDetai
 }
 
 
-<IngredientDetailsPtr Ingredients::ingredientDetails()
+IngredientDetailsPtr Ingredients::ingredientDetails()
 {
     return m_ingredientDetails;
 }

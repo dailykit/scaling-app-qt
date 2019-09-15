@@ -18,5 +18,9 @@
         <file>QML/Components/OrderPages/OrdersDelegate.qml</file>
         <file>QML/Components/OrderPages/OrderSectionDelegate.qml</file>
         <file>QML/Screens/OrderList.qml</file>
+        <file>QML/Components/OrderPages/IngredientsDelegate.qml</file>
+        <file>QML/Screens/IngredientsPage.qml</file>
+        <file>QML/MainPages/MainOrdersPage.qml</file>
+        <file>QML/Components/OrderPages/IngredientSectionDelegate.qml</file>
     </qresource>
 </RCC>
