@@ -8,10 +8,13 @@
 #include <QSqlRecord>
 #include <QSqlQuery>
 #include <QAbstractListModel>
+#include <QMultiMap>
 #include "../Models/ingredients.h"
 #include "DailyKitCore/External/WebServices/retrievewebappdata.h"
+#include "ingredientdetailviewmodel.h"
 
 #include <QQmlEngine>
+
 #include <QJSEngine>
 
 class IngredientViewModel : public QAbstractListModel
@@ -21,12 +24,10 @@ class IngredientViewModel : public QAbstractListModel
     enum MyRoles{
         IngredientId,
         IngredientSlipName,
-        IngredientDetailId,
-        IngredientName,
+        IngredientDetailList,
         IngredientProcess,
         IngredientQuantity,
-        IngredientWeight,
-        IngredientIsPacked,
+        IngredientWeight
     };
 
 public:
@@ -49,6 +50,8 @@ private:
     RetrieveWebAppData *dataPage;
 
     QList<IngredientsPtr> m_ingredientsList;
+
+    QList<QSharedPointer<IngredientDetailViewModel> > m_detailsModel;
 
     static const QString IngredientViewQuery;
     static const QString TAG;

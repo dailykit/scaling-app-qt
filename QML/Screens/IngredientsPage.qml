@@ -7,28 +7,12 @@ import "../ApplicationCore/Style"
 AppListView {
     id: trialRect
 
-
     model: ingredientModel
-    delegate: IngredientsDelegate {
+    delegate: IngredientSectionDelegate {
         id: delegateIngredient
-
-        height: Interface.orderView.rowHeight
+        height: Interface.orderView.rowHeight + detailsList.height
         width: parent.width
 
-
     }
-    property int cou: delegateIngredient.index
-    snapMode: ListView.SnapToItem
-
-    sectionProperty: "ingredientSlipName"
-    sectionDelegate: IngredientSectionDelegate{
-        id: delegateSection
-
-        height: Interface.orderView.rowHeight
-        width: parent.width
-
-
-    }
-
 
 }

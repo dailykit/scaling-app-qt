@@ -1,8 +1,7 @@
 #include "ingredientviewmodel.h"
 
-const QString IngredientViewModel::IngredientViewQuery ="SELECT ingredientDetails.ingredientDetailId, ingredientDetails.ingredientName, "
-                                                        "ingredientDetails.ingredientQuantity, ingredientDetails.ingredientMsr, ingredientDetails.ingredientProcess, ingredientDetails.isPacked, ingredients.ingredientId, ingredients.slipName FROM ingredientDetails "
-                                                        "INNER JOIN ingredients ON ingredientDetails.ingredientId = ingredients.ingredientId WHERE ingredients.ingredientItemId = ?";
+const QString IngredientViewModel::IngredientViewQuery ="SELECT  ingredients.ingredientId, ingredients.slipName FROM ingredients "
+                                                        " WHERE ingredients.ingredientItemId = ?";
 
 const QString IngredientViewModel::TAG ="IngredientViewModel.cpp : ";
 
@@ -28,21 +27,38 @@ void IngredientViewModel::setQuery(const QString &itemId)
 
     if (query.exec()) {
 
-       m_ingredientsList.clear();
-        qDebug() << "query exece" << query.size();
+        m_ingredientsList.clear();
+        m_detailsModel.clear();
+
         while (query.next()){
-            qDebug() << " query executed";
+
             IngredientsPtr ptr(new Ingredients());
+            QSqlQuery query1;
+            ptr->setIngredientId(query.value(0).toString());
+            ptr->setIngredientName(query.value(1).toString());
+            query1.prepare("SELECT ingredientDetails.ingredientDetailId, ingredientDetails.ingredientName, "
+                           "ingredientDetails.ingredientQuantity, ingredientDetails.ingredientMsr, ingredientDetails.ingredientProcess, ingredientDetails.isPacked"
+                           " FROM ingredientDetails WHERE ingredientDetails.ingredientId = ?");
+            query1.addBindValue(ptr->ingredientId());
+            if (query1.exec()) {
 
-            ptr->ingredientDetails()->IngredientDetails::m_ingredientDetailId  = query.value(0).toString();
-            ptr->ingredientDetails()->IngredientDetails::m_ingredientName = query.value(1).toString();
-            ptr->ingredientDetails()->IngredientDetails::m_ingredientQuantity = query.value(2).toString();
-            ptr->ingredientDetails()->IngredientDetails::m_ingredientMeasure = query.value(3).toString();
-            ptr->ingredientDetails()->IngredientDetails::m_ingredientProcess =  query.value(4).toString();
-            ptr->ingredientDetails()->IngredientDetails::m_isIngredientPacked = query.value(5).toInt();
-            ptr->setIngredientId(query.value(6).toString());
-            ptr->setIngredientName(query.value(7).toString());
+                QSharedPointer<IngredientDetailViewModel> model(new IngredientDetailViewModel());
 
+                while (query1.next()){
+                    IngredientDetailsPtr details(new IngredientDetails());
+                    details->IngredientDetails::m_ingredientDetailId = query1.value(0).toString();
+                    details->IngredientDetails::m_ingredientName = query1.value(1).toString();
+                    details->IngredientDetails::m_ingredientQuantity = query1.value(2).toString();
+                    details->IngredientDetails::m_ingredientMeasure = query1.value(3).toString();
+                    details->IngredientDetails::m_ingredientProcess =  query1.value(4).toString();
+                    details->IngredientDetails::m_isIngredientPacked = query1.value(5).toInt();
+                    ptr->setIngredientDetail(details);
+                    model->setIngredientDetails(details);
+                }
+                m_detailsModel.append(model);
+            } else {
+                qDebug() <<query1.lastError();
+            }
             m_ingredientsList.append(ptr);
         }
 
@@ -67,18 +83,14 @@ QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
         return m_ingredientsList[index.row()]->ingredientId();
     case IngredientSlipName:
         return m_ingredientsList[index.row()]->ingredientName();
-    case IngredientDetailId:
-        return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientDetailId;
-    case IngredientName:
-        return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientName;
+    case IngredientDetailList:
+        return QVariant::fromValue(m_detailsModel[index.row()]);
     case IngredientProcess:
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientProcess;
     case IngredientQuantity:
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientQuantity;
     case IngredientWeight:
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientMeasure;
-    case IngredientIsPacked:
-        return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_isIngredientPacked;
     default:
         return QVariant();
 
@@ -90,12 +102,10 @@ QHash<int, QByteArray> IngredientViewModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(IngredientId, "ingredientId");
     roles.insert(IngredientSlipName, "ingredientSlipName");
-    roles.insert(IngredientDetailId, "ingredientDetailId");
-    roles.insert(IngredientName, "ingredientName");
+    roles.insert(IngredientDetailList, "ingredientList");
     roles.insert(IngredientProcess, "ingredientProcess");
     roles.insert(IngredientQuantity, "quantity");
     roles.insert(IngredientWeight, "ingredientWeight");
-    roles.insert(IngredientIsPacked, "ingredientIsPacked");
     return roles;
 }
 

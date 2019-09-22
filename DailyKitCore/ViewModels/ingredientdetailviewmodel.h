@@ -1,26 +1,30 @@
 #ifndef INGREDIENTDETAILVIEWMODEL_H
 #define INGREDIENTDETAILVIEWMODEL_H
 
-#include <QSqlTableModel >
 #include <QDebug>
 #include <QMetaType>
-#include <QSqlError>
-#include <QSqlRecord>
-#include <QSqlQuery>
+#include "../Models/ingredients.h"
 #include "DailyKitCore/External/WebServices/retrievewebappdata.h"
 
-#include <QQmlEngine>
-#include <QJSEngine>
 
-class IngredientDetailViewModel : public QSqlTableModel
+class IngredientDetailViewModel : public  QAbstractListModel
 {
     Q_OBJECT
+
+    enum MyRoles{
+        IngredientDetailId,
+        IngredientName,
+        IngredientProcess,
+        IngredientQuantity,
+        IngredientWeight,
+        IngredientIsPacked,
+        IngredientDetailsCount
+    };
 
 public:
     explicit IngredientDetailViewModel(QObject *parent = nullptr);
     virtual ~IngredientDetailViewModel() override;
 
-    void setQuery(const QString &query);
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
@@ -28,14 +32,10 @@ public:
 
 public slots:
 
-   void onWebDataChanged();
+    void setIngredientDetails(IngredientDetailsPtr details);
 
 private:
-
-    int m_recordCount;
-    static const QString IngredientDetailViewQuery;
-    RetrieveWebAppData *dataPage;
-    static const QString TAG;
+   QList<IngredientDetailsPtr> m_ingredientsDetailsList;
 };
 
 #endif // INGREDIENTDETAILVIEWMODEL_H

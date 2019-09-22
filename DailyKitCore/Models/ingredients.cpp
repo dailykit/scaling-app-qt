@@ -10,7 +10,7 @@ Ingredients::Ingredients(const Ingredients &ingredient)
 {
     this->m_ingredientId = ingredient.m_ingredientId;
     this->m_ingredientSlipName = ingredient.m_ingredientSlipName;
-    this->m_ingredientDetails = ingredient.m_ingredientDetails;
+  //  this->m_ingredientDetails = ingredient.m_ingredientDetails;
 
 }
 
@@ -57,8 +57,20 @@ void Ingredients::setIngredientDetail(const IngredientDetailsPtr ingredientDetai
 }
 
 
-IngredientDetailsPtr Ingredients::ingredientDetails()
+IngredientDetailsPtr Ingredients::ingredientDetails() const
 {
     return m_ingredientDetails;
 }
+
+
+//void Ingredients::setIngredientDetailCount(const int count)
+//{
+//    m_ingredientsDetailsCount = count;
+//}
+
+
+//int Ingredients::ingredientDetailCount()
+//{
+//    return m_ingredientsDetailsCount;
+//}
 

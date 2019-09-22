@@ -1,10 +1,12 @@
 import QtQuick 2.0
 import "../../ApplicationCore/Style"
 
-
 Rectangle {
     id: root
+
+    width: parent.width
     color: Themes.selectedTheme.colors.extremeBlack
+    height: 10
 
 
     Row {
@@ -15,7 +17,7 @@ Rectangle {
             leftMargin: parent.width * 0.15
         }
 
-        height: Interface.orderView.rowHeight * 0.8
+        height: parent.height//Interface.orderView.rowHeight
         width: parent.width * 0.8
         spacing: 20
 
@@ -26,10 +28,8 @@ Rectangle {
             height: parent.height
             width: parent.width * 0.8
             color: Themes.selectedTheme.colors.appWhite
-           // fontSizeMode:  Text.Fit
             verticalAlignment: Text.AlignVCenter
             font.bold: true
-
         }
 
         Text {
@@ -43,7 +43,6 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             font.bold: true
         }
-
     }
 }
 

@@ -18,9 +18,8 @@ AppListView {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                console.log("order", model.itemOrderId)
                 ingredientModel.getIngredients(model.itemOrderId)
-                loader.source = Qt.resolvedUrl( "IngredientsPage.qml")
+                loader.source = Qt.resolvedUrl("IngredientsPage.qml")
             }
         }
     }

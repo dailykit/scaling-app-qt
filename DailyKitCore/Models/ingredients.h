@@ -13,6 +13,18 @@
 #include <QString>
 
 struct IngredientDetails {
+
+    Q_GADGET
+
+    Q_PROPERTY(int isIngredientPacked MEMBER m_isIngredientPacked)
+    Q_PROPERTY(QString ingredientDetailId MEMBER m_ingredientDetailId)
+    Q_PROPERTY(QString ingredientName MEMBER m_ingredientName)
+    Q_PROPERTY(QString ingredientQuantity MEMBER m_ingredientQuantity)
+    Q_PROPERTY(QString ingredientMeasure MEMBER m_ingredientMeasure)
+    Q_PROPERTY(QString ingredientProcess MEMBER m_ingredientProcess)
+
+public:
+
     QString m_ingredientDetailId;
     QString m_ingredientName;
     QString m_ingredientQuantity;
@@ -20,7 +32,11 @@ struct IngredientDetails {
     QString m_ingredientProcess;
     int m_isIngredientPacked;
 
-    IngredientDetails() {}
+    IngredientDetails():
+    m_isIngredientPacked(0)
+    {
+    }
+
     IngredientDetails(const IngredientDetails &details) {
         this->m_ingredientDetailId = details.m_ingredientDetailId;
         this->m_ingredientName = details.m_ingredientName;
@@ -31,6 +47,7 @@ struct IngredientDetails {
     }
     ~IngredientDetails() {}
 };
+
 typedef QSharedPointer<IngredientDetails> IngredientDetailsPtr;
 
 
@@ -77,13 +94,26 @@ public:
 
     /**
      * @brief ingredientDetails - gives the list of details about an ingredient of an item
-     * @return
+     * @return ingredient details pointer
      */
-    IngredientDetailsPtr ingredientDetails();
+    IngredientDetailsPtr ingredientDetails() const;
+
+//    /**
+//     * @brief setIngredientDetailCount - set the ingredient details count of a particular ingredient
+//     * @param count - intS
+//     */
+//    void setIngredientDetailCount(const int count);
+
+//    /**
+//     * @brief ingredientDetailCount - gives the count of details of an ingredients
+//     * @return - int
+//     */
+//    int ingredientDetailCount();
 
 private:
     QString m_ingredientId;
     QString m_ingredientSlipName;
+  //  int m_ingredientsDetailsCount;
     IngredientDetailsPtr m_ingredientDetails;
 
 

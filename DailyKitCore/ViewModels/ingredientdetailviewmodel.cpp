@@ -1,59 +1,57 @@
 #include "ingredientdetailviewmodel.h"
 
-const QString IngredientDetailViewModel::IngredientDetailViewQuery = "select * from ingredient_detail";
-const QString IngredientDetailViewModel::TAG ="IngredientDetailViewModel.cpp : ";
+//const QString IngredientDetailViewModel::IngredientDetailViewQuery = "select * from ingredient_detail";
+//const QString IngredientDetailViewModel::TAG ="IngredientDetailViewModel.cpp : ";
 
 IngredientDetailViewModel::IngredientDetailViewModel(QObject *parent)
-    : QSqlTableModel(parent),m_recordCount(0),dataPage(new RetrieveWebAppData)
+    : QAbstractListModel(parent)
 {
-    if(dataPage) {
-        dataPage->getOrderList();
-        connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &IngredientDetailViewModel::onWebDataChanged);
-    }
-    setQuery(IngredientDetailViewQuery);
+
 }
 
 IngredientDetailViewModel::~IngredientDetailViewModel()
 {
-    qDebug() <<TAG<<"deleted";
+    //    qDebug() <<TAG<<"deleted";
 }
 
-void IngredientDetailViewModel::setQuery(const QString &query)
-{
-    QSqlQueryModel::setQuery(query);
-
-    if (this->query().record().isEmpty()) {
-        qWarning() <<TAG<< "SQLiteModel::setQuery() -" << this->query().lastError();
-
-    }
-
-    m_recordCount = record().count();
-    qDebug() <<TAG<< "Records: " << m_recordCount;
-}
 
 QVariant IngredientDetailViewModel::data(const QModelIndex &index, int role) const
 {
-    QVariant value = QSqlQueryModel::data(index, role);
-    if(role < Qt::UserRole)
+    if (index.row() < 0 || index.row() >= m_ingredientsDetailsList.count())
     {
-        value = QSqlQueryModel::data(index, role).toString();
+        return QVariant();
+
     }
-    else
-    {
-        int columnIdx = role - Qt::UserRole - 1;
-        QModelIndex modelIndex = this->index(index.row(), columnIdx);
-        value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
+
+    switch (role) {
+    case IngredientDetailId:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_ingredientDetailId;
+    case IngredientName:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_ingredientName;
+    case IngredientProcess:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_ingredientProcess;
+    case IngredientQuantity:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_ingredientQuantity;
+    case IngredientWeight:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_ingredientMeasure;
+    case IngredientIsPacked:
+        return m_ingredientsDetailsList[index.row()]->IngredientDetails::m_isIngredientPacked;
+    default:
+        return QVariant();
     }
-    return value;
 }
 
 QHash<int, QByteArray> IngredientDetailViewModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
-    for( int i = 0; i < record().count(); i++) {
-        qDebug() << "roles" << record().fieldName(i).toLatin1();
-        roles[Qt::UserRole + i + 1] = record().fieldName(i).toLatin1();
-    }
+    QHash<int, QByteArray> roles;
+
+    roles.insert(IngredientDetailId, "ingredientDetailId");
+    roles.insert(IngredientName, "ingredientName");
+    roles.insert(IngredientProcess, "ingredientProcess");
+    roles.insert(IngredientQuantity, "quantity");
+    roles.insert(IngredientWeight, "ingredientWeight");
+    roles.insert(IngredientIsPacked, "ingredientIsPacked");
+
     return roles;
 }
 
@@ -62,11 +60,12 @@ int IngredientDetailViewModel::rowCount(const QModelIndex &parent) const
     if(parent.isValid())
         return 0;
 
-    return m_recordCount;
+    return m_ingredientsDetailsList.count();
 
 }
 
-void IngredientDetailViewModel::onWebDataChanged()
+void IngredientDetailViewModel::setIngredientDetails(IngredientDetailsPtr details)
 {
-    setQuery(IngredientDetailViewQuery);
+    m_ingredientsDetailsList.append(details);
 }
+

@@ -23,9 +23,5 @@ Row{
 
     }
 
-    Component.onCompleted: {
-        console.log("compppnon")
-    }
-
 }
 
