@@ -38,15 +38,19 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
             }
 
-            Text {
-                id: user
-                text: userIcon
-                font.pixelSize: Interface.fontSize.textSizeSmall
+            Rectangle {
+                id: imageRectangle
                 height: parent.height
                 width: parent.width * 0.15
-                color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
-                verticalAlignment: Text.AlignVCenter
+                color: "transparent"
+                Image {
+                    id: user
+
+                    height: parent.height * 0.8
+                    width: parent.width * 0.45
+                    source: Images.profile
+                    anchors.centerIn: parent
+                }
             }
 
             Text {
@@ -66,10 +70,11 @@ Rectangle {
                 text: itemName
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
-                width: parent.width * 0.55
+                width: parent.width * 0.5
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
             }
+
 
             Text {
                 id: arrowIcon

@@ -5,5 +5,17 @@
         <file>QML/Default/ic_order_number.png</file>
         <file>QML/Default/ic_order_time.png</file>
         <file>QML/Default/weight.png</file>
+        <file>QML/Default/down.svg</file>
+        <file>QML/Default/inventory.svg</file>
+        <file>QML/Default/nine square.svg</file>
+        <file>QML/Default/order_id.svg</file>
+        <file>QML/Default/person.svg</file>
+        <file>QML/Default/planning.svg</file>
+        <file>QML/Default/print.svg</file>
+        <file>QML/Default/profile.svg</file>
+        <file>QML/Default/settings.svg</file>
+        <file>QML/Default/timer.svg</file>
+        <file>QML/Default/up.svg</file>
+        <file>QML/Default/weight.svg</file>
     </qresource>
 </RCC>
