@@ -10,6 +10,11 @@ QtObject{
     readonly property string orderNumber: imagesPath + "ic_order_number.png";
     readonly property string orderTime: imagesPath + "ic_order_time.png";
     readonly property string weight: imagesPath + "weight.png";
-    readonly property string profile: imagesPath + "profile.svg"
-    readonly property string userIcon: String.fromCharCode("\u1F464")
+    readonly property string profile: imagesPath + "profile.svg";
+    readonly property string orderImage: imagesPath + "order_id.svg";
+    readonly property string inventory: imagesPath + "inventory.svg";
+    readonly property string planning: imagesPath + "planning.svg";
+    readonly property string settings: imagesPath + "settings.svg";
+
+
 }

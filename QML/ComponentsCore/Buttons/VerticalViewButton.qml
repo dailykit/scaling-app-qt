@@ -8,10 +8,11 @@ Rectangle{
     readonly property alias icon: icon
     readonly property alias text: text
 
+    color: "transparent"
     Image{
         id: icon
 
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     Text {
@@ -23,5 +24,9 @@ Rectangle{
         verticalAlignment: Text.AlignVCenter
 
 
+    }
+
+    MouseArea{
+        anchors.fill: parent
     }
 }

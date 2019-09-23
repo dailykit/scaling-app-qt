@@ -22,5 +22,7 @@
         <file>QML/Screens/IngredientsPage.qml</file>
         <file>QML/MainPages/MainOrdersPage.qml</file>
         <file>QML/Components/OrderPages/IngredientSectionDelegate.qml</file>
+        <file>QML/Components/OptionPages/RightOptionsBar.qml</file>
+        <file>QML/MainPages/RightBar.qml</file>
     </qresource>
 </RCC>

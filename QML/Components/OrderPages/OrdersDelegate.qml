@@ -5,11 +5,12 @@ import "../../ApplicationCore/Style"
 
 Rectangle {
     id: root
-    color: Themes.selectedTheme.colors.extremeBlack
 
+    color: Themes.selectedTheme.colors.extremeBlack
 
     Rectangle{
         id: rect
+
         height: Interface.orderView.rowHeight * 0.8
         width: parent.width
         color: Themes.selectedTheme.colors.primaryDark
@@ -29,6 +30,7 @@ Rectangle {
 
             Text {
                 id: totalIngredient
+
                 text: packedCount + "/" + ingredientCount
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
@@ -40,6 +42,7 @@ Rectangle {
 
             Rectangle {
                 id: imageRectangle
+
                 height: parent.height
                 width: parent.width * 0.15
                 color: "transparent"
@@ -55,6 +58,7 @@ Rectangle {
 
             Text {
                 id: servings
+
                 text: itemServing
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
@@ -67,6 +71,7 @@ Rectangle {
 
             Text {
                 id: item
+
                 text: itemName
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
@@ -78,6 +83,7 @@ Rectangle {
 
             Text {
                 id: arrowIcon
+
                 text: arrow
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
                 height: parent.height * 0.7

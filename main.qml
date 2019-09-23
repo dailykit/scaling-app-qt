@@ -86,11 +86,10 @@ Window {
 
     }
 
-    Rectangle {
+    RightBar {
         id: idRightMargin
         height: parent.height
-        width: 2
-        color: "grey"
+        width:  parent.width * 0.04
         anchors{
             right: parent.right
             rightMargin: parent.width * 0.055
