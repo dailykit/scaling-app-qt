@@ -12,9 +12,9 @@ Rectangle {
         id: rect
 
         height: Interface.orderView.rowHeight * 0.8
-        width: parent.width
+        width: parent.width * 0.95
         color: Themes.selectedTheme.colors.primaryDark
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.centerIn: parent
 
         Row {
             id: ingredientsRow
@@ -50,7 +50,7 @@ Rectangle {
                     id: user
 
                     height: parent.height * 0.8
-                    width: parent.width * 0.45
+                    width: parent.width * 0.4
                     source: Images.profile
                     anchors.centerIn: parent
                 }

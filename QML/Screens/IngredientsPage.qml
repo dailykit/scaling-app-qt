@@ -8,7 +8,7 @@ import "../ApplicationCore/Style"
 Item {
     id: root
 
-    property string orderNumber
+    property int orderNumber
     property string itemName
 
     RoundedRectangle{
@@ -21,25 +21,30 @@ Item {
         anchors.top: parent.top
 
 
-        Image{
-            id: orderImage
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.verticalCenter: parent.verticalCenter
+        Rectangle {
+            id: imageRectangle
 
-            width: Interface.orderView.orderIconsWidth
-            height: Interface.orderView.orderIconsHeight
-            source: Images.orderImage
+            height: parent.height
+            width: parent.width * 0.15
+            color: "transparent"
+            Image {
+                id: user
+
+                height: parent.height * 0.8
+                width: parent.width * 0.4
+                source: Images.orderImage
+                anchors.centerIn: parent
+            }
         }
 
         Text {
             id: order
             height: parent.height
             width: parent.width * 0.03
-            anchors.left: orderImage.right
+            anchors.left: imageRectangle.right
             anchors.leftMargin: 20
             text: orderNumber
-            color: Themes.selectedTheme.colors.primaryDark
+            color: Themes.selectedTheme.colors.extremeBlack
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: Interface.fontSize.textSizeSmall
         }
@@ -50,10 +55,10 @@ Item {
         id: trialRect
 
         anchors.top: orderId.bottom
-        anchors.topMargin: 30
+        anchors.topMargin: parent.height * 0.03
 
         width: parent.width
-        height: parent.height * 0.7
+        height: parent.height * 0.89
 
         model: ingredientModel
         delegate: IngredientSectionDelegate {

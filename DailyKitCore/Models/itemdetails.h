@@ -103,6 +103,18 @@ public:
      */
     int packedIngredients() const;
 
+    /**
+     * @brief setOrderNumber - order number of the item
+     * @param orderNumber - int
+     */
+    void setOrderNumber(const int orderNumber);
+
+    /**
+     * @brief orderNumber - gives the order number the item
+     * @return
+     */
+    int orderNumber() const;
+
 
 
 private:
@@ -113,6 +125,7 @@ private:
     QString m_recipeServings;
     int m_ingredientCount;
     int m_totalPackedIngredients;
+    int m_orderNumber;
 };
 
 Q_DECLARE_METATYPE(ItemDetails)

@@ -16,22 +16,30 @@ Item {
             anchors{
                 left: parent.left
                 leftMargin: parent.width * 0.03
+                verticalCenter: parent.verticalCenter
             }
 
             height: Interface.orderView.rowHeight * 0.8
             width: Interface.orderView.rowWidth * 0.8
             spacing: Interface.orderView.ingredientRowSpacing * 0.7
 
-            Text {
-                id: ingredientCount
+            Rectangle {
+                id: imageRectangle
+
                 height: parent.height
                 width: parent.width * 0.15
-                verticalAlignment: Text.AlignVCenter
-                text: "pa"
-                color: Themes.selectedTheme.colors.extremeBlack
-                font.pixelSize: Interface.fontSize.textSizeSmall
-                fontSizeMode: Text.Fit
+                color: "transparent"
+
+                Image {
+                    id: user
+
+                    height: parent.height * 0.8
+                    width: parent.width * 0.4
+                    source: Images.orderImage
+                    anchors.centerIn: parent
+                }
             }
+
 
             Text {
                 id: order

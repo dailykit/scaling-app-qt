@@ -20,7 +20,7 @@ AppListView {
             onClicked: {
                 ingredientModel.getIngredients(model.itemOrderId)
                 loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                loader.item.orderNumber = model.orderId
+                loader.item.orderNumber = model.orderNumber
             }
         }
     }

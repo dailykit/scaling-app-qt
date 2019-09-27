@@ -3,7 +3,9 @@
 
 const QString OrderViewModel::OrderViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
                                                ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
-                                              ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover FROM itemDetails";
+                                              ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
+                                               ", (SELECT orderNumber FROM orderDetails where orderDetails.orderId = itemDetails.orderId) FROM itemDetails";
+
 
 
 OrderViewModel::OrderViewModel(QObject *parent) :
@@ -57,6 +59,7 @@ void OrderViewModel::setQuery()
         ptr->setRecipeServings(query.value(3).toString());
         ptr->setIngredientCount(query.value(4).toInt());
         ptr->setPackedIngredients(query.value(5).toInt());
+        ptr->setOrderNumber(query.value(6).toInt());
 
         m_itemDetails.append(ptr);
 
@@ -77,6 +80,7 @@ QHash<int, QByteArray> OrderViewModel::roleNames() const
     roles.insert(RightArrow, "arrow");
     roles.insert(IngredientCount, "ingredientCount");
     roles.insert(PackedIngredientCount, "packedCount");
+    roles.insert(OrderNumber, "orderNumber");
 
     return roles;
 }
@@ -99,13 +103,15 @@ QVariant OrderViewModel::data(const QModelIndex &index, int role) const
     case ItemServing:
         return m_itemDetails[index.row()]->recipeServings();
     case UserIcon:
-        return QString::fromUtf8("\u1F464");
+        return QString::fromUtf8("\u1F464"); // TODo remove this code
     case RightArrow:
         return QString::fromUtf8("\u3009");
     case IngredientCount:
         return m_itemDetails[index.row()]->ingredientCount();
     case PackedIngredientCount:
         return m_itemDetails[index.row()]->packedIngredients();
+    case OrderNumber:
+        return m_itemDetails[index.row()]->orderNumber();
     default:
         return QVariant();
 

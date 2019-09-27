@@ -17,7 +17,7 @@ Rectangle {
             leftMargin: parent.width * 0.15
         }
 
-        height: parent.height//Interface.orderView.rowHeight
+        height: parent.height
         width: parent.width * 0.8
         spacing: 20
 

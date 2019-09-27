@@ -69,13 +69,13 @@ Window {
     MainOrdersPage {
         id: mainOrders
 
-        width: parent.width * 0.8
+        width: parent.width * 0.9
         height: parent.height * 0.8
         spacing: parent.width * 0.03
 
         anchors{
             top: parent.top
-            topMargin: parent.height * 0.09
+            topMargin: parent.height * 0.08
             left: idleftMargin.right
             leftMargin: parent.width * 0.03
         }

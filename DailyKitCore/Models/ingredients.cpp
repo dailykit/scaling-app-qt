@@ -62,15 +62,3 @@ IngredientDetailsPtr Ingredients::ingredientDetails() const
     return m_ingredientDetails;
 }
 
-
-//void Ingredients::setIngredientDetailCount(const int count)
-//{
-//    m_ingredientsDetailsCount = count;
-//}
-
-
-//int Ingredients::ingredientDetailCount()
-//{
-//    return m_ingredientsDetailsCount;
-//}
-

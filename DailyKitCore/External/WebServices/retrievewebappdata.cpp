@@ -53,13 +53,24 @@ void RetrieveWebAppData::onDataReceived(QNetworkReply *orderData)
         // catch this data in model and manipulate the data there
         QJsonValue agentsArrayValue = jsonObject.value("all_orders");
         QJsonArray agentsArray = agentsArrayValue.toArray();
-        QSqlQuery q;
-        // q.exec("DELETE from itemDetails");
-        //        q.exec("DELETE from ingredients");
-        //        q.exec("DELETE from ingredientDetails");
+
 
         foreach (const QJsonValue & v, agentsArray)
         {
+
+           QSqlQuery query;
+            query.prepare("INSERT OR IGNORE INTO orderDetails(orderId, orderNumber) "
+                          "VALUES (?, ?)");
+
+
+            query.addBindValue(v.toObject().value("order_id").toString());
+            query.addBindValue(v.toObject().value("order_number").toInt());
+
+            if(!query.exec()){
+
+                qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
+            }
+
 
             int index = 0;
             QJsonArray itemsArray = v.toObject().value("items").toArray();

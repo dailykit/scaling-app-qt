@@ -94,3 +94,13 @@ int ItemDetails::packedIngredients() const
 {
     return m_totalPackedIngredients;
 }
+
+void ItemDetails::setOrderNumber(const int orderNumber)
+{
+    m_orderNumber = orderNumber;
+}
+
+int ItemDetails::orderNumber() const
+{
+    return m_orderNumber;
+}

@@ -58,15 +58,15 @@ void DBManager::createOrderTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'orderDetails' ("
-        "'orderId' TEXT NOT NULL"
-        ")")) {
+                "CREATE TABLE IF NOT EXISTS 'orderDetails' ("
+                "'orderId' TEXT NOT NULL,"
+                "'orderNumber' INTEGER"
+                ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     } else {
         qDebug() << "Order details created";
-}
-    //TODO add foreign key after all table creation
-// "FOREIGN KEY('itemOrderId') REFERENCES itemDetails ( itemOrderId )"
+    }
+
 }
 
 void DBManager::createItemTable()
@@ -80,8 +80,8 @@ void DBManager::createItemTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'itemDetails' ("
-        "'itemOrderId' TEXT PRIMARY KEY NOT NULL,"
+                "CREATE TABLE IF NOT EXISTS 'itemDetails' ("
+                "'itemOrderId' TEXT PRIMARY KEY NOT NULL,"
                 "'orderId' TEXT NOT NULL,"
                 "'itemSku' TEXT NOT NULL,"
                 "'itemName' Text NOT NULL,"
@@ -115,11 +115,11 @@ void DBManager::createItemTable()
                 "'orderCancelTill' Text,"
                 "'deliveryExpected' Text,"
                 "'dispatchReal' Text"
-        ")")) {
+                ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     } else {
         qDebug() << "created tabel item";
-}
+    }
     //"FOREIGN KEY('ingredientId') REFERENCES IngredientDetails (ingredientId)"
 }
 
@@ -132,18 +132,18 @@ void DBManager::createIngredientTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'ingredients' ("
-        "'ingredientId' TEXT PRIMARY KEY NOT NULL,"
-        "'ingredientItemId' TEXT NOT NULL,"
-        "'ingredientIndex' INTEGER NOT NULL,"
-        "'slipName' TEXT NOT NULL,"
-        "'isPackedComplete' INTEGER,"
-        "'isDeleted' INTEGER,"
-        "'isLabeled' INTEGER,"
-        "'isScanned' INTEGER,"
-        "'selectedIngredientPosition' INTEGER,"
-        "'ingredientMeasuredTotalWeight' REAL"
-        ")")) {
+                "CREATE TABLE IF NOT EXISTS 'ingredients' ("
+                "'ingredientId' TEXT PRIMARY KEY NOT NULL,"
+                "'ingredientItemId' TEXT NOT NULL,"
+                "'ingredientIndex' INTEGER NOT NULL,"
+                "'slipName' TEXT NOT NULL,"
+                "'isPackedComplete' INTEGER,"
+                "'isDeleted' INTEGER,"
+                "'isLabeled' INTEGER,"
+                "'isScanned' INTEGER,"
+                "'selectedIngredientPosition' INTEGER,"
+                "'ingredientMeasuredTotalWeight' REAL"
+                ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     } else {
         qDebug() << "Ingredient Table Created";
@@ -159,22 +159,22 @@ void DBManager::createIngredientDetailTable()
 
     QSqlQuery query;
     if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS 'ingredientDetails' ("
-        "'ingredientDetailId' TEXT PRIMARY KEY NOT NULL,"
-        "'ingredientId' TEXT NOT NULL,"
-        "'ingredientName' TEXT NOT NULL,"
-        "'ingredientQuantity' REAL NOT NULL,"
-        "'ingredientMsr' TEXT NOT NULL,"
-        "'ingredientSection' TEXT NOT NULL,"
-        "'ingredientProcess' TEXT NOT NULL,"
-        "'isPacked' INTEGER,"
-        "'ingredientPackTimestamp' TEXT NOT NULL,"
-        "'isDeleted' INTEGER,"
-        "'isWeighed' INTEGER,"
-        "'ingredientDetailIndex' INTEGER NOT NULL,"
-        "'ingredientDetailPosition' INTEGER NOT NULL,"
-        "'ingredientMeasuredWeight' REAL NOT NULL"
-        ")")) {
+                "CREATE TABLE IF NOT EXISTS 'ingredientDetails' ("
+                "'ingredientDetailId' TEXT PRIMARY KEY NOT NULL,"
+                "'ingredientId' TEXT NOT NULL,"
+                "'ingredientName' TEXT NOT NULL,"
+                "'ingredientQuantity' REAL NOT NULL,"
+                "'ingredientMsr' TEXT NOT NULL,"
+                "'ingredientSection' TEXT NOT NULL,"
+                "'ingredientProcess' TEXT NOT NULL,"
+                "'isPacked' INTEGER,"
+                "'ingredientPackTimestamp' TEXT NOT NULL,"
+                "'isDeleted' INTEGER,"
+                "'isWeighed' INTEGER,"
+                "'ingredientDetailIndex' INTEGER NOT NULL,"
+                "'ingredientDetailPosition' INTEGER NOT NULL,"
+                "'ingredientMeasuredWeight' REAL NOT NULL"
+                ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     } else {
         qDebug() << "Ingredient Detail Table Created";

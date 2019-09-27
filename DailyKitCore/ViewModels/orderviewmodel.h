@@ -27,7 +27,8 @@ class OrderViewModel : public QAbstractListModel
         UserIcon,
         RightArrow,
         IngredientCount,
-        PackedIngredientCount
+        PackedIngredientCount,
+        OrderNumber
     };
 
 public:

@@ -24,5 +24,6 @@
         <file>QML/Components/OrderPages/IngredientSectionDelegate.qml</file>
         <file>QML/Components/OptionPages/RightOptionsBar.qml</file>
         <file>QML/MainPages/RightBar.qml</file>
+        <file>QML/MainPages/TopBar.qml</file>
     </qresource>
 </RCC>
