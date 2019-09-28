@@ -8,6 +8,8 @@ Item {
     width: parent.width
     height: parent.height
 
+    readonly property alias options: options
+
     Row {
         id: rightBar
         width: parent.width

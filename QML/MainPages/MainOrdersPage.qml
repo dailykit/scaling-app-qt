@@ -19,8 +19,6 @@ Row{
         id: orderLoader
         width: parent.width * 0.45
         height: parent.height
-
-
     }
 
 }

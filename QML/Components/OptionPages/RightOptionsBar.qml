@@ -10,6 +10,7 @@ Column {
     width: parent.width
     height: parent.height
 
+    readonly property alias settings: settings
 
     Text {
         id: quickControlsText
@@ -82,6 +83,7 @@ Column {
         text.width: Interface.options.iconSize
         text.height: Interface.options.iconSize
         text.font.bold: true
+
     }
 
 }
