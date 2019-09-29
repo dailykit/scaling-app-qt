@@ -9,11 +9,6 @@ Rectangle{
     readonly property alias icon: icon
     readonly property alias text: text
     readonly property alias mouseArea: mouseArea
-
-    Loader { id: pageLoader
-        width: Interface.screenWidth
-        height: Interface.screenHeight}
-
     color: "transparent"
     Image{
         id: icon
@@ -32,7 +27,7 @@ Rectangle{
 
     }
 
-    MouseArea{
+    MouseArea {
         id:mouseArea
         anchors.fill: parent
     }

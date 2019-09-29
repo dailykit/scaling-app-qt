@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.5
+import QtQuick.Controls 2.2
 
 import "QML/ApplicationCore/Style"
 import "QML/Components/OrderPages"
@@ -15,111 +15,15 @@ Window {
     width: Screen.width
     height: Screen.height
 
-
-    Rectangle {
-        id: idTopMargin
-        height: 2
-        width: parent.width
-        color: "grey"
-        anchors{
-
-            top: parent.top
-            topMargin: 40
-        }
-    }
-
-    Rectangle {
-        id: idleftMargin
-        height: parent.height
-        width: 2
-        color: "grey"
-        anchors{
-            left: parent.left
-            leftMargin: parent.width * 0.055
-            top: idTopMargin.bottom
-            //topMargin: parent.height * 0.05
-        }
-    }
-
-    //    WeighingScale{
-    //        id: idWeightDetails
-    //        height: parent.height * 0.4
-    //        width: parent.width * 0.4
-
-    //        anchors{
-    //            top: parent.top
-    //            topMargin: parent.height * 0.09
-    //            left: idleftMargin.right
-    //            leftMargin: parent.width * 0.03
-    //        }
-
-    //    }
-
-    //    OrderList {
-    //        id: orderList
-    //        width: parent.width * 0.4
-    //        height: parent.height * 0.72
-
-    //        anchors {
-    //            top: parent.top
-    //            topMargin: parent.height * 0.09
-    //            left: idWeightDetails.right
-    //            leftMargin: parent.width * 0.03
-    //        }
-    //    }
-
-    MainOrdersPage {
-        id: mainOrders
-
-        width: parent.width * 0.9
-        height: parent.height * 0.8
-        spacing: parent.width * 0.03
-
-        anchors{
-            top: parent.top
-            topMargin: parent.height * 0.08
-            left: idleftMargin.right
-            leftMargin: parent.width * 0.03
-        }
-
-
-        loader.source:  Qt.resolvedUrl( "QML/Screens/OrderList.qml")
-
-
-    }
-
-
-
-    RightBar {
-        id: idRightMargin
-        height: parent.height
-        width:  parent.width * 0.04
-        anchors{
-            right: parent.right
-            rightMargin: parent.width * 0.055
-            top: idTopMargin.bottom
-        }
-        options.settings.mouseArea.onClicked :{
-           stackView.push(Qt.createComponent("QML/Screens/Settings.qml").createObject())
-        }
-    }
-
+    property alias stackView: stackView
 
     StackView {
         id: stackView
         property real offset: 10
-        width: 100; height: 100
+        width: parent.width
+        height: parent.height
 
-        initialItem: Component {
-            id: page
-            Rectangle {
-                property real pos: StackView.index * stackView.offset
-                property real hue: Math.random()
-                color: Qt.hsla(hue, 0.5, 0.8, 0.6)
-                border.color: Qt.hsla(hue, 0.5, 0.5, 0.9)
-                StackView.visible: true
-            }
-        }
+        initialItem: Qt.createComponent(Qt.resolvedUrl("QML/MainPages/MainOrdersPage.qml")).createObject()
 
         pushEnter: Transition {
             id: pushEnter

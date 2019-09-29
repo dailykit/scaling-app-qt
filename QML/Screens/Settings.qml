@@ -6,8 +6,8 @@ import "../ApplicationCore/Style"
 Item {
 
     id:setting
-    width: Screen.width
-    height: Screen.height
+    width: parent.width
+    height: parent.height
 
     Rectangle {
         id: idIngredientRectangle
