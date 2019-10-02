@@ -85,8 +85,7 @@ Item {
             top: idTopMargin.bottom
         }
         options.settings.mouseArea.onClicked :{
-
-            stackView.push(Qt.createComponent(Qt.resolvedUrl("../Screens/Settings.qml")).createObject())
+            stackView.push(Qt.createComponent(Qt.resolvedUrl("../Screens/Settings.qml")).createObject(parent, {width: stackView.width, height: stackView.height}))
         }
     }
 

@@ -12,8 +12,8 @@ Item {
     Rectangle {
         id: idIngredientRectangle
         width: parent.width
-        height: parent.height * 0.3
-        color: "white"
+        height: parent.height
+        color: Themes.selectedTheme.colors.extremeBlack
         Row {
             id: idTextColumn
             width: parent.width
@@ -29,6 +29,7 @@ Item {
                 width: parent.width * 0.5
                 height: parent.height
                 text: "Weight Accuracy"
+                color: Themes.selectedTheme.colors.appWhite
             }
 
             TextInput{
@@ -40,6 +41,10 @@ Item {
 
         }
 
+    }
+
+    Component.onCompleted: {
+        console.log("parent", parent.width, parent.height)
     }
 
 }

@@ -11,6 +11,7 @@ Column {
     height: parent.height
 
     readonly property alias settings: settings
+    readonly property alias inventory: inventory
 
     Text {
         id: quickControlsText
