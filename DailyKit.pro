@@ -29,7 +29,6 @@ RESOURCES += qml.qrc \
     images.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
 
 
 INCLUDEPATH +=
@@ -58,8 +57,8 @@ HEADERS += \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h
 
+android {
 DISTFILES += \
-    QML/ApplicationCore/Style/qmldir \
     android/AndroidManifest.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.jar \
@@ -71,4 +70,5 @@ DISTFILES += \
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
+}
 }

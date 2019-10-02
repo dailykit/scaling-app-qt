@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
+    QGuiApplication app(argc, argv);
     DBManager::connectToDatabase();
 
     OrderViewModel *m_model = new OrderViewModel();
@@ -20,7 +21,6 @@ int main(int argc, char *argv[])
 
     IngredientViewModel* m_ingredient = new IngredientViewModel();
 
-    QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty("orderModel", m_model);
