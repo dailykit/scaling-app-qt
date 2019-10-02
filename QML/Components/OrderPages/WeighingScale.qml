@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../../ApplicationCore/Style"
 
 Item {
     id: root
@@ -11,7 +12,7 @@ Item {
             id: idIngredientRectangle
             width: parent.width
             height: parent.height * 0.3
-            color: "white"
+            color: "white" //TODO use the Themes colors
             Column {
                 id: idTextColumn
                 width: parent.width * 0.97
@@ -27,21 +28,21 @@ Item {
                     width: parent.width
                     height: parent.height * 0.3
                     font.pixelSize: idTextIngredient.height * 0.5
-                    text: "200012343545434"
+                    text: weighingScale.orderId
                 }
 
                 Text{
                     id: idTextIngredient
                     height: parent.height * 0.3
                     font.pixelSize: idTextIngredient.height * 0.5
-                    text: "Malai kofta"
+                    text: weighingScale.itemName
                 }
 
                 Text{
                     id: idIngredientSelected
                     height:  parent.height * 0.3
                     font.pixelSize: idIngredientSelected.height * 0.6
-                    text: "No ingredient selected"
+                    text: weighingScale.ingredientName
                 }
             }
 
@@ -53,52 +54,69 @@ Item {
             height: parent.height * 0.3
             color: "lightgreen"
 
-            Rectangle{
-                id: idImg //temporary
-                width: parent.width* 0.07
-                height: parent.width* 0.07
+            Rectangle {
+                id: imageRectangleWeight
+
+                height: parent.width * 0.07
+                width: parent.width * 0.07
+                color: "transparent"
                 anchors{
                     left: parent.left
                     leftMargin: parent.width * 0.04
                     top: parent.top
                     topMargin: parent.height * 0.04
                 }
+                Image {
+                    id: weight
 
-                color: "blue"
+                    height: parent.height
+                    width: parent.width
+                    source: Images.weight
+                    anchors.centerIn: parent
+                }
             }
 
             Text{
-                id: idGramsText
-                width: parent.width* 0.3
-                height: parent.width* 0.3
+                id: idQuantityText
+                width: idQuantityText.contentWidth
+                height: parent.width * 0.3
                 anchors{
                     left: parent.left
                     leftMargin: parent.width * 0.2
                     top: parent.top
                     topMargin: parent.height * 0.2
                 }
-                text: "0.00 gms"
+                text: weighingScale.calculatedQuantity
+                font.pixelSize: idGramsText.height * 0.12
+            }
+
+            Text{
+                id: idGramsText
+                width: idGramsText.contentWidth
+                height: parent.width * 0.3
+                anchors{
+                    left: idQuantityText.right
+                    leftMargin: parent.width * 0.008
+                    top: parent.top
+                    topMargin: parent.height * 0.2
+                }
+                text: weighingScale.weight
                 font.pixelSize: idGramsText.height * 0.12
             }
 
             Text{
                 id: idStateText
-                width: parent.width* 0.3//50
-                height:  parent.width* 0.3//50
+                width: parent.width* 0.3
+                height:  parent.width* 0.3
                 anchors{
                     left: parent.left
                     leftMargin: parent.width * 0.04
-                    top: idImg.bottom
+                    top: imageRectangleWeight.bottom
                     topMargin: parent.height * 0.1
                 }
-                text: "Ready"
+                text:  qsTr("Ready")
                 font.pixelSize: idStateText.height * 0.09
             }
-
-//            Text {
-//                id:
-
-//            }
 
         }
 
@@ -109,17 +127,59 @@ Item {
 
             color: "grey"
 
+            Rectangle {
+                id: imageRectanglePrint
+
+                height: parent.height
+                width: parent.width * 0.15
+                color: "transparent"
+                anchors{
+                    left: parent.left
+                    leftMargin: parent.width * 0.02
+                }
+                Image {
+                    id: printer
+
+                    height: parent.height * 0.6
+                    width: parent.width * 0.4
+                    source: Images.printer
+                    anchors.centerIn: parent
+                }
+            }
+
             Text {
                 id: idWeightStateText
                 anchors{
-                    left: parent.left
-                    leftMargin: parent.width * 0.07
+                    left: imageRectanglePrint.right
+                    leftMargin: parent.width * 0.02
                     top: parent.top
                     topMargin: parent.height * 0.3
                 }
-                text: qsTr("start weighing")
-                font.pixelSize: parent.height * 0.3
+                text: qsTr("Start Weighing")
+                font.pixelSize: parent.height * 0.4
+            }
+        }
 
+        Rectangle{
+            id: idSimulator
+            width: parent.width * 0.15
+            height: parent.height * 0.15
+
+            color: "grey"
+
+            Text {
+                id: simulatorText
+                text: qsTr("Simulator")
+                font.pixelSize: parent.height * 0.4
+                anchors.centerIn: parent
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    console.log("clicking simulator")
+                    weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
+                }
             }
         }
 

@@ -44,6 +44,7 @@ Rectangle {
             font.bold: true
         }
     }
+
 }
 
 

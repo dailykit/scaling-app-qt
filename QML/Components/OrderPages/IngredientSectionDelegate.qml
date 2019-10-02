@@ -91,6 +91,14 @@ Item {
                 id: delegateIngredient
                 height: details.count > 1 ? Interface.orderView.rowHeight : 10
 
+                MouseArea{
+                    anchors.fill: parent
+
+                    onClicked: {
+                    weighingScale.weighItem(model.ingredientDetailId, ingredientSlipName, ingredientName, quantity, ingredientWeight)
+                    }
+                }
+
             }
         }
     }

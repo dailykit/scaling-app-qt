@@ -23,6 +23,7 @@ SOURCES += \
         DailyKitCore/ViewModels/itemviewmodel.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
+        DailyKitCore/ViewModels/weighingscalemodel.cpp \
         main.cpp
 
 RESOURCES += qml.qrc \
@@ -55,7 +56,8 @@ HEADERS += \
     DailyKitCore/ViewModels/ingredientviewmodel.h \
     DailyKitCore/ViewModels/itemviewmodel.h \
     DailyKitCore/ViewModels/orderviewmodel.h \
-    DailyKitCore/External/WebServices/retrievewebappdata.h
+    DailyKitCore/External/WebServices/retrievewebappdata.h \
+    DailyKitCore/ViewModels/weighingscalemodel.h
 
 android {
 DISTFILES += \

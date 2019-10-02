@@ -7,6 +7,7 @@
 #include "DailyKitCore/DatabaseModels/dbmanager.h"
 #include "DailyKitCore/ViewModels/orderviewmodel.h"
 #include "DailyKitCore/ViewModels/ingredientviewmodel.h"
+#include "DailyKitCore/ViewModels/weighingscalemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,15 +21,15 @@ int main(int argc, char *argv[])
 //    webData->getOrderList();
 
     IngredientViewModel* m_ingredient = new IngredientViewModel();
+    WeighingScaleModel *m_weighingScale = new WeighingScaleModel();
 
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty("orderModel", m_model);
     engine.rootContext()->setContextProperty("ingredientModel", m_ingredient);
+    engine.rootContext()->setContextProperty("weighingScale", m_weighingScale);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-
 
 
     return app.exec();

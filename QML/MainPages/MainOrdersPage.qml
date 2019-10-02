@@ -12,6 +12,9 @@ Item {
     height: parent.height
     width: parent.width
 
+    property alias loader: orderLoader
+    property alias weighScale: idWeightDetails
+
     Rectangle {
         id: idTopMargin
         height: 2
@@ -33,7 +36,6 @@ Item {
             left: parent.left
             leftMargin: parent.width * 0.055
             top: idTopMargin.bottom
-
         }
     }
 
@@ -51,10 +53,6 @@ Item {
             leftMargin: parent.width * 0.03
         }
 
-
-
-        property alias loader: orderLoader
-        property alias weighScale: idWeightDetails
 
         WeighingScale{
             id: idWeightDetails

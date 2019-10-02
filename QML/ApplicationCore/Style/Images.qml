@@ -15,6 +15,7 @@ QtObject{
     readonly property string inventory: imagesPath + "inventory.svg";
     readonly property string planning: imagesPath + "planning.svg";
     readonly property string settings: imagesPath + "settings.svg";
+    readonly property string printer: imagesPath + "print.svg";
 
 
 }

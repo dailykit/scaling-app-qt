@@ -19,8 +19,11 @@ AppListView {
             anchors.fill: parent
             onClicked: {
                 ingredientModel.getIngredients(model.itemOrderId)
+                weighingScale.orderId = model.orderId
                 loader.source = Qt.resolvedUrl("IngredientsPage.qml")
                 loader.item.orderNumber = model.orderNumber
+                loader.item.itemName = model.itemName
+
             }
         }
     }
@@ -33,6 +36,7 @@ AppListView {
         height: Interface.orderView.rowHeight
         width: parent.width
     }
+
 
 
 }

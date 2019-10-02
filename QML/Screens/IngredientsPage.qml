@@ -66,6 +66,14 @@ Item {
             height: Interface.orderView.rowHeight + detailsList.height
             width: parent.width
 
+            MouseArea {
+                anchors.fill: parent
+                enabled: detailsList.count === 1
+                onClicked: {
+                    weighingScale.weighItem(ingredientId, itemName, ingredientSlipName, quantity, ingredientWeight)
+                }
+            }
+
         }
 
     }
