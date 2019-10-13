@@ -6,7 +6,11 @@
 class WeighingScaleModel : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(IngredientWeight)
 
+
+
+    Q_PROPERTY(IngredientWeight weightRange READ weightRange WRITE setWeightRange NOTIFY weightRangeChanged)
     Q_PROPERTY(QString orderId READ orderId WRITE setOrderId NOTIFY orderIdChanged)
     Q_PROPERTY(QString itemName READ itemName WRITE setItemName NOTIFY itemNameChanged)
     Q_PROPERTY(QString ingredientName READ ingredientName WRITE setIngredientName NOTIFY ingredientNameChanged)
@@ -15,6 +19,17 @@ class WeighingScaleModel : public QObject
 
 public:
     explicit WeighingScaleModel(QObject *parent = nullptr);
+
+
+    enum IngredientWeight {
+        UnderWeight = 0,
+        WeightInRange,
+        OverWeight,
+        MaxIngredientWeight //always add new enum above this
+    };
+
+    IngredientWeight weightRange() const;
+    void setWeightRange(IngredientWeight weight);
 
     QString orderId() const;
     void setOrderId(const QString id);
@@ -40,6 +55,7 @@ signals:
     void ingredientNameChanged();
     void calculatedQuantityChanged();
     void weightChanged();
+    void weightRangeChanged();
 
 public slots:
     Q_INVOKABLE void calculateActualWeight(int quantity);
@@ -53,6 +69,7 @@ private:
     QString m_ingredientWeight;
     int m_ingredientCalculatedWeight;
     int m_ingredientQuantity;
+    IngredientWeight m_weightRange;
 
 };
 

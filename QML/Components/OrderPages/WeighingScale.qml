@@ -12,7 +12,7 @@ Item {
             id: idIngredientRectangle
             width: parent.width
             height: parent.height * 0.3
-            color: "white" //TODO use the Themes colors
+            color: Themes.selectedTheme.colors.appWhite
             Column {
                 id: idTextColumn
                 width: parent.width * 0.97
@@ -52,7 +52,10 @@ Item {
             id: idShowWeight
             width: parent.width
             height: parent.height * 0.3
-            color: "lightgreen"
+            color: weighingScale.weightRange === 2 ? Themes.selectedTheme.colors.cardViewRed
+                                                                          : weighingScale.weightRange === 1
+                                                                                ? Themes.selectedTheme.colors.cardViewGreen
+                                                                                : Themes.selectedTheme.colors.cardViewYellow
 
             Rectangle {
                 id: imageRectangleWeight
@@ -116,6 +119,7 @@ Item {
                 }
                 text:  qsTr("Ready")
                 font.pixelSize: idStateText.height * 0.09
+                color: Themes.selectedTheme.colors.appWhite
             }
 
         }
@@ -125,7 +129,7 @@ Item {
             width: parent.width
             height: parent.height * 0.15
 
-            color: "grey"
+            color: Themes.selectedTheme.colors.primaryDark
 
             Rectangle {
                 id: imageRectanglePrint
@@ -157,6 +161,7 @@ Item {
                 }
                 text: qsTr("Start Weighing")
                 font.pixelSize: parent.height * 0.4
+                color: Themes.selectedTheme.colors.appWhite
             }
         }
 
@@ -165,19 +170,19 @@ Item {
             width: parent.width * 0.15
             height: parent.height * 0.15
 
-            color: "grey"
+            color: Themes.selectedTheme.colors.primaryDark
 
             Text {
                 id: simulatorText
                 text: qsTr("Simulator")
                 font.pixelSize: parent.height * 0.4
                 anchors.centerIn: parent
+                color: Themes.selectedTheme.colors.appWhite
             }
 
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    console.log("clicking simulator")
                     weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
                 }
             }

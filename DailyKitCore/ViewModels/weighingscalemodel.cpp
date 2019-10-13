@@ -2,9 +2,25 @@
 #include <QDebug>
 WeighingScaleModel::WeighingScaleModel(QObject *parent) :
     QObject(parent),
+    m_ingredientName("No Ingredient Selected"),
+    m_itemName("No Item Selected"),
+    m_orderId("No Order Selected"),
     m_ingredientCalculatedWeight(0),
-    m_ingredientQuantity(0)
+    m_ingredientQuantity(0),
+    m_weightRange(UnderWeight)
 {
+}
+
+WeighingScaleModel::IngredientWeight WeighingScaleModel::weightRange() const
+{
+    return m_weightRange;
+}
+
+void WeighingScaleModel::setWeightRange(WeighingScaleModel::IngredientWeight weight)
+{
+    qDebug() << "weight in range" << weight;
+    m_weightRange = weight;
+    emit weightRangeChanged();
 }
 
 QString WeighingScaleModel::orderId() const
@@ -72,6 +88,7 @@ int WeighingScaleModel::ingredientQuantity() const
 void WeighingScaleModel::calculateActualWeight(int quantity)
 {
     setCalculatedQuantity(quantity);
+    setWeightRange(WeightInRange);
 }
 
 void WeighingScaleModel::weighItem(QString ingredientId, QString itemName, QString ingredientName, int quantity, QString weight)
@@ -81,6 +98,7 @@ void WeighingScaleModel::weighItem(QString ingredientId, QString itemName, QStri
     setIngredientName(ingredientName);
     setItemName(itemName);
     setWeight(weight);
+    setWeightRange(UnderWeight);
     m_ingredientId = ingredientId;
     m_ingredientQuantity = quantity ;
 }
