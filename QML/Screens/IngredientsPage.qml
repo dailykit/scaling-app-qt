@@ -11,14 +11,164 @@ Item {
     property int orderNumber
     property string itemName
 
+
+    Row {
+        id: allOrders
+        anchors.top: parent.top
+
+        height: Interface.orderView.rowHeight
+        width: parent.width
+        spacing: 10
+
+        Rectangle {
+            id: imageOrderRectangle
+
+            height: parent.height
+            width: parent.width * 0.1
+            color: "transparent"
+            Image {
+                id: orderImages
+
+                height: parent.height * 0.8
+                width: parent.width * 0.7
+                source: Images.orderImage
+                anchors.centerIn: parent
+            }
+        }
+
+        RoundedRectangle{
+            id: orderId
+
+            width: allOrderText.contentWidth + (parent.width * 0.04)
+            height: Interface.orderView.rowHeight
+            color: Themes.selectedTheme.colors.appWhite
+
+            Text {
+                id: allOrderText
+                anchors.fill: parent
+                text: qsTr("All Orders - 12")
+                color: Themes.selectedTheme.colors.extremeBlack
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+
+            MouseArea {
+                id: allOrderPage
+
+                anchors.fill: parent
+
+                onClicked: {
+                    loader.source = Qt.resolvedUrl("OrderList.qml")
+                }
+            }
+
+        }
+
+        RoundedRectangle{
+            id: crossOne
+
+            width: parent.width * 0.1
+            height: Interface.orderView.rowHeight
+            color: Themes.selectedTheme.colors.primaryDark
+
+            Text {
+                id: crossOneText
+                height: parent.height
+                width: parent.width
+
+                text: qsTr("x")
+                color: Themes.selectedTheme.colors.appWhite
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+            MouseArea{
+                id: clickArea
+                anchors.fill: parent
+            }
+
+        }
+
+
+        RoundedRectangle{
+            id: orderIdBack
+
+            width: parent.width * 0.1
+            height: Interface.orderView.rowHeight
+            color: Themes.selectedTheme.colors.primaryDark
+
+            Text {
+                id: orderIdText
+                height: parent.height
+                width: parent.width
+
+                text: qsTr("3")
+                color: Themes.selectedTheme.colors.appWhite
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+
+        }
+
+        RoundedRectangle{
+            id: crossTwo
+
+            width: parent.width * 0.1
+            height: Interface.orderView.rowHeight
+            color: Themes.selectedTheme.colors.primaryDark
+
+            Text {
+                id: crossTwoText
+                height: parent.height
+                width: parent.width
+
+                text: qsTr("x")
+                color: Themes.selectedTheme.colors.appWhite
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+            MouseArea{
+                id: clickAreaTwo
+                anchors.fill: parent
+            }
+
+        }
+
+
+        RoundedRectangle{
+            id: orderNumberBack
+
+            width: parent.width * 0.1
+            height: Interface.orderView.rowHeight
+            color: Themes.selectedTheme.colors.primaryDark
+
+            Text {
+                id: orderNumberText
+                height: parent.height
+                width: parent.width
+
+                text: qsTr("27")
+                color: Themes.selectedTheme.colors.appWhite
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+
+        }
+    }
+
     RoundedRectangle{
-        id: orderId
+        id: idOrderNumber
 
         width: parent.width
         height: Interface.orderView.rowHeight
         color: Themes.selectedTheme.colors.appWhite
         radiusCoefficient: 5
-        anchors.top: parent.top
+        anchors.top: allOrders.bottom
+        anchors.topMargin: parent.height * 0.02
 
 
         Rectangle {
@@ -54,8 +204,8 @@ Item {
     AppListView {
         id: trialRect
 
-        anchors.top: orderId.bottom
-        anchors.topMargin: parent.height * 0.03
+        anchors.top: idOrderNumber.bottom
+        anchors.topMargin: parent.height * 0.02
 
         width: parent.width
         height: parent.height * 0.89
