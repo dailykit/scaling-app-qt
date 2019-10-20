@@ -69,12 +69,12 @@ void WeighingScaleModel::setIngredientName(QString ingredient)
 
 }
 
-int WeighingScaleModel::calculatedQuantity() const
+float WeighingScaleModel::calculatedQuantity() const
 {
     return m_ingredientCalculatedWeight;
 }
 
-void WeighingScaleModel::setCalculatedQuantity(const int itemWeight)
+void WeighingScaleModel::setCalculatedQuantity(const float itemWeight)
 {
     m_ingredientCalculatedWeight = itemWeight;
     emit calculatedQuantityChanged();
@@ -91,18 +91,19 @@ void WeighingScaleModel::setWeight(const QString grams)
     emit weightChanged();
 }
 
-QString WeighingScaleModel::ingredientStatus() const
+QString WeighingScaleModel::ingredientStatus()
 {
     return m_ingredientStatus;
 }
 
-void WeighingScaleModel::setIngredientStatus(const QString status)
+void WeighingScaleModel::setIngredientStatus(QString status)
 {
+    qDebug() << "status" << status;
     m_ingredientStatus = status;
     emit ingredientStatusChanged();
 }
 
-int WeighingScaleModel::ingredientQuantity() const
+float WeighingScaleModel::ingredientQuantity() const
 {
     return m_ingredientQuantity;
 }
@@ -115,7 +116,7 @@ WeighingScaleModel *WeighingScaleModel::weighScaleInstance()
     return m_weighingScaleModel;
 }
 
-void WeighingScaleModel::calculateActualWeight(int quantity)
+void WeighingScaleModel::calculateActualWeight(float quantity)
 {
 
     setCalculatedQuantity(quantity);

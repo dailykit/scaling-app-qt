@@ -51,6 +51,7 @@ private slots:
    void updateIngredientDetail(const QString &indgredientDetailsId);
 
 private:
+   void selectNextIngredientToPack();
 
     RetrieveWebAppData *dataPage;
 
