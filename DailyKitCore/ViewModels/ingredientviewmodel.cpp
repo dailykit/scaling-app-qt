@@ -1,4 +1,6 @@
 #include "ingredientviewmodel.h"
+#include "../DatabaseModels/dbproxy.h"
+#include "weighingscalemodel.h"
 
 const QString IngredientViewModel::IngredientViewQuery ="SELECT  ingredients.ingredientId, ingredients.slipName FROM ingredients "
                                                         " WHERE ingredients.ingredientItemId = ?";
@@ -9,6 +11,7 @@ IngredientViewModel::IngredientViewModel(QObject *parent)
     : QAbstractListModel(parent),
       dataPage(new RetrieveWebAppData)
 {
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientPackedChanged, this, &IngredientViewModel::updateIngredientDetail);
 }
 
 IngredientViewModel::~IngredientViewModel()
@@ -48,7 +51,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
                     IngredientDetailsPtr details(new IngredientDetails());
                     details->IngredientDetails::m_ingredientDetailId = query1.value(0).toString();
                     details->IngredientDetails::m_ingredientName = query1.value(1).toString();
-                    details->IngredientDetails::m_ingredientQuantity = query1.value(2).toString();
+                    details->IngredientDetails::m_ingredientQuantity = query1.value(2).toFloat();
                     details->IngredientDetails::m_ingredientMeasure = query1.value(3).toString();
                     details->IngredientDetails::m_ingredientProcess =  query1.value(4).toString();
                     details->IngredientDetails::m_isIngredientPacked = query1.value(5).toInt();
@@ -56,6 +59,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
                     model->setIngredientDetails(details);
                 }
                 m_detailsModel.append(model);
+
             } else {
                 qDebug() <<query1.lastError();
             }
@@ -68,6 +72,42 @@ void IngredientViewModel::setQuery(const QString &itemId)
         qDebug() <<query.lastError();
     }
 
+}
+
+void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetailsId)
+{
+
+    beginResetModel();
+    int isElementFound = 0;
+    for(int i = 0; i < m_ingredientsList.count(); ++i) {
+        if(isElementFound == 1 || isElementFound == 2) {
+            if(isElementFound == 1)
+            WeighingScaleModel::weighScaleInstance()->weighItem(m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientDetailId,
+                                                                m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientName, m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientQuantity
+                                                                ,m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientMeasure);
+            break;
+        }
+        for(int j = 0; j < m_detailsModel[i]->ingredientList().count(); ++j)
+        {
+            if(isElementFound == 1) {
+                WeighingScaleModel::weighScaleInstance()->weighItem(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId,
+                                                                    m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientName, m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientQuantity
+                                                                    ,m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientMeasure);
+                isElementFound = 2;
+                break;
+            }
+            if(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId == indgredientDetailsId) {
+                m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_isIngredientPacked = 1;
+                isElementFound = 1;
+            }
+        }
+        if(m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientDetailId == indgredientDetailsId) {
+            m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_isIngredientPacked = 1;
+
+        }
+
+    }
+    endResetModel();
 }
 
 QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
@@ -91,6 +131,10 @@ QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientQuantity;
     case IngredientWeight:
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientMeasure;
+    case IngredientPacked:
+        return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_isIngredientPacked;
+    case IngredientDetailId:
+        return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientDetailId;
     default:
         return QVariant();
 
@@ -106,6 +150,8 @@ QHash<int, QByteArray> IngredientViewModel::roleNames() const
     roles.insert(IngredientProcess, "ingredientProcess");
     roles.insert(IngredientQuantity, "quantity");
     roles.insert(IngredientWeight, "ingredientWeight");
+    roles.insert(IngredientPacked, "ingredientPacked");
+    roles.insert(IngredientDetailId, "ingredientDetailId");
     return roles;
 }
 

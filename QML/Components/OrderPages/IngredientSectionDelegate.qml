@@ -17,7 +17,8 @@ Item {
             id: title
             height: Interface.orderView.rowHeight
             width: parent.width
-            color: Themes.selectedTheme.colors.primaryDark
+            color:  !model.ingredientPacked ? Themes.selectedTheme.colors.primaryDark : Themes.selectedTheme.colors.appGrey
+            enabled: details.count === 1 ? !model.ingredientPacked : true
 
             Row {
                 id: ingredientsRow
@@ -95,7 +96,8 @@ Item {
                     anchors.fill: parent
 
                     onClicked: {
-                    weighingScale.weighItem(model.ingredientDetailId, ingredientSlipName, ingredientName, quantity, ingredientWeight)
+                        weighingScale.itemName = itemName
+                        weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
                     }
                 }
 

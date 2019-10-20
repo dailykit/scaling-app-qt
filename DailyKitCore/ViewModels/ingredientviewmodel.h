@@ -27,7 +27,9 @@ class IngredientViewModel : public QAbstractListModel
         IngredientDetailList,
         IngredientProcess,
         IngredientQuantity,
-        IngredientWeight
+        IngredientWeight,
+        IngredientPacked,
+        IngredientDetailId
     };
 
 public:
@@ -44,6 +46,9 @@ public:
 public slots:
 
    void setQuery(const QString &itemId);
+
+private slots:
+   void updateIngredientDetail(const QString &indgredientDetailsId);
 
 private:
 
