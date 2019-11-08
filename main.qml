@@ -17,6 +17,7 @@ Window {
 
     property alias stackView: stackView
 
+
     StackView {
         id: stackView
         property real offset: 10

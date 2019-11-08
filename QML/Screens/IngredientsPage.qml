@@ -18,13 +18,13 @@ Item {
 
         height: Interface.orderView.rowHeight
         width: parent.width
-        spacing: 10
+        spacing: parent.width * 0.009
 
         Rectangle {
             id: imageOrderRectangle
 
             height: parent.height
-            width: parent.width * 0.1
+            width: parent.width * 0.09
             color: "transparent"
             Image {
                 id: orderImages
@@ -65,98 +65,11 @@ Item {
 
         }
 
-        RoundedRectangle{
-            id: crossOne
+        RecentTabsList {
+            id: recentList
 
-            width: parent.width * 0.1
+            width: parent.width * 0.8
             height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: crossOneText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("x")
-                color: Themes.selectedTheme.colors.appWhite
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-            MouseArea{
-                id: clickArea
-                anchors.fill: parent
-            }
-
-        }
-
-
-        RoundedRectangle{
-            id: orderIdBack
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: orderIdText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("3")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-
-        }
-
-        RoundedRectangle{
-            id: crossTwo
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: crossTwoText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("x")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-            MouseArea{
-                id: clickAreaTwo
-                anchors.fill: parent
-            }
-
-        }
-
-
-        RoundedRectangle{
-            id: orderNumberBack
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: orderNumberText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("27")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-
         }
     }
 

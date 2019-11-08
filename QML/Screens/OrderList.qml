@@ -36,98 +36,11 @@ Item{
 
         }
 
-        RoundedRectangle{
-            id: crossOne
+        RecentTabsList {
+            id: recentList
 
-            width: parent.width * 0.1
+            width: parent.width * 0.8
             height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: crossOneText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("x")
-                color: Themes.selectedTheme.colors.appWhite
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-            MouseArea{
-                id: clickArea
-                anchors.fill: parent
-            }
-
-        }
-
-
-        RoundedRectangle{
-            id: orderIdBack
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: orderIdText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("3")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-
-        }
-
-        RoundedRectangle{
-            id: crossTwo
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: crossTwoText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("x")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-            MouseArea{
-                id: clickAreaTwo
-                anchors.fill: parent
-            }
-
-        }
-
-
-        RoundedRectangle{
-            id: orderNumberBack
-
-            width: parent.width * 0.1
-            height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
-
-            Text {
-                id: orderNumberText
-                height: parent.height
-                width: parent.width
-
-                text: qsTr("27")
-                color: Themes.selectedTheme.colors.appWhite
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
-            }
-
         }
     }
 
@@ -155,6 +68,7 @@ Item{
                     loader.source = Qt.resolvedUrl("IngredientsPage.qml")
                     loader.item.orderNumber = model.orderNumber
                     loader.item.itemName = model.itemName
+                    recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
 
                 }
             }

@@ -34,6 +34,7 @@ QtObject{
 
     readonly property QtObject orderView: QtObject {
         readonly property real ingredientRowSpacing: hscale(15)
+        readonly property real recentListWidth: screenWidth * 0.09
         readonly property real rowWidth: screenWidth * 0.4
         readonly property real rowHeight: screenHeight * 0.05
         readonly property real orderIconsHeight: screenHeight * 0.01
@@ -42,6 +43,7 @@ QtObject{
 
      readonly property QtObject options: QtObject {
         readonly property real iconSize: screenWidth * 0.018
+        readonly property real spacing: screenWidth * 0.007
     }
 
 }

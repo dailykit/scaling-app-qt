@@ -23,6 +23,7 @@ SOURCES += \
         DailyKitCore/ViewModels/itemviewmodel.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
+        DailyKitCore/ViewModels/recenttabsmodel.cpp \
         DailyKitCore/ViewModels/weighingscalemodel.cpp \
         main.cpp
 
@@ -57,6 +58,7 @@ HEADERS += \
     DailyKitCore/ViewModels/itemviewmodel.h \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h \
+    DailyKitCore/ViewModels/recenttabsmodel.h \
     DailyKitCore/ViewModels/weighingscalemodel.h
 
 android {

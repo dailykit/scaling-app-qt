@@ -25,5 +25,7 @@
         <file>QML/Components/OptionPages/RightOptionsBar.qml</file>
         <file>QML/MainPages/RightBar.qml</file>
         <file>QML/Screens/Settings.qml</file>
+        <file>QML/Screens/RecentTabsList.qml</file>
+        <file>QML/Components/OrderPages/RecentTabsDelegate.qml</file>
     </qresource>
 </RCC>

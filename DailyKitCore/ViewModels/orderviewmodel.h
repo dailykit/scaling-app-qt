@@ -8,7 +8,7 @@
 #include <QSqlQueryModel>
 #include <QSqlRecord>
 #include <QSqlQuery>
-#include  <QAbstractListModel>
+#include <QAbstractListModel>
 #include <QQmlEngine>
 #include <QJSEngine>
 

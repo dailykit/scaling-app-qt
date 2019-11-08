@@ -21,7 +21,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
     qDebug() << "setQuery called "<< itemId;
     QSqlQuery query;
 
-
+    beginResetModel();
     query.prepare(IngredientViewQuery);
     query.addBindValue(itemId);
 
@@ -67,6 +67,8 @@ void IngredientViewModel::setQuery(const QString &itemId)
         qDebug() <<"Errors occured with sql statement" <<  query.executedQuery();
         qDebug() <<query.lastError();
     }
+
+    endResetModel();
 
 }
 
