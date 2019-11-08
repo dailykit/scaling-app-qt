@@ -7,6 +7,7 @@ Rectangle {
     width: parent.width
     color: Themes.selectedTheme.colors.extremeBlack
     height: 10
+    enabled: !ingredientIsPacked
 
 
     Row {
@@ -27,7 +28,7 @@ Rectangle {
             font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
             height: parent.height
             width: parent.width * 0.8
-            color: Themes.selectedTheme.colors.appWhite
+            color: !ingredientIsPacked ? Themes.selectedTheme.colors.appWhite : "grey"
             verticalAlignment: Text.AlignVCenter
             font.bold: true
         }
@@ -38,7 +39,7 @@ Rectangle {
             font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
             height: parent.height * 0.7
             width: parent.width * 0.15
-            color: Themes.selectedTheme.colors.appWhite
+            color: !ingredientIsPacked ? Themes.selectedTheme.colors.appWhite : "grey"
             fontSizeMode:  Text.Fit
             verticalAlignment: Text.AlignVCenter
             font.bold: true

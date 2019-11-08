@@ -69,3 +69,8 @@ void IngredientDetailViewModel::setIngredientDetails(IngredientDetailsPtr detail
     m_ingredientsDetailsList.append(details);
 }
 
+QList<IngredientDetailsPtr> IngredientDetailViewModel::ingredientList()
+{
+    return m_ingredientsDetailsList;
+}
+

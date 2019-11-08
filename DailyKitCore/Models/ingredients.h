@@ -19,7 +19,7 @@ struct IngredientDetails {
     Q_PROPERTY(int isIngredientPacked MEMBER m_isIngredientPacked)
     Q_PROPERTY(QString ingredientDetailId MEMBER m_ingredientDetailId)
     Q_PROPERTY(QString ingredientName MEMBER m_ingredientName)
-    Q_PROPERTY(QString ingredientQuantity MEMBER m_ingredientQuantity)
+    Q_PROPERTY(float ingredientQuantity MEMBER m_ingredientQuantity)
     Q_PROPERTY(QString ingredientMeasure MEMBER m_ingredientMeasure)
     Q_PROPERTY(QString ingredientProcess MEMBER m_ingredientProcess)
 
@@ -27,7 +27,7 @@ public:
 
     QString m_ingredientDetailId;
     QString m_ingredientName;
-    QString m_ingredientQuantity;
+    float m_ingredientQuantity;
     QString m_ingredientMeasure;
     QString m_ingredientProcess;
     int m_isIngredientPacked;

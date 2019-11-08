@@ -159,7 +159,7 @@ Item {
                     top: parent.top
                     topMargin: parent.height * 0.3
                 }
-                text: qsTr("Start Weighing")
+                text: weighingScale.ingredientStatus
                 font.pixelSize: parent.height * 0.4
                 color: Themes.selectedTheme.colors.appWhite
             }

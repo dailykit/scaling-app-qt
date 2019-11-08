@@ -133,7 +133,8 @@ Item {
                 anchors.fill: parent
                 enabled: detailsList.count === 1
                 onClicked: {
-                    weighingScale.weighItem(ingredientId, itemName, ingredientSlipName, quantity, ingredientWeight)
+                    weighingScale.itemName = itemName
+                    weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
                 }
             }
 

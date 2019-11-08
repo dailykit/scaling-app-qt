@@ -33,6 +33,7 @@ public:
 public slots:
 
     void setIngredientDetails(IngredientDetailsPtr details);
+    QList <IngredientDetailsPtr> ingredientList();
 
 private:
    QList<IngredientDetailsPtr> m_ingredientsDetailsList;

@@ -181,4 +181,9 @@ void DBManager::createIngredientDetailTable()
     }
 }
 
+void DBManager::openDatabase()
+{
+
+}
+
 

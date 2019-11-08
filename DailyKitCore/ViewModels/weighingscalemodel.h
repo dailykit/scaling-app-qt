@@ -2,23 +2,21 @@
 #define WEIGHINGSCALEMODEL_H
 
 #include <QObject>
+#include <QTimer>
 
 class WeighingScaleModel : public QObject
 {
     Q_OBJECT
     Q_ENUMS(IngredientWeight)
 
-
-
     Q_PROPERTY(IngredientWeight weightRange READ weightRange WRITE setWeightRange NOTIFY weightRangeChanged)
     Q_PROPERTY(QString orderId READ orderId WRITE setOrderId NOTIFY orderIdChanged)
     Q_PROPERTY(QString itemName READ itemName WRITE setItemName NOTIFY itemNameChanged)
     Q_PROPERTY(QString ingredientName READ ingredientName WRITE setIngredientName NOTIFY ingredientNameChanged)
     Q_PROPERTY(QString weight READ weight WRITE setWeight NOTIFY weightChanged)
-    Q_PROPERTY(int calculatedQuantity READ calculatedQuantity WRITE setCalculatedQuantity NOTIFY calculatedQuantityChanged)
-
+    Q_PROPERTY(float calculatedQuantity READ calculatedQuantity WRITE setCalculatedQuantity NOTIFY calculatedQuantityChanged)
+    Q_PROPERTY(QString ingredientStatus READ ingredientStatus WRITE setIngredientStatus NOTIFY ingredientStatusChanged)
 public:
-    explicit WeighingScaleModel(QObject *parent = nullptr);
 
 
     enum IngredientWeight {
@@ -40,13 +38,19 @@ public:
     QString ingredientName() const;
     void setIngredientName(QString ingredient);
 
-    int calculatedQuantity()const;
-    void setCalculatedQuantity(const int itemWeight);
+    float calculatedQuantity()const;
+    void setCalculatedQuantity(const float itemWeight);
 
     QString weight() const;
     void setWeight(const QString grams);
 
-    Q_INVOKABLE int ingredientQuantity() const;
+    QString ingredientStatus();
+    void setIngredientStatus(QString status);
+
+    Q_INVOKABLE float ingredientQuantity() const;
+
+    static WeighingScaleModel *weighScaleInstance();
+
 
 
 signals:
@@ -56,21 +60,31 @@ signals:
     void calculatedQuantityChanged();
     void weightChanged();
     void weightRangeChanged();
+    void ingredientStatusChanged();
 
 public slots:
-    Q_INVOKABLE void calculateActualWeight(int quantity);
-    Q_INVOKABLE void weighItem(QString ingredientId, QString itemName, QString ingredientName, int quantity, QString weight);
+    Q_INVOKABLE void calculateActualWeight(float quantity);
+    Q_INVOKABLE void weighItem(QString ingredientId, QString ingredientName, float quantity, QString weight);
 
+private slots:
+    void ingredientPacked();
 private:
+    explicit WeighingScaleModel(QObject *parent = nullptr);
+
     QString m_ingredientName;
     QString m_itemName;
     QString m_orderId;
     QString m_ingredientId;
     QString m_ingredientWeight;
-    int m_ingredientCalculatedWeight;
-    int m_ingredientQuantity;
+    QString m_ingredientStatus;
+    float m_ingredientCalculatedWeight;
+    float m_ingredientQuantity;
     IngredientWeight m_weightRange;
 
+    static WeighingScaleModel * m_weighingScaleModel;
+
+
+    QTimer* m_ingredientPackedTimer;
 };
 
 #endif // WEIGHINGSCALEMODEL_H

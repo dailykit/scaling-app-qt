@@ -1,14 +1,26 @@
 #include "weighingscalemodel.h"
 #include <QDebug>
+#include "../DatabaseModels/dbproxy.h"
+
+WeighingScaleModel* WeighingScaleModel::m_weighingScaleModel = nullptr;
+
 WeighingScaleModel::WeighingScaleModel(QObject *parent) :
     QObject(parent),
     m_ingredientName("No Ingredient Selected"),
     m_itemName("No Item Selected"),
     m_orderId("No Order Selected"),
+    m_ingredientStatus("Start Weighing"),
     m_ingredientCalculatedWeight(0),
     m_ingredientQuantity(0),
-    m_weightRange(UnderWeight)
+    m_weightRange(UnderWeight),
+    m_ingredientPackedTimer(new QTimer(this))
 {
+    if(m_ingredientPackedTimer != nullptr) {
+        m_ingredientPackedTimer->setInterval(3000);
+        m_ingredientPackedTimer->setSingleShot(true);
+        connect(m_ingredientPackedTimer, &QTimer::timeout, this, &WeighingScaleModel::ingredientPacked);
+    }
+
 }
 
 WeighingScaleModel::IngredientWeight WeighingScaleModel::weightRange() const
@@ -18,7 +30,6 @@ WeighingScaleModel::IngredientWeight WeighingScaleModel::weightRange() const
 
 void WeighingScaleModel::setWeightRange(WeighingScaleModel::IngredientWeight weight)
 {
-    qDebug() << "weight in range" << weight;
     m_weightRange = weight;
     emit weightRangeChanged();
 }
@@ -58,12 +69,12 @@ void WeighingScaleModel::setIngredientName(QString ingredient)
 
 }
 
-int WeighingScaleModel::calculatedQuantity() const
+float WeighingScaleModel::calculatedQuantity() const
 {
     return m_ingredientCalculatedWeight;
 }
 
-void WeighingScaleModel::setCalculatedQuantity(const int itemWeight)
+void WeighingScaleModel::setCalculatedQuantity(const float itemWeight)
 {
     m_ingredientCalculatedWeight = itemWeight;
     emit calculatedQuantityChanged();
@@ -80,27 +91,60 @@ void WeighingScaleModel::setWeight(const QString grams)
     emit weightChanged();
 }
 
-int WeighingScaleModel::ingredientQuantity() const
+QString WeighingScaleModel::ingredientStatus()
+{
+    return m_ingredientStatus;
+}
+
+void WeighingScaleModel::setIngredientStatus(QString status)
+{
+    qDebug() << "status" << status;
+    m_ingredientStatus = status;
+    emit ingredientStatusChanged();
+}
+
+float WeighingScaleModel::ingredientQuantity() const
 {
     return m_ingredientQuantity;
 }
 
-void WeighingScaleModel::calculateActualWeight(int quantity)
+WeighingScaleModel *WeighingScaleModel::weighScaleInstance()
 {
-    setCalculatedQuantity(quantity);
-    setWeightRange(WeightInRange);
+    if(m_weighingScaleModel == nullptr) {
+        m_weighingScaleModel = new WeighingScaleModel();
+    }
+    return m_weighingScaleModel;
 }
 
-void WeighingScaleModel::weighItem(QString ingredientId, QString itemName, QString ingredientName, int quantity, QString weight)
+void WeighingScaleModel::calculateActualWeight(float quantity)
 {
-    qDebug() << "Weighing" << weight;
+
+    setCalculatedQuantity(quantity);
+    setWeightRange(WeightInRange);
+    m_ingredientPackedTimer->start();
+
+}
+
+void WeighingScaleModel::weighItem(QString ingredientId, QString ingredientName, float quantity, QString weight)
+{
+    qDebug() << "Weighing" << weight << ingredientId;
    // setOrderId(orderId);
     setIngredientName(ingredientName);
-    setItemName(itemName);
+    setCalculatedQuantity(0);
     setWeight(weight);
+    setIngredientStatus("Start Weighing");
     setWeightRange(UnderWeight);
     m_ingredientId = ingredientId;
     m_ingredientQuantity = quantity ;
+}
+
+void WeighingScaleModel::ingredientPacked()
+{
+
+    qDebug() << "timer set" << m_ingredientId;
+    DbProxy::dbInstance()->setIngredientAsPacked(m_ingredientId);
+    setIngredientStatus("Packed");
+
 }
 
 

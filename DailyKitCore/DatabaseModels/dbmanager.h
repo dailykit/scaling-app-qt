@@ -21,6 +21,8 @@ public:
     static void createIngredientTable();
     static void createIngredientDetailTable();
 
+    void openDatabase();
+
     static const QString DRIVER;
     static const QString ORDERTABLE;
     static const QString ITEMSTABLE;
