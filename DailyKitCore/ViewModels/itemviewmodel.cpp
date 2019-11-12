@@ -1,16 +1,15 @@
 #include "itemviewmodel.h"
 
-const QString ItemViewModel::ItemViewQuery = "select * from itemDetails";
+const QString ItemViewModel::ItemViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
+                                             ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
+                                            ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
+                                             " FROM itemDetails WHERE itemDetails.orderId = ? ";
 const QString ItemViewModel::TAG ="ItemViewModel.cpp : ";
 
 ItemViewModel::ItemViewModel(QObject *parent)
-    : QSqlTableModel(parent),m_recordCount(0),dataPage(new RetrieveWebAppData)
+    : QAbstractListModel(parent)
 {
-    if(dataPage) {
-        dataPage->getOrderList();
-        connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &ItemViewModel::onWebDataChanged);
-    }
-    setQuery(ItemViewQuery);
+
 }
 
 ItemViewModel::~ItemViewModel()
@@ -18,42 +17,48 @@ ItemViewModel::~ItemViewModel()
     qDebug() <<TAG<<"deleted";
 }
 
-void ItemViewModel::setQuery(const QString &query)
-{
-    QSqlQueryModel::setQuery(query);
-
-    if (this->query().record().isEmpty()) {
-        qWarning() <<TAG<< "SQLiteModel::setQuery() -" << this->query().lastError();
-
-    }
-
-    m_recordCount = record().count();
-    qDebug() <<TAG<< "Records: " << m_recordCount;
-}
 
 QVariant ItemViewModel::data(const QModelIndex &index, int role) const
 {
-    QVariant value = QSqlQueryModel::data(index, role);
-    if(role < Qt::UserRole)
+    if (index.row() < 0 || index.row() >= m_itemDetails.count())
     {
-        value = QSqlQueryModel::data(index, role).toString();
+        return QVariant();
+
     }
-    else
-    {
-        int columnIdx = role - Qt::UserRole - 1;
-        QModelIndex modelIndex = this->index(index.row(), columnIdx);
-        value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole).toString();
+
+    switch (role) {
+    case ItemOrderId:
+        return m_itemDetails[index.row()]->itemOrderId();
+    case OrderId:
+        return m_itemDetails[index.row()]->orderId();
+    case ItemName:
+        return m_itemDetails[index.row()]->recipeName();
+    case IngredientCount:
+        return m_itemDetails[index.row()]->ingredientCount();
+    case PackedIngredientCount:
+        return m_itemDetails[index.row()]->packedIngredients();
+    case OrderNumber:
+        return m_itemDetails[index.row()]->orderNumber();
+    default:
+        return QVariant();
+
     }
-    return value;
+
+
 }
 
 QHash<int, QByteArray> ItemViewModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;// = QAbstractTableModel::roleNames();
-    for( int i = 0; i < record().count(); i++) {
-        qDebug() << "roles" << record().fieldName(i).toLatin1();
-        roles[Qt::UserRole + i + 1] = record().fieldName(i).toLatin1();
-    }
+    QHash<int, QByteArray> roles;
+    roles.insert(ItemOrderId, "itemOrderId");
+    roles.insert(OrderId, "orderId");
+    roles.insert(ItemName, "itemName");
+    roles.insert(IngredientCount, "ingredientCount");
+    roles.insert(PackedIngredientCount, "packedCount");
+    roles.insert(OrderNumber, "orderNumber");
+
+
+
     return roles;
 }
 
@@ -62,11 +67,39 @@ int ItemViewModel::rowCount(const QModelIndex &parent) const
     if(parent.isValid())
         return 0;
 
-    return m_recordCount;
+    return m_itemDetails.count();
 
 }
 
-void ItemViewModel::onWebDataChanged()
+void ItemViewModel::setQuery(int orderId)
 {
-    setQuery(ItemViewQuery);
+    QSqlQuery query;
+    query.prepare(ItemViewQuery);
+    query.addBindValue(orderId);
+    if(query.exec()) {
+        qDebug()<<"sql statement exicuted fine";
+    }
+    else{
+        qDebug() <<"Errors accured with sql statement";
+        qDebug() <<query.lastError();
+    }
+
+    m_itemDetails.clear();
+    beginResetModel();
+    while (query.next()){
+
+        ItemDetailsPtr ptr(new ItemDetails());
+        ptr->setItemOrderId(query.value(0).toString());
+        ptr->setOrderId(query.value(1).toString());
+        ptr->setRecipeName(query.value(2).toString());
+        ptr->setIngredientCount(query.value(3).toInt());
+        ptr->setPackedIngredients(query.value(4).toInt());
+        ptr->setOrderNumber(orderId);
+
+        m_itemDetails.append(ptr);
+
+    }
+    endResetModel();
+
 }
+

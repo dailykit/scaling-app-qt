@@ -27,5 +27,6 @@
         <file>QML/Screens/Settings.qml</file>
         <file>QML/Screens/RecentTabsList.qml</file>
         <file>QML/Components/OrderPages/RecentTabsDelegate.qml</file>
+        <file>QML/Components/OrderPages/ItemsDelegate.qml</file>
     </qresource>
 </RCC>
