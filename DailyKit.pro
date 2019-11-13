@@ -59,7 +59,7 @@ HEADERS += \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h \
     DailyKitCore/ViewModels/recenttabsmodel.h \
-    DailyKitCore/ViewModels/weighingscalemodel.h
+    DailyKitCore/ViewModels/weighingscalemodel.h \
 
 android {
 DISTFILES += \

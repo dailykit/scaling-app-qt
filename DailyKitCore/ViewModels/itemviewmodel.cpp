@@ -39,6 +39,8 @@ QVariant ItemViewModel::data(const QModelIndex &index, int role) const
         return m_itemDetails[index.row()]->packedIngredients();
     case OrderNumber:
         return m_itemDetails[index.row()]->orderNumber();
+    case IsCurrentItem:
+        return m_itemDetails[index.row()]->itemOrderId() == m_currentItem;
     default:
         return QVariant();
 
@@ -67,6 +69,7 @@ int ItemViewModel::rowCount(const QModelIndex &parent) const
     if(parent.isValid())
         return 0;
 
+    qDebug() << "count" << m_itemDetails.count();
     return m_itemDetails.count();
 
 }
@@ -77,7 +80,7 @@ void ItemViewModel::setQuery(int orderId)
     query.prepare(ItemViewQuery);
     query.addBindValue(orderId);
     if(query.exec()) {
-        qDebug()<<"sql statement exicuted fine";
+        qDebug()<<"sql statement exicuted fine items";
     }
     else{
         qDebug() <<"Errors accured with sql statement";
@@ -100,6 +103,12 @@ void ItemViewModel::setQuery(int orderId)
 
     }
     endResetModel();
+
+}
+
+void ItemViewModel::setCurrentItem(QString itemOrderId)
+{
+    m_currentItem = itemOrderId;
 
 }
 

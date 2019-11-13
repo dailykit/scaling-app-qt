@@ -69,7 +69,7 @@ Item{
                     loader.item.orderNumber = model.orderNumber
                     loader.item.itemName = model.itemName
                     recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
-
+                    itemsModel.setQuery(model.orderId)
                 }
             }
         }

@@ -73,7 +73,7 @@ Item {
         }
     }
 
-    RoundedRectangle{
+    RoundedRectangle {
         id: idOrderNumber
 
         width: parent.width
@@ -113,11 +113,21 @@ Item {
         }
     }
 
+    ItemsList {
+        id: allItems
+
+        width: parent.width
+        height: Interface.orderView.rowHeight
+
+        anchors.top: idOrderNumber.bottom
+        anchors.topMargin: parent.height * 0.02
+    }
+
 
     AppListView {
         id: trialRect
 
-        anchors.top: idOrderNumber.bottom
+        anchors.top: allItems.bottom
         anchors.topMargin: parent.height * 0.02
 
         width: parent.width
