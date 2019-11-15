@@ -16,25 +16,22 @@ Item{
         width: parent.width
         height: parent.height
         orientation: Qt.Horizontal
+        snapMode: ListView.SnapToItem
 
         model: itemsModel
         delegate: ItemsDelegate {
             id: delegateIngredient
             height: Interface.orderView.rowHeight
-            width: Interface.orderView.recentListWidth
-
 
             MouseArea {
                 anchors.fill: parent
+                enabled: !currentItem
                 onClicked: {
                     ingredientModel.getIngredients(model.itemOrderId)
                     weighingScale.orderId = model.itemOrderId
+                    itemsModel.setCurrentItem(model.itemOrderId)
                 }
             }
-
-            Component.onCompleted: console.log("loading")
         }
     }
-
-    Component.onCompleted: console.log("items list loaded")
 }

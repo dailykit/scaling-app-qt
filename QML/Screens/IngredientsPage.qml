@@ -131,7 +131,7 @@ Item {
         anchors.topMargin: parent.height * 0.02
 
         width: parent.width
-        height: parent.height * 0.89
+        height: parent.height * 0.75
 
         model: ingredientModel
         delegate: IngredientSectionDelegate {
@@ -147,8 +147,6 @@ Item {
                     weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
                 }
             }
-
         }
-
     }
 }

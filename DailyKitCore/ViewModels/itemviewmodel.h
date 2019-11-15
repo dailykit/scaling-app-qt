@@ -37,7 +37,7 @@ public:
 
 
 public slots:
-void setQuery(int orderId);
+void setQuery(QString orderId);
 
 void setCurrentItem(QString itemOrderId);
 
@@ -46,7 +46,6 @@ private:
     QList<ItemDetailsPtr> m_itemDetails;
     QString m_currentItem;
     static const QString ItemViewQuery;
-    static const QString TAG;
 };
 
 #endif // ITEMVIEWMODEL_H

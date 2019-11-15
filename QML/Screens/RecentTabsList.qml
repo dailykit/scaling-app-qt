@@ -37,10 +37,5 @@ Item{
                 recentTabs.removeRecentItem(index)
             }
         }
-
-    }
-
-    Component.onCompleted: {
-        console.log("recent tab list")
     }
 }
