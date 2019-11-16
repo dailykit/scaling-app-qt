@@ -3,6 +3,8 @@ import QtQuick.Window 2.11
 import QtQuick.Controls 2.5
 import "../Components/OrderPages"
 import "../ApplicationCore/Style"
+import "../ComponentsCore/Shapes"
+import "../ComponentsCore/Buttons"
 
 Item {
 
@@ -15,140 +17,168 @@ Item {
         width: parent.width
         height: parent.height
 
-        Column{
-            width: parent.width
-            height: parent.height
-            spacing: 50
         Rectangle{
-            width: parent.width
-            height:75
+            id: title
+            width: parent.width * 0.98
+            height: parent.height * 0.089
             color:Themes.selectedTheme.colors.primaryDark
+            anchors.top: parent.top
+            anchors.topMargin: parent.height * 0.02
+            anchors.left: parent.left
+            anchors.leftMargin: parent.height * 0.02
 
             Text{
                 id: settingText
-                width: 300
-                leftPadding  : 50
-                topPadding: 15
+                width: parent.width * 0.12
                 height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
+                anchors.leftMargin: parent.height * 0.15
+                anchors.top: parent.top
+                anchors.topMargin: parent.height * 0.2
                 text: "Settings"
                 color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
+                font.pointSize: Interface.fontSize.textSizeSmall
             }
+
+
         }
 
-        Column{
+        Column {
+            id: options
             width: 600
             height: parent.height
             spacing: 30
+            anchors.top: title.bottom
+            anchors.topMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
-        Row {
-            id: weightAccuracyRow
-            width: parent.width
-            height: 50
-            Text{
-                id: weightAccuracy
-                width: parent.width * 0.5
-                height: parent.height
-                text: "Weight Accuracy"
-                color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
+
+            Row {
+                id: weightAccuracyRow
+                width: parent.width
+                height: parent.height * 0.02
+                Text{
+                    id: weightAccuracy
+                    width: parent.width * 0.5
+                    height: parent.height
+                    text: "Weight Accuracy"
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                }
+                Rectangle {
+                    id: weigthRect
+                    width: parent.width * 0.5
+                    height: parent.height
+                    color: Themes.selectedTheme.colors.extremeBlack
+
+                    TextInput {
+                        id: weightAccuracyText
+                        width: parent.width * 0.5
+                        height: parent.height
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                        color: Themes.selectedTheme.colors.appGrey
+                    }
+
+                    HorizontalLine {
+                        id: weightLine
+                        anchors.bottom: parent.bottom
+                        width: parent.width
+                        color: Themes.selectedTheme.colors.appGrey
+
+                    }
+
+                }
             }
-            Rectangle {
-                width: parent.width * 0.5
-                height: parent.height
-                border.color: 'gray'
-                border.width: 1
-                TextInput {
-                    id: weightAccuracyText
-                    anchors.fill: parent
-                    anchors.margins: 4
-                    font.pointSize: 18
+            Row {
+                id: printingTimeRow
+                width: parent.width
+                height: parent.height * 0.02
+                Text{
+                    id: printingTime
+                    width: parent.width * 0.5
+                    height: parent.height
+                    text: "Printing Time"
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                }
+                Rectangle {
+                    width: parent.width * 0.5
+                    height: parent.height
+                    color: Themes.selectedTheme.colors.extremeBlack
+
+                    TextInput {
+                        id: printingTimeText
+                        width: parent.width * 0.5
+                        height: parent.height
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                        color: Themes.selectedTheme.colors.appGrey
+                    }
+
+                    HorizontalLine {
+                        id: printingLine
+                        anchors.bottom: parent.bottom
+                        width: parent.width
+                        color: Themes.selectedTheme.colors.appGrey
+
+                    }
+
+                }
+            }
+            Row {
+                id: simulatorRow
+                width: parent.width
+                height: parent.height * 0.02
+                Text{
+                    id: simulator
+                    width: parent.width * 0.5
+                    height: parent.height
+                    text: "Simulator"
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                }
+                ToggleButton {
+                    id: simulatorToggle
+                }
+            }
+            Row {
+                id: manualWeightEntryRow
+                width: parent.width
+                height: parent.height * 0.02
+
+                Text {
+                    id: manualWeightEntry
+                    width: parent.width * 0.5
+                    height: parent.height
+                    text: "Manual Weight Entry"
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pointSize: Interface.fontSize.textSizeSmall * 0.7
+                }
+                ToggleButton {
+                    id: manualWeightToggle
+                }
+            }
+            Row {
+                id: printerTestRow
+                width: parent.width
+                height: parent.height * 0.02
+                Text{
+                    id: printerTest
+                    width: parent.width * 0.5
+                    height: parent.height
+                    text: "Printer Test"
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pointSize: Interface.fontSize.textSizeSmall * 0.7
                 }
 
-            }
-        }
-        Row {
-            id: printingTimeRow
-            width: parent.width
-            height: 50
-            Text{
-                id: printingTime
-                width: parent.width * 0.5
-                height: parent.height
-                text: "Printing Time"
-                color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
-            }
-            Rectangle {
-                width: parent.width * 0.5
-                height: parent.height
-                border.color: 'gray'
-                border.width: 1
-                TextInput {
-                    id: printingTimeText
-                    anchors.fill: parent
-                    anchors.margins: 4
-                    font.pointSize: 18
+                ToggleButton {
+                    id: printerToggle
                 }
-
             }
         }
-        Row {
-            id: simulatorRow
-            width: parent.width
-            height: 50
-            Text{
-                id: simulator
-                width: parent.width * 0.5
-                height: parent.height
-                text: "Simulator"
-                color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
-            }
 
-        }
-        Row {
-            id: manualWeightEntryRow
-            width: parent.width
-            height: 50
-            Text{
-                id: manualWeightEntry
-                width: parent.width * 0.5
-                height: parent.height
-                text: "Manual Weight Entry"
-                color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
-            }
-        }
-        Row {
-            id: printerTestRow
-            width: parent.width
-            height: 50
-            Text{
-                id: printerTest
-                width: parent.width * 0.5
-                height: parent.height
-                text: "Printer Test"
-                color: Themes.selectedTheme.colors.appWhite
-                font.pointSize: 18
-            }
-        }
-        }
-        Row {
-            width: 100
-            height: 50
-            Button {
-                  text: "Ok"
-               }
-        }
-
-    }
-    }
-
-    Component.onCompleted: {
-        console.log("parent", parent.width, parent.height)
     }
 
 }
