@@ -32,7 +32,7 @@ Item {
                 width: parent.width * 0.12
                 height: parent.height
                 anchors.left: parent.left
-                anchors.leftMargin: parent.height * 0.15
+                anchors.leftMargin: parent.height * 0.2
                 anchors.top: parent.top
                 anchors.topMargin: parent.height * 0.2
                 text: "Settings"
@@ -45,11 +45,11 @@ Item {
 
         Column {
             id: options
-            width: 600
-            height: parent.height
+            width: parent.width * 0.7
+            height: parent.height * 0.3
             spacing: 30
             anchors.top: title.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 40
             anchors.horizontalCenter: parent.horizontalCenter
 
             Row {
@@ -78,6 +78,10 @@ Item {
                         anchors.margins: 4
                         font.pointSize: Interface.fontSize.textSizeSmall * 0.7
                         color: Themes.selectedTheme.colors.appGrey
+
+                        onEditingFinished: {
+                            settingsModel.weightAccuracy = weightAccuracyText.text
+                        }
                     }
 
                     HorizontalLine {
@@ -115,6 +119,10 @@ Item {
                         anchors.margins: 4
                         font.pointSize: Interface.fontSize.textSizeSmall * 0.7
                         color: Themes.selectedTheme.colors.appGrey
+
+                        onEditingFinished: {
+                            settingsModel.weightAccuracy = printingTimeText.text
+                        }
                     }
 
                     HorizontalLine {
@@ -141,6 +149,10 @@ Item {
                 }
                 ToggleButton {
                     id: simulatorToggle
+
+                    onClicked: {
+                        settingsModel.simulator = simulatorToggle.checked
+                    }
                 }
             }
             Row {
@@ -158,6 +170,10 @@ Item {
                 }
                 ToggleButton {
                     id: manualWeightToggle
+
+                    onClicked: {
+                        settingsModel.manualEntry = manualWeightToggle.checked
+                    }
                 }
             }
             Row {
@@ -175,10 +191,39 @@ Item {
 
                 ToggleButton {
                     id: printerToggle
+
+                    onClicked: {
+                        settingsModel.printerTest = printerToggle.checked
+                    }
                 }
             }
         }
 
-    }
+        Rectangle{
+            id: saveButton
+            width: parent.width * 0.08
+            height: parent.height * 0.05
 
+            anchors.top: options.bottom
+            anchors.topMargin: parent.width * 0.01
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            color: Themes.selectedTheme.colors.primaryDark
+
+            Text {
+                id: saveText
+                text: qsTr("Save")
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                anchors.centerIn: parent
+                color: Themes.selectedTheme.colors.appWhite
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    settingsModel.saveSettings()
+                }
+            }
+        }
+    }
 }
