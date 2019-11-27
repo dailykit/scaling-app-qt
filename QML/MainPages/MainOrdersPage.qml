@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.5
 import "../Components/OrderPages"
 import "../"
 
@@ -14,6 +15,7 @@ Item {
 
     property alias loader: orderLoader
     property alias weighScale: idWeightDetails
+
 
     Rectangle {
         id: idTopMargin
@@ -42,6 +44,7 @@ Item {
     Row{
         id: middleScreen
 
+
         width: parent.width * 0.9
         height: parent.height * 0.8
         spacing: parent.width * 0.03
@@ -61,14 +64,38 @@ Item {
 
         }
 
-        Loader {
-            id: orderLoader
+        Item {
             width: parent.width * 0.45
             height: parent.height
-        }
+            BusyIndicator{
+                id: busy
+                anchors.centerIn: parent
+            }
 
-        Component.onCompleted:
-            loader.source =  Qt.resolvedUrl( "../Screens/OrderList.qml")
+            Loader {
+                id: orderLoader
+                anchors.fill: parent
+                active: true
+                asynchronous: true
+                visible: status == Loader.Ready
+
+
+
+            }
+
+            Connections{
+                target: orderModel
+                onModelReset:{
+                    if(busy.running) {
+                        busy.running = false
+                        loader.source =  Qt.resolvedUrl( "../Screens/OrderList.qml")
+                    }
+                }
+            }
+
+            //     Component.onCompleted:
+
+        }
 
     }
 
