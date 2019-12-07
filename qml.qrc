@@ -29,5 +29,6 @@
         <file>QML/Components/OrderPages/RecentTabsDelegate.qml</file>
         <file>QML/Components/OrderPages/ItemsDelegate.qml</file>
         <file>QML/Screens/ItemsList.qml</file>
+        <file>QML/Screens/PlanViewList.qml</file>
     </qresource>
 </RCC>

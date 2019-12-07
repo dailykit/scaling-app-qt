@@ -98,22 +98,11 @@ public:
      */
     IngredientDetailsPtr ingredientDetails() const;
 
-//    /**
-//     * @brief setIngredientDetailCount - set the ingredient details count of a particular ingredient
-//     * @param count - intS
-//     */
-//    void setIngredientDetailCount(const int count);
-
-//    /**
-//     * @brief ingredientDetailCount - gives the count of details of an ingredients
-//     * @return - int
-//     */
-//    int ingredientDetailCount();
 
 private:
     QString m_ingredientId;
     QString m_ingredientSlipName;
-  //  int m_ingredientsDetailsCount;
+    int m_ingredientsWeightTotal;
     IngredientDetailsPtr m_ingredientDetails;
 
 
@@ -121,7 +110,6 @@ private:
 
 Q_DECLARE_METATYPE(Ingredients)
 Q_DECLARE_METATYPE(IngredientDetails)
-Q_DECLARE_METATYPE(QList<IngredientDetails*>)
 typedef  QSharedPointer<Ingredients> IngredientsPtr;
 
 #endif // INGREDIENTDETAILS_H
