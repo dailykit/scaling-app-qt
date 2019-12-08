@@ -108,6 +108,7 @@ Item {
         }
 
         options.planning.mouseArea.onClicked: {
+            planModel.getIngredients()
             loader.source = Qt.resolvedUrl( "../Screens/PlanViewList.qml")
         }
     }

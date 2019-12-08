@@ -12,6 +12,7 @@
 
 class PlanViewModel : public QAbstractListModel
 {
+    Q_OBJECT
     enum {
         IngredientId,
         IngredientName,
@@ -28,7 +29,8 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    void getIngredients();
+public slots:
+     void getIngredients();
 
 private:
     static const QString PlanViewQuery;

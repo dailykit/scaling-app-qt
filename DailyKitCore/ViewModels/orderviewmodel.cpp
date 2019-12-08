@@ -3,7 +3,7 @@
 
 const QString OrderViewModel::OrderViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
                                                ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
-                                              ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
+                                               ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
                                                ", (SELECT orderNumber FROM orderDetails where orderDetails.orderId = itemDetails.orderId) FROM itemDetails";
 
 
@@ -18,7 +18,7 @@ OrderViewModel::OrderViewModel(QObject *parent) :
         dataPage->getOrderList();
         connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::setQuery);
     }
-   // setQuery();
+    // setQuery();
 }
 
 
@@ -41,30 +41,33 @@ void OrderViewModel::setQuery()
     QSqlQuery query;
 
     if(query.exec(OrderViewQuery)) {
-        qDebug()<<"sql statement exicuted fine";
+        qDebug()<<"sql statement exicuted fine" <<query.next();
+
     }
     else {
         qDebug() <<"Errors accured with sql statement";
         qDebug() <<query.lastError();
     }
-
+    if(query.next()) {
     m_itemDetails.clear();
-    beginResetModel();
-    while (query.next()){
 
-        ItemDetailsPtr ptr(new ItemDetails());
-        ptr->setItemOrderId(query.value(0).toString());
-        ptr->setOrderId(query.value(1).toString());
-        ptr->setRecipeName(query.value(2).toString());
-        ptr->setRecipeServings(query.value(3).toString());
-        ptr->setIngredientCount(query.value(4).toInt());
-        ptr->setPackedIngredients(query.value(5).toInt());
-        ptr->setOrderNumber(query.value(6).toInt());
+        beginResetModel();
+        while (query.next()){
 
-        m_itemDetails.append(ptr);
+            ItemDetailsPtr ptr(new ItemDetails());
+            ptr->setItemOrderId(query.value(0).toString());
+            ptr->setOrderId(query.value(1).toString());
+            ptr->setRecipeName(query.value(2).toString());
+            ptr->setRecipeServings(query.value(3).toString());
+            ptr->setIngredientCount(query.value(4).toInt());
+            ptr->setPackedIngredients(query.value(5).toInt());
+            ptr->setOrderNumber(query.value(6).toInt());
 
+            m_itemDetails.append(ptr);
+
+        }
+        endResetModel();
     }
-    endResetModel();
 
 }
 
