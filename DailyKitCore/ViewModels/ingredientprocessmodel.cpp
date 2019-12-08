@@ -16,7 +16,7 @@ QVariant IngredientProcessModel::data(const QModelIndex &index, int role) const
 
     switch (role) {
     case IngredientQuantity:
-        return   m_ingredientProcessList[index.row()]->m_ingredientProcessWeight;
+        return m_ingredientProcessList[index.row()]->m_ingredientProcessWeight;
     case IngredientProcessName:
         return m_ingredientProcessList[index.row()]->m_ingredientProcess;
     case IngredientPackedCount:
@@ -32,7 +32,7 @@ QHash<int, QByteArray> IngredientProcessModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(IngredientId, "ingredientDetailId");
-    roles.insert(IngredientQuantity, "ingredientName");
+    roles.insert(IngredientQuantity, "ingredientWeight");
     roles.insert(IngredientProcessName, "ingredientProcess");
     roles.insert(IngredientPackedCount, "ingredientPackedCount");
     roles.insert(IngredientProcessCount, "ingredientProcessCount");

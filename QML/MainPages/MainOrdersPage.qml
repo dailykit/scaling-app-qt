@@ -78,9 +78,6 @@ Item {
                 active: true
                 asynchronous: true
                 visible: status == Loader.Ready
-
-
-
             }
 
             Connections{
@@ -93,12 +90,9 @@ Item {
                 }
             }
 
-            //     Component.onCompleted:
-
         }
 
     }
-
 
     RightBar {
         id: idRightMargin
@@ -112,6 +106,11 @@ Item {
         options.settings.mouseArea.onClicked :{
             stackView.push(Qt.createComponent(Qt.resolvedUrl("../Screens/Settings.qml")).createObject(parent, {width: stackView.width, height: stackView.height}))
         }
+
+        options.planning.mouseArea.onClicked: {
+            loader.source = Qt.resolvedUrl( "../Screens/PlanViewList.qml")
+        }
     }
 
+    Component.onCompleted: orderModel.setQuery()
 }

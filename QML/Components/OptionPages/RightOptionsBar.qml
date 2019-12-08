@@ -12,6 +12,7 @@ Column {
 
     readonly property alias settings: settings
     readonly property alias inventory: inventory
+    readonly property alias planning: planning
 
     Text {
         id: quickControlsText

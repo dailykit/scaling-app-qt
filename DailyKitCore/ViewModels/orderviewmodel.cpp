@@ -18,7 +18,7 @@ OrderViewModel::OrderViewModel(QObject *parent) :
         dataPage->getOrderList();
         connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::setQuery);
     }
-    setQuery();
+   // setQuery();
 }
 
 
@@ -43,7 +43,7 @@ void OrderViewModel::setQuery()
     if(query.exec(OrderViewQuery)) {
         qDebug()<<"sql statement exicuted fine";
     }
-    else{
+    else {
         qDebug() <<"Errors accured with sql statement";
         qDebug() <<query.lastError();
     }
@@ -65,6 +65,7 @@ void OrderViewModel::setQuery()
 
     }
     endResetModel();
+
 }
 
 

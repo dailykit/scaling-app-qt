@@ -30,5 +30,7 @@
         <file>QML/Components/OrderPages/ItemsDelegate.qml</file>
         <file>QML/Screens/ItemsList.qml</file>
         <file>QML/Screens/PlanViewList.qml</file>
+        <file>QML/Components/OrderPages/PlanningDelegate.qml</file>
+        <file>QML/Components/OrderPages/ProcessPlanDelegate.qml</file>
     </qresource>
 </RCC>

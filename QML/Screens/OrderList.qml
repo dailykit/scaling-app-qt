@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import QtQuick.Controls 2.5
 import "../Components/OrderPages"
 import "../ComponentsCore/Views"
 import "../ComponentsCore/Shapes"
@@ -7,6 +7,7 @@ import "../ApplicationCore/Style"
 
 Item{
     id: root
+    property bool isListLoaded: false
 
     Row {
         id: allOrders
@@ -44,8 +45,7 @@ Item{
         }
     }
 
-    AppListView {
-        id: trialRect
+    Item {
 
         width: parent.width
         height: parent.height * 0.89
@@ -53,37 +53,44 @@ Item{
         anchors.top: allOrders.bottom
         anchors.topMargin: parent.height * 0.02
 
-        model: orderModel
-        delegate: OrdersDelegate {
-            id: delegateOrder
+        AppListView {
+            id: trialRect
+            anchors.fill: parent
 
-            height: Interface.orderView.rowHeight
-            width: parent.width
+            model: orderModel
 
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    ingredientModel.getIngredients(model.itemOrderId)
-                    weighingScale.orderId = model.orderId
-                    loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                    loader.item.orderNumber = model.orderNumber
-                    loader.item.itemName = model.itemName
-                    recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
-                    itemsModel.setCurrentItem(model.itemOrderId)
-                    itemsModel.setQuery(model.orderId)
+            delegate: OrdersDelegate
+            {
+                id: delegateOrder
+
+                height: Interface.orderView.rowHeight
+                width: parent.width
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        ingredientModel.getIngredients(model.itemOrderId)
+                        weighingScale.orderId = model.orderId
+                        loader.source = Qt.resolvedUrl("IngredientsPage.qml")
+                        loader.item.orderNumber = model.orderNumber
+                        loader.item.itemName = model.itemName
+                        recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
+                        itemsModel.setCurrentItem(model.itemOrderId)
+                        itemsModel.setQuery(model.orderId)
+                    }
                 }
             }
+
+            snapMode: ListView.SnapToItem
+
+            sectionProperty: "orderId"
+            sectionDelegate: OrderSectionDelegate{
+                id: delegateSection
+
+                height: Interface.orderView.rowHeight
+                width: parent.width
+            }
         }
-        snapMode: ListView.SnapToItem
-
-        sectionProperty: "orderId"
-        sectionDelegate: OrderSectionDelegate{
-            id: delegateSection
-
-            height: Interface.orderView.rowHeight
-            width: parent.width
-        }
-
-
     }
+
 }
