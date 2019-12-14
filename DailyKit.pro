@@ -19,12 +19,14 @@ SOURCES += \
         DailyKitCore/Models/itemdetails.cpp \
         DailyKitCore/Models/orderdetails.cpp \
         DailyKitCore/Models/plandetails.cpp \
+        DailyKitCore/Models/planitemdetails.cpp \
         DailyKitCore/ViewModels/ingredientdetailviewmodel.cpp \
         DailyKitCore/ViewModels/ingredientprocessmodel.cpp \
         DailyKitCore/ViewModels/ingredientviewmodel.cpp \
         DailyKitCore/ViewModels/itemviewmodel.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
+        DailyKitCore/ViewModels/planviewitemmodel.cpp \
         DailyKitCore/ViewModels/planviewmodel.cpp \
         DailyKitCore/ViewModels/recenttabsmodel.cpp \
         DailyKitCore/ViewModels/settingsmodel.cpp \
@@ -58,12 +60,14 @@ HEADERS += \
     DailyKitCore/Models/itemdetails.h \
     DailyKitCore/Models/orderdetails.h \
     DailyKitCore/Models/plandetails.h \
+    DailyKitCore/Models/planitemdetails.h \
     DailyKitCore/ViewModels/ingredientdetailviewmodel.h \
     DailyKitCore/ViewModels/ingredientprocessmodel.h \
     DailyKitCore/ViewModels/ingredientviewmodel.h \
     DailyKitCore/ViewModels/itemviewmodel.h \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h \
+    DailyKitCore/ViewModels/planviewitemmodel.h \
     DailyKitCore/ViewModels/planviewmodel.h \
     DailyKitCore/ViewModels/recenttabsmodel.h \
     DailyKitCore/ViewModels/settingsmodel.h \

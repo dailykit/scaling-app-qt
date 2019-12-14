@@ -9,7 +9,7 @@ Item{
     id: root
 
     AppListView {
-        id: trialRect
+        id: listView
 
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.02
@@ -23,12 +23,7 @@ Item{
             height: Interface.orderView.rowHeight + detailsList.height + 20
             width: parent.width
 
-            MouseArea {
-                anchors.fill: parent
-
-                onClicked: {
-                }
-            }
         }
+
     }
 }

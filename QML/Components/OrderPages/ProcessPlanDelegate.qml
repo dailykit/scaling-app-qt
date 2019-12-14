@@ -30,35 +30,32 @@ Rectangle {
             Text {
                 id: totalIngredients
                 text: ingredientPackedCount + " / " + ingredientProcessCount
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.2
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
-                font.bold: true
             }
 
             Text {
                 id: process
                 text: ingredientProcess
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.4
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
-                font.bold: true
             }
 
             Text {
                 id: weight
                 text: ingredientWeight + " gm"
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height * 0.7
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
                 fontSizeMode:  Text.Fit
                 verticalAlignment: Text.AlignVCenter
-                font.bold: true
             }
         }
     }

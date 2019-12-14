@@ -11,6 +11,7 @@
 #include "DailyKitCore/ViewModels/recenttabsmodel.h"
 #include "DailyKitCore/ViewModels/itemviewmodel.h"
 #include "DailyKitCore/ViewModels/planviewmodel.h"
+#include "DailyKitCore/ViewModels/planviewitemmodel.h"
 #include "DailyKitCore/ViewModels/settingsmodel.h"
 #include "DailyKitCore/DatabaseModels/dbproxy.h"
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
     ItemViewModel *m_itemsModel = new ItemViewModel();
     SettingsModel *m_settingsModel = new SettingsModel();
     PlanViewModel * m_plan = new PlanViewModel();
+    PlanViewItemModel *m_planningItems = new PlanViewItemModel();
 
     QQmlApplicationEngine engine;
 
@@ -44,6 +46,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("itemsModel", m_itemsModel);
     engine.rootContext()->setContextProperty("settingsModel", m_settingsModel);
     engine.rootContext()->setContextProperty("planModel", m_plan);
+    engine.rootContext()->setContextProperty("planningItems", m_planningItems);
 
     engine.rootContext()->setContextProperty("weighingScale", WeighingScaleModel::weighScaleInstance());
 

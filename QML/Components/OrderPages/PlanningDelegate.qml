@@ -38,7 +38,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientName
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    font.pixelSize: Interface.fontSize.textSizeSmall
                     wrapMode: Text.WordWrap
                 }
 
@@ -49,7 +49,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientTotalWeight + " " + "gm"
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    font.pixelSize: Interface.fontSize.textSizeSmall
                 }
 
             }
@@ -69,11 +69,9 @@ Item {
                     anchors.fill: parent
 
                     onClicked: {
-                        weighingScale.itemName = itemName
-                        weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
+                        planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
                     }
                 }
-
             }
         }
     }

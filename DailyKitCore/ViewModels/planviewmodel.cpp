@@ -86,10 +86,8 @@ void PlanViewModel::getIngredients()
                     process->m_ingredientProcessWeight = q2.value(1).toInt();
                     process->m_ingredientProcessCount = q2.value(0).toInt();
                     process->m_ingredientPackedCount = q2.value(2).toInt();
-
                 }
                 model->setIngredientProcess(process);
-
             }
 
             totalWeightQuery.prepare("SELECT SUM(ingredientQuantity) FROM ingredientDetails WHERE ingredientName = ? ");
