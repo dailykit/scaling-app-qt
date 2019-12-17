@@ -53,6 +53,8 @@ QVariant PlanViewItemModel::data(const QModelIndex &index, int role) const
         return m_planItemDetailsList[index.row()]->itemName();
     case IngredientWeight:
         return m_planItemDetailsList[index.row()]->ingredientWeight();
+    case IngredientDetailId:
+        return m_planItemDetailsList[index.row()]->ingredientDetailId();
     default:
         return QVariant();
     }
@@ -67,6 +69,7 @@ QHash<int, QByteArray> PlanViewItemModel::roleNames() const
     roles.insert(ItemName, "itemName");
     roles.insert(IngredientWeight, "ingredientWeight");
     roles.insert(ItemsId, "itemId");
+    roles.insert(IngredientDetailId, "ingredientDetailId");
 
     return roles;
 }
@@ -86,7 +89,7 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
 
     m_planItemDetailsList.clear();
     QSqlQuery query;
-    query.prepare("SELECT ingredientId, ingredientQuantity FROM ingredientDetails WHERE ingredientName = ? AND ingredientProcess=? ");
+    query.prepare("SELECT ingredientId, ingredientQuantity, ingredientDetailId FROM ingredientDetails WHERE ingredientName = ? AND ingredientProcess=? ");
     query.addBindValue(ingredientName);
     query.addBindValue(ingredientProcess);
     if(query.exec())
@@ -104,6 +107,7 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
             while(ingredientQuery.next())
             {
                 ptr->setItemId(ingredientQuery.value(0).toString());
+                ptr->setIngredientDetailId(query.value(2).toString());
 
                 itemsQuery.prepare("SELECT orderId, itemName  FROM itemDetails  WHERE itemOrderId =  ? ");
                 itemsQuery.addBindValue(ingredientQuery.value(0).toString());

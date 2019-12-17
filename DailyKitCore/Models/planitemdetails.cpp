@@ -51,3 +51,13 @@ float PlanItemDetails::ingredientWeight() const
     return m_ingredientWeight;
 }
 
+void PlanItemDetails::setIngredientDetailId(QString detailId)
+{
+    m_ingredientDetailId = detailId;
+}
+
+QString PlanItemDetails::ingredientDetailId() const
+{
+    return m_ingredientDetailId;
+}
+

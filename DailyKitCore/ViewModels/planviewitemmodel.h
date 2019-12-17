@@ -17,11 +17,12 @@ class PlanViewItemModel : public QAbstractListModel
     Q_PROPERTY(QString ingredientName READ ingredientName WRITE setIngredientName NOTIFY ingredientNameChanged)
 
     enum PlanItems {
+        OrderId,
         ItemsId,
         IngredientId,
+        IngredientDetailId,
         ItemName,
-        IngredientWeight,
-        OrderId
+        IngredientWeight
     };
 
 public:

@@ -59,12 +59,25 @@ public:
      */
     float ingredientWeight() const;
 
+    /**
+     * @brief setIngredientDetailId - set the ingredient details id
+     * @param detailId
+     */
+    void setIngredientDetailId(QString detailId);
+
+    /**
+     * @brief ingredientDetailId - get ingredient details id
+     * @return
+     */
+    QString ingredientDetailId() const;
+
 
 private:
     //QString m_ingredientId;
     QString m_itemId;
     QString m_orderId;
     QString m_itemName;
+    QString m_ingredientDetailId;
     float m_ingredientWeight;
 };
 

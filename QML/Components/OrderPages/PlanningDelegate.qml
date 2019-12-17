@@ -70,6 +70,8 @@ Item {
 
                     onClicked: {
                         planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
+                        loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
+
                     }
                 }
             }

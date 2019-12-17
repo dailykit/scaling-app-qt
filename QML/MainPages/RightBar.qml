@@ -33,8 +33,6 @@ Item {
             height: parent.height
         }
 
-
-
     }
 
 }

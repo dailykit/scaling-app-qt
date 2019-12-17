@@ -24,6 +24,5 @@ Item{
             width: parent.width
 
         }
-
     }
 }
