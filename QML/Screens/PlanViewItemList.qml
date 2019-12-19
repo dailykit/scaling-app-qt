@@ -119,7 +119,7 @@ Item {
             width: parent.width * 0.03
             anchors.left: name.right
             anchors.leftMargin: 20
-            text: planningItems.totalWeight
+            text: planningItems.totalWeight + " gm"
             color: Themes.selectedTheme.colors.extremeBlack
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: Interface.fontSize.textSizeSmall
@@ -136,30 +136,104 @@ Item {
         anchors.topMargin: parent.height * 0.02
     }
 
-
-    AppListView {
-        id: trialRect
-
-        anchors.top: allItems.bottom
-        anchors.topMargin: parent.height * 0.02
+    RoundedRectangle {
+        id: listRect
 
         width: parent.width
         height: parent.height * 0.75
+        color: Themes.selectedTheme.colors.primaryDark
+        radius: 15
+        anchors.top: allItems.bottom
+        anchors.topMargin: parent.height * 0.02
 
-        model: planningItems
-        delegate: PlanViewItemDelegate {
-            id: delegateIngredient
-            height: Interface.orderView.rowHeight + 20
-            width: parent.width
+        AppListView {
+            id: trialRect
+            anchors.fill: parent
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    weighingScale.itemName = itemName
-                    weighingScale.orderId = orderId
-                    weighingScale.weighItem(ingredientDetailId, planningItems.ingredientName, ingredientWeight, "gm")
+            width: parent.width * 0.8
+            height: parent.height * 0.75
+
+            model: planningItems
+            header: headerComponent
+
+            delegate: PlanViewItemDelegate {
+                id: delegateIngredient
+                height: Interface.orderView.rowHeight * 1.4
+                width: parent.width
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        weighingScale.itemName = itemName
+                        weighingScale.orderId = orderId
+                        weighingScale.weighItem(ingredientDetailId, planningItems.ingredientName, ingredientWeight, "gm")
+                    }
                 }
             }
         }
     }
+
+    Component {
+        id: headerComponent
+
+        Row {
+            id: ingredientsRow
+
+            anchors{
+                left: parent.left
+                leftMargin: parent.width * 0.07
+            }
+
+            height: Interface.orderView.rowHeight
+            width: Interface.orderView.rowWidth
+            spacing: Interface.orderView.ingredientRowSpacing * 0.7
+
+            Text {
+                id: name
+                height: parent.height
+                text: "Item Name"
+                width: parent.width * 0.32
+                verticalAlignment: Text.AlignVCenter
+                color: Themes.selectedTheme.colors.primary
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                fontSizeMode: Text.Fit
+                elide: Text.Left
+            }
+
+            Text {
+                id: orderIdd
+                width: parent.width * 0.33
+                height: parent.height
+                verticalAlignment: Text.AlignVCenter
+                text: "Order Id"
+                color: Themes.selectedTheme.colors.primary
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                elide: Text.Left
+            }
+
+            Text {
+                id: weight
+                width: parent.width * 0.12
+                height: parent.height
+                verticalAlignment: Text.AlignVCenter
+                text: "Weight"
+                color: Themes.selectedTheme.colors.primary
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                elide: Text.Left
+            }
+
+            Text {
+                id: options
+                width: parent.width * 0.15
+                height: parent.height
+                verticalAlignment: Text.AlignVCenter
+                text: "Options"
+                color: Themes.selectedTheme.colors.primary
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+                elide: Text.Left
+            }
+        }
+
+    }
+
 }

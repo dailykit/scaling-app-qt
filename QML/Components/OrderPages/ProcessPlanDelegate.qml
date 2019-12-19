@@ -30,7 +30,7 @@ Rectangle {
             Text {
                 id: totalIngredients
                 text: ingredientPackedCount + " / " + ingredientProcessCount
-                font.pixelSize: Interface.fontSize.textSizeSmall
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                 height: parent.height
                 width: parent.width * 0.2
                 color: Themes.selectedTheme.colors.appWhite
@@ -40,7 +40,7 @@ Rectangle {
             Text {
                 id: process
                 text: ingredientProcess
-                font.pixelSize: Interface.fontSize.textSizeSmall
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                 height: parent.height
                 width: parent.width * 0.4
                 color: Themes.selectedTheme.colors.appWhite
@@ -50,13 +50,26 @@ Rectangle {
             Text {
                 id: weight
                 text: ingredientWeight + " gm"
-                font.pixelSize: Interface.fontSize.textSizeSmall
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                 height: parent.height * 0.7
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
                 fontSizeMode:  Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
+
+            Text {
+                id: next
+                text: nextIcon
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                height: parent.height * 0.7
+                width: parent.width * 0.15
+                color: Themes.selectedTheme.colors.appWhite
+                fontSizeMode:  Text.Fit
+                verticalAlignment: Text.AlignVCenter
+            }
+
+
         }
     }
 }

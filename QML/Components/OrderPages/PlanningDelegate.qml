@@ -61,6 +61,8 @@ Item {
             width: parent.width
             height: Interface.orderView.rowHeight * details.count
 
+            interactive : false
+
             model: processList
             delegate: ProcessPlanDelegate {
                 id: delegateIngredient

@@ -55,6 +55,8 @@ QVariant PlanViewItemModel::data(const QModelIndex &index, int role) const
         return m_planItemDetailsList[index.row()]->ingredientWeight();
     case IngredientDetailId:
         return m_planItemDetailsList[index.row()]->ingredientDetailId();
+    case BackIcon:
+         return QString::fromUtf8("\u3008");
     default:
         return QVariant();
     }
@@ -70,6 +72,7 @@ QHash<int, QByteArray> PlanViewItemModel::roleNames() const
     roles.insert(IngredientWeight, "ingredientWeight");
     roles.insert(ItemsId, "itemId");
     roles.insert(IngredientDetailId, "ingredientDetailId");
+    roles.insert(BackIcon, "backIcon");
 
     return roles;
 }

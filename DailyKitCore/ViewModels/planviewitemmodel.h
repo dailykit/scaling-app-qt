@@ -22,7 +22,8 @@ class PlanViewItemModel : public QAbstractListModel
         IngredientId,
         IngredientDetailId,
         ItemName,
-        IngredientWeight
+        IngredientWeight,
+        BackIcon
     };
 
 public:
