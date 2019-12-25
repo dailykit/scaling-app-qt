@@ -11,13 +11,13 @@ Item {
         width: parent.width
         height: parent.height
         spacing: 10 // TODO: remove the magic numbers
-
+        anchors.centerIn: parent
 
         Rectangle{
             id: title
             height: Interface.orderView.rowHeight
             width: parent.width
-            color:  !model.ingredientPacked ? Themes.selectedTheme.colors.primaryDark : Themes.selectedTheme.colors.appGrey
+            color:  !model.ingredientPacked ? Themes.selectedTheme.colors.primary : Themes.selectedTheme.colors.appGrey
             enabled: details.count === 1 ? !model.ingredientPacked : true
 
             Row {
@@ -45,7 +45,7 @@ Item {
 
                 Text {
                     id: order
-                    width: parent.width * 0.25
+                    width: parent.width * 0.22
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientSlipName
@@ -56,7 +56,7 @@ Item {
 
                 Text {
                     id: process
-                    width: parent.width * 0.3
+                    width: parent.width * 0.25
                     height: parent.height
                     visible: details.count === 1
                     verticalAlignment: Text.AlignVCenter
@@ -72,6 +72,17 @@ Item {
                     visible: details.count === 1
                     verticalAlignment: Text.AlignVCenter
                     text: quantity + " " + ingredientWeight
+                    color: Themes.selectedTheme.colors.appWhite
+                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                }
+
+                Text {
+                    id: optionsIcon
+                    width: parent.width * 0.2
+                    height: parent.height
+                    visible: details.count === 1
+                    verticalAlignment: Text.AlignVCenter
+                    text: backIcon
                     color: Themes.selectedTheme.colors.appWhite
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 }
@@ -96,7 +107,7 @@ Item {
                     anchors.fill: parent
 
                     onClicked: {
-                        weighingScale.itemName = itemName
+                        weighingScale.ingredientName = ingredientName
                         weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
                     }
                 }

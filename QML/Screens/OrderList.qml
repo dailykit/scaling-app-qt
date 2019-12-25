@@ -71,12 +71,13 @@ Item{
                     onClicked: {
                         ingredientModel.getIngredients(model.itemOrderId)
                         weighingScale.orderId = model.orderId
+                        weighingScale.itemName = model.itemName
                         loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                        loader.item.orderNumber = model.orderNumber
-                        loader.item.itemName = model.itemName
                         recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
                         itemsModel.setCurrentItem(model.itemOrderId)
                         itemsModel.setQuery(model.orderId)
+                        ingredientModel.itemName = model.itemName
+                        ingredientModel.orderNumber = model.orderNumber
                     }
                 }
             }

@@ -9,6 +9,7 @@ const QString IngredientViewModel::TAG ="IngredientViewModel.cpp : ";
 
 IngredientViewModel::IngredientViewModel(QObject *parent)
     : QAbstractListModel(parent),
+      m_orderNumber(0),
       dataPage(new RetrieveWebAppData)
 {
     connect(DbProxy::dbInstance(), &DbProxy::ingredientPackedChanged, this, &IngredientViewModel::updateIngredientDetail);
@@ -17,6 +18,28 @@ IngredientViewModel::IngredientViewModel(QObject *parent)
 IngredientViewModel::~IngredientViewModel()
 {
     qDebug() <<TAG<<"deleted";
+}
+
+int IngredientViewModel::orderNumber() const
+{
+    return m_orderNumber;
+}
+
+void IngredientViewModel::setOrderNumber(int order)
+{
+    m_orderNumber = order;
+    emit orderNumberChanged();
+}
+
+QString IngredientViewModel::itemName() const
+{
+    return m_itemName;
+}
+
+void IngredientViewModel::setItemName(QString item)
+{
+    m_itemName = item;
+    emit itemNameChanged();
 }
 
 void IngredientViewModel::setQuery(const QString &itemId)
@@ -162,6 +185,8 @@ QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_isIngredientPacked;
     case IngredientDetailId:
         return m_ingredientsList[index.row()]->ingredientDetails()->IngredientDetails::m_ingredientDetailId;
+    case BackIcon:
+        return QString::fromUtf8("\u3008");
     default:
         return QVariant();
 
@@ -179,6 +204,7 @@ QHash<int, QByteArray> IngredientViewModel::roleNames() const
     roles.insert(IngredientWeight, "ingredientWeight");
     roles.insert(IngredientPacked, "ingredientPacked");
     roles.insert(IngredientDetailId, "ingredientDetailId");
+    roles.insert(BackIcon, "backIcon");
     return roles;
 }
 

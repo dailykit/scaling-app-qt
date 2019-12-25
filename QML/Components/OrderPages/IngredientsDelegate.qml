@@ -5,7 +5,7 @@ Rectangle {
     id: root
 
     width: parent.width
-    color: Themes.selectedTheme.colors.extremeBlack
+    color: Themes.selectedTheme.colors.primaryDark
     height: 10
     enabled: !ingredientIsPacked
 

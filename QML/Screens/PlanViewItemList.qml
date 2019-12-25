@@ -8,10 +8,6 @@ import "../ApplicationCore/Style"
 Item {
     id: root
 
-    property int orderNumber
-    property string itemName
-
-
     Row {
         id: allOrders
         anchors.top: parent.top

@@ -1,19 +1,21 @@
 import QtQuick 2.0
 //import QtQuick.Controls.impl 2.3
 import "../../ApplicationCore/Style"
+import "../../ComponentsCore/Shapes"
 
 
-Rectangle {
+RoundedRectangle {
     id: root
 
-    color: Themes.selectedTheme.colors.extremeBlack
+    color: Themes.selectedTheme.colors.primaryDark
+    radius: 5
 
     Rectangle{
         id: rect
 
         height: Interface.orderView.rowHeight * 0.8
         width: parent.width * 0.95
-        color: Themes.selectedTheme.colors.primaryDark
+        color: Themes.selectedTheme.colors.primary
         anchors.centerIn: parent
 
         Row {
@@ -93,8 +95,6 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
             }
-
         }
     }
-
 }

@@ -5,7 +5,7 @@ Item {
     id: sectionDelegate1
 
     Rectangle{
-        height: Interface.orderView.rowHeight * 0.8
+        height: Interface.orderView.rowHeight *0.95
         width: parent.width
         color: Themes.selectedTheme.colors.appWhite
         anchors.verticalCenter: parent.verticalCenter

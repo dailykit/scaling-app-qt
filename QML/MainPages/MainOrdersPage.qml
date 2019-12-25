@@ -89,9 +89,7 @@ Item {
                     }
                 }
             }
-
         }
-
     }
 
     RightBar {

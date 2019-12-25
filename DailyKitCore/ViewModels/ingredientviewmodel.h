@@ -29,12 +29,23 @@ class IngredientViewModel : public QAbstractListModel
         IngredientQuantity,
         IngredientWeight,
         IngredientPacked,
-        IngredientDetailId
+        IngredientDetailId,
+        BackIcon
     };
+
+    Q_PROPERTY(int orderNumber READ orderNumber WRITE setOrderNumber NOTIFY orderNumberChanged)
+    Q_PROPERTY(QString itemName READ itemName WRITE setItemName NOTIFY itemNameChanged)
 
 public:
     explicit IngredientViewModel(QObject *parent = nullptr);
     virtual ~IngredientViewModel() override;
+
+    int orderNumber() const;
+    void setOrderNumber(int order);
+
+    QString itemName() const;
+    void setItemName(QString item);
+
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
@@ -50,8 +61,15 @@ public slots:
 private slots:
    void updateIngredientDetail(const QString &indgredientDetailsId);
 
+signals:
+   void orderNumberChanged();
+   void itemNameChanged();
+
 private:
    void selectNextIngredientToPack();
+
+   int m_orderNumber;
+   QString m_itemName;
 
     RetrieveWebAppData *dataPage;
 

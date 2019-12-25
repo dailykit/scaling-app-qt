@@ -29,6 +29,7 @@ Item{
                 onClicked: {
                     ingredientModel.getIngredients(model.itemOrderId)
                     weighingScale.orderId = model.itemOrderId
+                    weighingScale.itemName = model.itemName
                     itemsModel.setCurrentItem(model.itemOrderId)
                 }
             }
