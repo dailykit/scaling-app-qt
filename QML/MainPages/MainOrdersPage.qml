@@ -106,8 +106,14 @@ Item {
         }
 
         options.planning.mouseArea.onClicked: {
-            planModel.getIngredients()
-            loader.source = Qt.resolvedUrl( "../Screens/PlanViewList.qml")
+            if(options.planning.state == "planning") {
+                planModel.getIngredients()
+                loader.source = Qt.resolvedUrl( "../Screens/PlanViewList.qml")
+                options.planning.state = "real"
+            } else if(options.planning.state == "real") {
+              loader.source = Qt.resolvedUrl( "../Screens/OrderList.qml")
+                options.planning.state = "planning"
+            }
         }
     }
 

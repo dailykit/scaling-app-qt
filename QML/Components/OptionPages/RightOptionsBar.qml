@@ -60,11 +60,27 @@ Column {
         text.text: qsTr("Planning")
         text.color: Themes.selectedTheme.colors.appWhite
         text.verticalAlignment: Text.AlignVCenter
-        text.wrapMode: Text.WordWrap
+        // text.wrapMode: Text.WordWrap
         text.font.pixelSize: Interface.fontSize.textSizeExtraSmall
         text.width: Interface.options.iconSize
         text.height: Interface.options.iconSize
         text.font.bold: true
+        state: "planning"
+
+        states: [
+            State {
+                name: "planning"
+                PropertyChanges { target: planning; icon.source: Images.planning
+                    text.text: qsTr("Planning")}
+            },
+            State {
+                name: "real"
+                PropertyChanges { target: planning; icon.source: Images.inventory
+                    text.text: qsTr("Real time")
+                }
+            }
+
+        ]
     }
 
     VerticalViewButton {
