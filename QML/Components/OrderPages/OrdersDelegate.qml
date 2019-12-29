@@ -7,7 +7,7 @@ import "../../ComponentsCore/Shapes"
 RoundedRectangle {
     id: root
 
-    color: Themes.selectedTheme.colors.primaryDark
+    color: Themes.selectedTheme.colors.primary
     radius: 5
 
     Rectangle{
@@ -15,7 +15,7 @@ RoundedRectangle {
 
         height: Interface.orderView.rowHeight * 0.8
         width: parent.width * 0.95
-        color: Themes.selectedTheme.colors.primary
+        color: Themes.selectedTheme.colors.primaryDark
         anchors.centerIn: parent
 
         Row {

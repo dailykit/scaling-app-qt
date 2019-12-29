@@ -78,6 +78,7 @@ Item{
                         itemsModel.setQuery(model.orderId)
                         ingredientModel.itemName = model.itemName
                         ingredientModel.orderNumber = model.orderNumber
+                        mouse.accepted  = true
                     }
                 }
             }

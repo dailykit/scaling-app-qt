@@ -11,6 +11,8 @@ Item {
     height: Interface.orderView.rowHeight
     width: crossOne.width + 20
 
+    property color textColor: !currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.extremeBlack
+
 
     RoundedRectangle{
         id: crossOne
@@ -18,7 +20,7 @@ Item {
         width: packed.contentWidth + item.contentWidth + imageRectangle.width + 30
         height: Interface.orderView.rowHeight
         color: !currentItem ? Themes.selectedTheme.colors.primaryDark :
-                              Themes.selectedTheme.colors.appGrey
+                              Themes.selectedTheme.colors.appWhite
 
         Row {
 
@@ -36,7 +38,7 @@ Item {
                 width: packed.contentWidth
 
                 text: packedCount + "/" + ingredientCount
-                color: Themes.selectedTheme.colors.appWhite
+                color: textColor
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Interface.fontSize.textSizeSmall
@@ -49,7 +51,7 @@ Item {
                 width: item.contentWidth
 
                 text: model.itemName
-                color: Themes.selectedTheme.colors.appWhite
+                color: textColor
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Interface.fontSize.textSizeSmall

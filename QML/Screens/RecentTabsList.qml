@@ -16,11 +16,10 @@ Item{
         width: parent.width
         height: parent.height
         orientation: Qt.Horizontal
-        //layoutDirection: ListView.LeftToRight
 
         model: recentTabs
         delegate: RecentTabsDelegate {
-            id: delegateIngredient
+            id: recentDelegate
             height: Interface.orderView.rowHeight
             width: Interface.orderView.recentListWidth
 
@@ -29,8 +28,6 @@ Item{
                 ingredientModel.getIngredients(model.itemOrderId)
                 weighingScale.orderId = model.itemOrderId
                 loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-              //  loader.item.orderNumber = model.orderId
-                // loader.item.itemName = model.itemName
             }
 
             closeTab.onClicked: {

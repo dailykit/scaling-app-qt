@@ -11,7 +11,6 @@ Item {
     property int orderNumber
     property string itemName
 
-
     Row {
         id: allOrders
         anchors.top: parent.top
@@ -41,13 +40,13 @@ Item {
 
             width: allOrderText.contentWidth + (parent.width * 0.04)
             height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.appWhite
+            color: Themes.selectedTheme.colors.primary
 
             Text {
                 id: allOrderText
                 anchors.fill: parent
                 text: qsTr("All Orders - 12")
-                color: Themes.selectedTheme.colors.extremeBlack
+                color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Interface.fontSize.textSizeSmall
@@ -170,7 +169,7 @@ Item {
 
         width: parent.width
         height: parent.height * 0.75
-        color: Themes.selectedTheme.colors.primaryDark
+        color: Themes.selectedTheme.colors.primary
         radius: 15
         anchors.top: allItems.bottom
         anchors.topMargin: parent.height * 0.02
@@ -187,6 +186,8 @@ Item {
 
             header: headerComponent
 
+            signal indexChanged(var index1)
+
             model: ingredientModel
             delegate: IngredientSectionDelegate {
                 id: delegateIngredient
@@ -195,15 +196,21 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    enabled: detailsList.count === 1
+                    propagateComposedEvents: true
                     onClicked: {
                         trialRect.currentIndex = index
-                        weighingScale.itemName = ingredientModel.itemName
-                        weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
+                        if(detailsList.count === 1) {
+                            weighingScale.itemName = ingredientModel.itemName
+                            weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
+                        } else {
+                            detailsList.currentIndex = 0
+                        }
+
+                        trialRect.indexChanged(index)
+                        mouse.accepted = false
                     }
                 }
             }
-
         }
     }
 
@@ -228,7 +235,7 @@ Item {
                 text: "Ingredient"
                 width: parent.width * 0.3
                 verticalAlignment: Text.AlignVCenter
-                color: Themes.selectedTheme.colors.primary
+                color: Themes.selectedTheme.colors.primaryDark
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
                 fontSizeMode: Text.Fit
                 elide: Text.Left
@@ -240,7 +247,7 @@ Item {
                 height: parent.height
                 verticalAlignment: Text.AlignVCenter
                 text: "Processing"
-                color: Themes.selectedTheme.colors.primary
+                color: Themes.selectedTheme.colors.primaryDark
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
                 elide: Text.Left
             }
@@ -251,7 +258,7 @@ Item {
                 height: parent.height
                 verticalAlignment: Text.AlignVCenter
                 text: "Weight"
-                color: Themes.selectedTheme.colors.primary
+                color: Themes.selectedTheme.colors.primaryDark
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
                 elide: Text.Left
             }
@@ -262,7 +269,7 @@ Item {
                 height: parent.height
                 verticalAlignment: Text.AlignVCenter
                 text: "Options"
-                color: Themes.selectedTheme.colors.primary
+                color: Themes.selectedTheme.colors.primaryDark
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
                 elide: Text.Left
             }

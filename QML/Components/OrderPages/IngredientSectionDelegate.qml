@@ -7,17 +7,20 @@ Item {
     id: sectionDelegate1
 
     readonly property alias detailsList: details
+    property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+
     Column {
+        id: columnIngredient
         width: parent.width
         height: parent.height
-        spacing: 10 // TODO: remove the magic numbers
+        spacing: parent.width * 0.01
         anchors.centerIn: parent
 
         Rectangle{
             id: title
             height: Interface.orderView.rowHeight
             width: parent.width
-            color:  !model.ingredientPacked ? Themes.selectedTheme.colors.primary : Themes.selectedTheme.colors.appGrey
+            color: delegateIngredient.ListView.isCurrentItem  ? "white" : !model.ingredientPacked ? Themes.selectedTheme.colors.primaryDark : Themes.selectedTheme.colors.appBlack
             enabled: details.count === 1 ? !model.ingredientPacked : true
 
             Row {
@@ -38,7 +41,7 @@ Item {
                     text: index + 1 + ")"
                     width: parent.width * 0.03
                     verticalAlignment: Text.AlignVCenter
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall
                     fontSizeMode: Text.Fit
                 }
@@ -49,7 +52,7 @@ Item {
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientSlipName
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                     wrapMode: Text.WordWrap
                 }
@@ -61,7 +64,7 @@ Item {
                     visible: details.count === 1
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientProcess
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 }
 
@@ -72,7 +75,7 @@ Item {
                     visible: details.count === 1
                     verticalAlignment: Text.AlignVCenter
                     text: quantity + " " + ingredientWeight
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 }
 
@@ -86,10 +89,9 @@ Item {
                     color: Themes.selectedTheme.colors.appWhite
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 }
-
-
             }
         }
+
 
         AppListView {
             id: details
@@ -100,18 +102,34 @@ Item {
 
             model: ingredientList
             delegate: IngredientsDelegate {
-                id: delegateIngredient
+                id: delegateIngredientInternal
+                property variant myData: model
                 height: details.count > 1 ? Interface.orderView.rowHeight : 10
 
                 MouseArea{
                     anchors.fill: parent
-
                     onClicked: {
+                        details.currentIndex = index
                         weighingScale.ingredientName = ingredientName
                         weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
                     }
                 }
+            }
 
+            Component.onCompleted: details.currentIndex = -1
+        }
+
+        Connections {
+            target: trialRect
+            onIndexChanged:{
+                if(index1 !== index)
+                    detailsList.currentIndex = -1
+                else if(index1 === index) {
+                    if(details.count > 1) {
+                        weighingScale.ingredientName =  details.currentItem.myData.ingredientName
+                        weighingScale.weighItem( details.currentItem.myData.ingredientDetailId,  details.currentItem.myData.ingredientName,  details.currentItem.myData.quantity,  details.currentItem.myData.ingredientWeight)
+                    }
+                }
             }
         }
     }

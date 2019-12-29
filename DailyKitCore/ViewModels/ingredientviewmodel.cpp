@@ -116,10 +116,6 @@ void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetai
         for(int j = 0; j < m_detailsModel[i]->ingredientList().count(); ++j)
         {
             if(isElementFound == 1) {
-                //                WeighingScaleModel::weighScaleInstance()->weighItem(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId,
-                //                                                                    m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientName, m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientQuantity
-                //                                                                    ,m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientMeasure);
-                //                isElementFound = 2;
                 break;
             }
             if(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId == indgredientDetailsId) {

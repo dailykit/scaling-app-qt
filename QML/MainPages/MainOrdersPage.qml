@@ -25,7 +25,7 @@ Item {
         anchors{
 
             top: parent.top
-            topMargin: 40
+            topMargin: parent.width * 0.029
         }
     }
 
@@ -50,8 +50,8 @@ Item {
         spacing: parent.width * 0.03
 
         anchors{
-            top: parent.top
-            topMargin: parent.height * 0.08
+            top: idTopMargin.bottom
+            topMargin: parent.height * 0.02
             left: idleftMargin.right
             leftMargin: parent.width * 0.03
         }

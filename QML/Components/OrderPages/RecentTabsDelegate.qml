@@ -9,6 +9,8 @@ Item {
 
     readonly property alias closeTab: closeTab
     readonly property alias showOrder: showOrder
+
+    property color textColor: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Row {
         id: allOrders
         anchors.top: parent.top
@@ -22,7 +24,7 @@ Item {
 
             width: parent.width * 0.2
             height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
+            color: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
             Text {
                 id: crossOneText
@@ -30,7 +32,7 @@ Item {
                 width: parent.width
 
                 text: qsTr("x")
-                color: Themes.selectedTheme.colors.appWhite
+                color: textColor
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Interface.fontSize.textSizeSmall
@@ -48,7 +50,7 @@ Item {
 
             width: parent.width * 0.5
             height: Interface.orderView.rowHeight
-            color: Themes.selectedTheme.colors.primaryDark
+            color: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
             Text {
                 id: orderIdText
@@ -56,7 +58,7 @@ Item {
                 width: parent.width
                 text: model.orderId
                 elide: Text.ElideLeft
-                color: Themes.selectedTheme.colors.appWhite
+                color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: Interface.fontSize.textSizeSmall

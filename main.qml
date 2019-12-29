@@ -54,5 +54,4 @@ Window {
             PropertyAction { property: "y"; value: popEnter.ViewTransition.item.pos }
         }
     }
-
 }
