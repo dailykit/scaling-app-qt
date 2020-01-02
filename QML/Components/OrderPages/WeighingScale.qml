@@ -1,4 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.11
+import QtQuick.Controls 2.5
+import QtQuick.Window 2.11
 import "../../ApplicationCore/Style"
 
 Item {
@@ -53,9 +55,9 @@ Item {
             width: parent.width
             height: parent.height * 0.3
             color: weighingScale.weightRange === 2 ? Themes.selectedTheme.colors.cardViewRed
-                                                                          : weighingScale.weightRange === 1
-                                                                                ? Themes.selectedTheme.colors.cardViewGreen
-                                                                                : Themes.selectedTheme.colors.cardViewYellow
+                                                   : weighingScale.weightRange === 1
+                                                     ? Themes.selectedTheme.colors.cardViewGreen
+                                                     : Themes.selectedTheme.colors.cardViewYellow
 
             Rectangle {
                 id: imageRectangleWeight
@@ -165,12 +167,45 @@ Item {
             }
         }
 
+        Rectangle {
+            width: parent.width * 0.08
+            height: parent.height * 0.1
+            color: "transparent"
+        }
+
+        Rectangle {
+            id: manualRect
+            width: parent.width * 0.1
+            height: parent.height * 0.1
+            color: Themes.selectedTheme.colors.appWhite
+            visible: settingsModel.manualEntry
+
+            TextInput {
+                id: manualText
+                width: parent.width * 0.5
+                height: parent.height
+                font.pointSize: Interface.fontSize.textSizeSmall * 0.6
+                color: Themes.selectedTheme.colors.extremeBlack
+                anchors.fill: parent
+                inputMethodHints: Qt.ImhDigitsOnly
+
+                validator: DoubleValidator{
+                            }
+            }
+        }
+        Rectangle {
+            width: parent.width * 0.08
+            height: parent.height * 0.1
+            color: "transparent"
+        }
+
         Rectangle{
             id: idSimulator
             width: parent.width * 0.15
             height: parent.height * 0.15
 
             color: Themes.selectedTheme.colors.primaryDark
+            visible: settingsModel.simulator
 
             Text {
                 id: simulatorText
@@ -183,7 +218,13 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
+                    weighingScale.weightAccuracy(settingsModel.weightAccuracy)
+                    if(settingsModel.manualEntry) {
+                         weighingScale.calculateActualWeight(manualText.text)
+                    }
+                    else {
+                        weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
+                    }
                 }
             }
         }

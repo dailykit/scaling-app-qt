@@ -16,9 +16,9 @@ class WeighingScaleModel : public QObject
     Q_PROPERTY(QString weight READ weight WRITE setWeight NOTIFY weightChanged)
     Q_PROPERTY(float calculatedQuantity READ calculatedQuantity WRITE setCalculatedQuantity NOTIFY calculatedQuantityChanged)
     Q_PROPERTY(QString ingredientStatus READ ingredientStatus WRITE setIngredientStatus NOTIFY ingredientStatusChanged)
+    Q_PROPERTY(QString scaleStatus READ scaleStatus WRITE setScaleStatus NOTIFY scaleStatusChanged)
+
 public:
-
-
     enum IngredientWeight {
         UnderWeight = 0,
         WeightInRange,
@@ -47,6 +47,9 @@ public:
     QString ingredientStatus();
     void setIngredientStatus(QString status);
 
+    QString scaleStatus() const;
+    void setScaleStatus(QString status);
+
     Q_INVOKABLE float ingredientQuantity() const;
 
     static WeighingScaleModel *weighScaleInstance();
@@ -61,13 +64,15 @@ signals:
     void weightChanged();
     void weightRangeChanged();
     void ingredientStatusChanged();
+    void scaleStatusChanged();
 
 public slots:
     Q_INVOKABLE void calculateActualWeight(float quantity);
     Q_INVOKABLE void weighItem(QString ingredientId, QString ingredientName, float quantity, QString weight);
-
+    Q_INVOKABLE void weightAccuracy(float accuracy);
 private slots:
     void ingredientPacked();
+    void checkIfIngredientInWeightRange(float quantity);
 private:
     explicit WeighingScaleModel(QObject *parent = nullptr);
 
@@ -77,9 +82,14 @@ private:
     QString m_ingredientId;
     QString m_ingredientWeight;
     QString m_ingredientStatus;
+    QString m_scaleStatus;
     float m_ingredientCalculatedWeight;
     float m_ingredientQuantity;
+    float m_weighAccuracyRange;
     IngredientWeight m_weightRange;
+
+    static const QString WEIGHINGSTATUS[];
+    static const QString SCALESTATUS[];
 
     static WeighingScaleModel * m_weighingScaleModel;
 

@@ -214,6 +214,15 @@ Item {
         }
     }
 
+    Connections {
+        target: ingredientModel
+
+        onItemIndexChanged: {
+            trialRect.currentIndex = itemIndex
+        }
+    }
+
+
     Component {
         id: headerComponent
 

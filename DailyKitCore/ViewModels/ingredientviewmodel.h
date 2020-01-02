@@ -64,6 +64,8 @@ private slots:
 signals:
    void orderNumberChanged();
    void itemNameChanged();
+   void itemIndexChanged(int itemIndex);
+   void ingredientIndexChanged(int ingredientIndex);
 
 private:
    void selectNextIngredientToPack();

@@ -30,7 +30,7 @@ Rectangle {
             Text {
                 id: totalIngredients
                 text: ingredientPackedCount + " / " + ingredientProcessCount
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 height: parent.height
                 width: parent.width * 0.2
                 color: Themes.selectedTheme.colors.appWhite
@@ -50,7 +50,7 @@ Rectangle {
             Text {
                 id: weight
                 text: ingredientWeight + " gm"
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 height: parent.height * 0.7
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
@@ -61,7 +61,7 @@ Rectangle {
             Text {
                 id: next
                 text: nextIcon
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 height: parent.height * 0.7
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite

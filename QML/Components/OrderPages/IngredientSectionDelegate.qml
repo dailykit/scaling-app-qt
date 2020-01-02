@@ -9,6 +9,14 @@ Item {
     readonly property alias detailsList: details
     property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
 
+    Connections {
+        target: ingredientModel
+
+        onIngredientIndexChanged: {
+            if(delegateIngredient.ListView.isCurrentItem)
+            details.currentIndex = ingredientIndex
+        }
+    }
     Column {
         id: columnIngredient
         width: parent.width

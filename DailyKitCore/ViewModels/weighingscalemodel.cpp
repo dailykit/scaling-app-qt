@@ -4,14 +4,30 @@
 
 WeighingScaleModel* WeighingScaleModel::m_weighingScaleModel = nullptr;
 
+const QString WeighingScaleModel::WEIGHINGSTATUS[] = {
+    "Start Weighing",
+    "Status: Low",
+    "Status: High",
+    "Printing Label",
+    "Status: Packed"
+};
+
+const QString WeighingScaleModel::SCALESTATUS[] = {
+    "Ready",
+    "Add",
+    "Reduce"
+};
+
 WeighingScaleModel::WeighingScaleModel(QObject *parent) :
     QObject(parent),
     m_ingredientName("No Ingredient Selected"),
     m_itemName("No Item Selected"),
     m_orderId("No Order Selected"),
-    m_ingredientStatus("Start Weighing"),
+    m_ingredientStatus(WEIGHINGSTATUS[0]),
+    m_scaleStatus(SCALESTATUS[0]),
     m_ingredientCalculatedWeight(0),
     m_ingredientQuantity(0),
+    m_weighAccuracyRange(0),
     m_weightRange(UnderWeight),
     m_ingredientPackedTimer(new QTimer(this))
 {
@@ -103,6 +119,17 @@ void WeighingScaleModel::setIngredientStatus(QString status)
     emit ingredientStatusChanged();
 }
 
+QString WeighingScaleModel::scaleStatus() const
+{
+    return m_scaleStatus;
+}
+
+void WeighingScaleModel::setScaleStatus(QString status)
+{
+    m_scaleStatus  = status;
+    emit scaleStatusChanged();
+}
+
 float WeighingScaleModel::ingredientQuantity() const
 {
     return m_ingredientQuantity;
@@ -118,11 +145,9 @@ WeighingScaleModel *WeighingScaleModel::weighScaleInstance()
 
 void WeighingScaleModel::calculateActualWeight(float quantity)
 {
-
-    setCalculatedQuantity(quantity);
-    setWeightRange(WeightInRange);
-    m_ingredientPackedTimer->start();
-
+    setWeightRange(UnderWeight);
+    setCalculatedQuantity(abs(quantity));
+    checkIfIngredientInWeightRange(quantity);
 }
 
 void WeighingScaleModel::weighItem(QString ingredientId, QString ingredientName, float quantity, QString weight)
@@ -132,18 +157,41 @@ void WeighingScaleModel::weighItem(QString ingredientId, QString ingredientName,
     setIngredientName(ingredientName);
     setCalculatedQuantity(0);
     setWeight(weight);
-    setIngredientStatus("Start Weighing");
+    setIngredientStatus(WEIGHINGSTATUS[0]);
     setWeightRange(UnderWeight);
     m_ingredientId = ingredientId;
     m_ingredientQuantity = quantity ;
 }
 
+void WeighingScaleModel::weightAccuracy(float accuracy)
+{
+    m_weighAccuracyRange = accuracy;
+}
+
 void WeighingScaleModel::ingredientPacked()
 {
-
     qDebug() << "timer set" << m_ingredientId;
     DbProxy::dbInstance()->setIngredientAsPacked(m_ingredientId);
-    setIngredientStatus("Packed");
+    setIngredientStatus(WEIGHINGSTATUS[4]);
+}
+
+void WeighingScaleModel::checkIfIngredientInWeightRange(float quantity)
+{
+    if(abs(ingredientQuantity() - quantity) >= 0 && abs(ingredientQuantity() - quantity) <= m_weighAccuracyRange) {
+        setIngredientStatus(WEIGHINGSTATUS[3]);
+        setWeightRange(WeightInRange);
+        setScaleStatus(SCALESTATUS[0]);
+        m_ingredientPackedTimer->start();
+    } else if(quantity > ingredientQuantity()) {
+        setIngredientStatus(WEIGHINGSTATUS[2]);
+        QString state = SCALESTATUS[2] +  " " + QString::number(abs(ingredientQuantity() - quantity)) + " " + weight();
+        setScaleStatus(state);
+        setWeightRange(OverWeight);
+    } else {
+        QString state = SCALESTATUS[1] +  " " + QString::number(abs(ingredientQuantity() - quantity)) + " " + weight();
+        setIngredientStatus(WEIGHINGSTATUS[1]);
+        setScaleStatus(state);
+    }
 
 }
 

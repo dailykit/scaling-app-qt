@@ -153,13 +153,14 @@ Item {
             header: headerComponent
 
             delegate: PlanViewItemDelegate {
-                id: delegateIngredient
+                id: planItemDelegate
                 height: Interface.orderView.rowHeight * 1.4
                 width: parent.width
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        trialRect.currentIndex = index
                         weighingScale.itemName = itemName
                         weighingScale.orderId = orderId
                         weighingScale.weighItem(ingredientDetailId, planningItems.ingredientName, ingredientWeight, "gm")

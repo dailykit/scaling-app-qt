@@ -7,6 +7,8 @@ Item {
     id: sectionDelegate1
 
     readonly property alias detailsList: details
+
+  //  property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Column {
         width: parent.width
         height: parent.height
@@ -38,7 +40,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientName
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall
+                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                     wrapMode: Text.WordWrap
                 }
 
@@ -49,7 +51,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientTotalWeight + " " + "gm"
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall
+                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 }
 
             }
@@ -65,12 +67,13 @@ Item {
 
             model: processList
             delegate: ProcessPlanDelegate {
-                id: delegateIngredient
+                id: delegateIngredientProcess
 
                 MouseArea{
                     anchors.fill: parent
 
                     onClicked: {
+                        details.currentIndex = index
                         planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
                         loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
 

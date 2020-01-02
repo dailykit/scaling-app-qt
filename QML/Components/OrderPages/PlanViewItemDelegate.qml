@@ -4,8 +4,9 @@ import "../../ComponentsCore/Views"
 import "../../Components/OrderPages"
 
 Item {
-    id: sectionDelegate1
+    id: root
 
+    property color textColor: planItemDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Column {
         width: parent.width * 0.98
         height: parent.height
@@ -13,11 +14,12 @@ Item {
         anchors.centerIn: parent
 
 
+
         Rectangle{
             id: title
             height: Interface.orderView.rowHeight * 1.2
             width: parent.width
-            color: Themes.selectedTheme.colors.primary
+            color: planItemDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.appBlack
 
             Row {
                 id: ingredientsRow
@@ -37,7 +39,7 @@ Item {
                     text: index + 1 + ")"
                     width: parent.width * 0.03
                     verticalAlignment: Text.AlignVCenter
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall
                     fontSizeMode: Text.Fit
                 }
@@ -48,7 +50,7 @@ Item {
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: itemName
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                     elide: Text.ElideRight
                 }
@@ -59,7 +61,7 @@ Item {
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: orderId
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                     elide: Text.ElideRight
                 }
@@ -70,7 +72,7 @@ Item {
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientWeight + " " + "gm"
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                 }
 
@@ -80,7 +82,7 @@ Item {
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: backIcon
-                    color: Themes.selectedTheme.colors.appWhite
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
                 }
             }

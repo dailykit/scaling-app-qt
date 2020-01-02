@@ -102,7 +102,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
 void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetailsId)
 {
 
-    beginResetModel();
+
     int isElementFound = 0;
     for(int i = 0; i < m_ingredientsList.count(); ++i) {
         if(isElementFound == 1 || isElementFound == 2) {
@@ -121,15 +121,17 @@ void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetai
             if(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId == indgredientDetailsId) {
                 m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_isIngredientPacked = 1;
                 isElementFound = 1;
+
             }
         }
         if(m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_ingredientDetailId == indgredientDetailsId) {
             m_ingredientsList[i]->ingredientDetails()->IngredientDetails::m_isIngredientPacked = 1;
+            QModelIndex model = createIndex(i, 0);
 
+            emit dataChanged(model, model);
         }
 
     }
-    endResetModel();
 }
 
 void IngredientViewModel::selectNextIngredientToPack()
@@ -138,23 +140,24 @@ void IngredientViewModel::selectNextIngredientToPack()
     for(int i = 0; i < m_ingredientsList.count(); ++i) {
         for(int j = 0; j < m_detailsModel[i]->ingredientList().count(); ++j)
         {
-            qDebug() << "ingredient" << j;
             if(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_isIngredientPacked == 0) {
                 WeighingScaleModel::weighScaleInstance()->weighItem(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientDetailId,
                                                                     m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientName, m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientQuantity
                                                                     ,m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientMeasure);
                 isElementFound = 1;
-                break;
 
+                emit itemIndexChanged(i);
+                if(m_detailsModel.count() > 1)
+                emit ingredientIndexChanged(j);
+                break;
             }
         }
         if(isElementFound == 1) {
             break;
         }
-
     }
-
 }
+
 
 QVariant IngredientViewModel::data(const QModelIndex &index, int role) const
 {
