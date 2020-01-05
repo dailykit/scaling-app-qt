@@ -17,5 +17,21 @@ QtObject{
     readonly property string settings: imagesPath + "settings.svg";
     readonly property string printer: imagesPath + "print.svg";
 
+    readonly property string tear: "\ue900"
+    readonly property string menu: "\ue903"
+    readonly property string timer: "\ue904"
+   // readonly property string profile: "\ue905"
+   // readonly property string inventory: "\ue906"
+  //  readonly property string planning: "\ue907"
+    readonly property string serving: "\ue908"
+    readonly property string weigh: "\ue909"
+    readonly property string label: "\ue90a"
+    readonly property string repack: "\ue90b"
+    readonly property string close: "\ue90c?"
+
+    readonly property FontLoader iconfont: FontLoader {
+        id: icons
+        source: "qrc:/QML/Default/fonts/icomoon.ttf"
+    }
 
 }

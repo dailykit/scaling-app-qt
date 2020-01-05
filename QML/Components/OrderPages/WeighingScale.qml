@@ -71,12 +71,15 @@ Item {
                     top: parent.top
                     topMargin: parent.height * 0.04
                 }
-                Image {
+                Text {
                     id: weight
 
                     height: parent.height
                     width: parent.width
-                    source: Images.weight
+                    text: Images.weigh
+                    font.family: Images.iconfont.name
+                    font.pixelSize: Interface.fontSize.textSizeLarge * 0.9
+                    color: Themes.selectedTheme.colors.appWhite
                     anchors.centerIn: parent
                 }
             }
@@ -119,7 +122,7 @@ Item {
                     top: imageRectangleWeight.bottom
                     topMargin: parent.height * 0.1
                 }
-                text:  qsTr("Ready")
+                text:  weighingScale.scaleStatus
                 font.pixelSize: idStateText.height * 0.09
                 color: Themes.selectedTheme.colors.appWhite
             }
@@ -189,7 +192,8 @@ Item {
                 anchors.fill: parent
                 inputMethodHints: Qt.ImhDigitsOnly
 
-                validator: DoubleValidator{
+                validator: DoubleValidator
+                {
                             }
             }
         }
