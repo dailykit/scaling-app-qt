@@ -23,23 +23,17 @@ Item {
             width: Interface.orderView.rowWidth * 0.8
             spacing: Interface.orderView.ingredientRowSpacing * 0.7
 
-            Rectangle {
-                id: imageRectangle
 
+            Text {
+                id: menu
+                width: parent.width * 0.08
                 height: parent.height
-                width: parent.width * 0.15
-                color: "transparent"
-
-                Image {
-                    id: user
-
-                    height: parent.height * 0.8
-                    width: parent.width * 0.4
-                    source: Images.orderImage
-                    anchors.centerIn: parent
-                }
+                verticalAlignment: Text.AlignVCenter
+                text: Images.label
+                color: Themes.selectedTheme.colors.primaryDark
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
             }
-
 
             Text {
                 id: order

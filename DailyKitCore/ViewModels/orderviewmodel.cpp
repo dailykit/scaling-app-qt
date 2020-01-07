@@ -10,15 +10,9 @@ const QString OrderViewModel::OrderViewQuery = "SELECT  itemDetails.itemOrderId,
 
 OrderViewModel::OrderViewModel(QObject *parent) :
     QAbstractListModel(parent),
-    m_recordCount(0),
-    dataPage(new RetrieveWebAppData)
-{
+    m_recordCount(0)
 
-    if(dataPage) {
-        dataPage->getOrderList();
-        connect(dataPage, &RetrieveWebAppData::webDataChanged, this, &OrderViewModel::setQuery);
-    }
-    // setQuery();
+{   
 }
 
 
@@ -36,40 +30,14 @@ int OrderViewModel::rowCount(const QModelIndex &parent) const
 
 }
 
-void OrderViewModel::setQuery()
+void OrderViewModel::onOrderDetailsReceived(QList<ItemDetailsPtr> itemDetails)
 {
-    QSqlQuery query;
-
-    if(query.exec(OrderViewQuery)) {
-        qDebug()<<"sql statement exicuted fine" <<query.next();
-
-    }
-    else {
-        qDebug() <<"Errors accured with sql statement";
-        qDebug() <<query.lastError();
-    }
-    if(query.next()) {
-    m_itemDetails.clear();
-
-        beginResetModel();
-        while (query.next()){
-
-            ItemDetailsPtr ptr(new ItemDetails());
-            ptr->setItemOrderId(query.value(0).toString());
-            ptr->setOrderId(query.value(1).toString());
-            ptr->setRecipeName(query.value(2).toString());
-            ptr->setRecipeServings(query.value(3).toString());
-            ptr->setIngredientCount(query.value(4).toInt());
-            ptr->setPackedIngredients(query.value(5).toInt());
-            ptr->setOrderNumber(query.value(6).toInt());
-
-            m_itemDetails.append(ptr);
-
-        }
-        endResetModel();
-    }
+    beginResetModel();
+            m_itemDetails = itemDetails;
+   endResetModel();
 
 }
+
 
 
 QHash<int, QByteArray> OrderViewModel::roleNames() const
@@ -80,8 +48,6 @@ QHash<int, QByteArray> OrderViewModel::roleNames() const
     roles.insert(OrderId, "orderId");
     roles.insert(ItemName, "itemName");
     roles.insert(ItemServing, "itemServing");
-    roles.insert(UserIcon, "userIcon");
-    roles.insert(RightArrow, "arrow");
     roles.insert(IngredientCount, "ingredientCount");
     roles.insert(PackedIngredientCount, "packedCount");
     roles.insert(OrderNumber, "orderNumber");
@@ -106,10 +72,6 @@ QVariant OrderViewModel::data(const QModelIndex &index, int role) const
         return m_itemDetails[index.row()]->recipeName();
     case ItemServing:
         return m_itemDetails[index.row()]->recipeServings();
-    case UserIcon:
-        return QString::fromUtf8("\u1F464"); // TODo remove this code
-    case RightArrow:
-        return QString::fromUtf8("\u3009");
     case IngredientCount:
         return m_itemDetails[index.row()]->ingredientCount();
     case PackedIngredientCount:

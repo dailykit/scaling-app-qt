@@ -10,7 +10,7 @@ Item {
     readonly property alias closeTab: closeTab
     readonly property alias showOrder: showOrder
 
-    property color textColor: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+    property color textColor: currentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Row {
         id: allOrders
         anchors.top: parent.top
@@ -24,7 +24,7 @@ Item {
 
             width: parent.width * 0.2
             height: Interface.orderView.rowHeight
-            color: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
+            color: currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
             Text {
                 id: crossOneText
@@ -41,22 +41,20 @@ Item {
                 id: closeTab
                 anchors.fill: parent
             }
-
         }
-
 
         RoundedRectangle{
             id: orderIdBack
 
             width: parent.width * 0.5
             height: Interface.orderView.rowHeight
-            color: recentDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
+            color: currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
             Text {
                 id: orderIdText
                 height: parent.height
                 width: parent.width
-                text: model.orderId
+                text: model.orderNumber
                 elide: Text.ElideLeft
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter

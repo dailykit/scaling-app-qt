@@ -8,6 +8,8 @@
 #include <QVariant>
 #include <QDebug>
 #include <QObject>
+#include "../Models/itemdetails.h"
+#include "DailyKitCore/External/WebServices/retrievewebappdata.h"
 
 class DbProxy : public QObject
 {
@@ -20,15 +22,24 @@ public:
 
     void setIngredientAsPacked(const QString &ingredientId);
     void openDatabase();
+    void getOrders();
 
     static DbProxy *dbInstance();
 
+public slots:
+   void currentOrdersReceived();
+
+signals:
+    void orderDetailsChanged(QList<ItemDetailsPtr> details);
+
 private:
     static const QString UPDATEINGREDIENTPACKED ;
+    static const QString ORDERVIEWQUERY;
     DbProxy(QObject *parent = nullptr);
 
     QString m_ingredientDetailUpdated;
-   static DbProxy *m_databaseProxy;
+    static DbProxy *m_databaseProxy;
+    RetrieveWebAppData *m_dataPage;
 
 };
 

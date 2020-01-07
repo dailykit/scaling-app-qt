@@ -6,13 +6,20 @@ import "../../ComponentsCore/Buttons"
 Column {
     id: root
 
-    spacing: parent.width * 0.09
+    spacing: parent.width * 0.099
     width: parent.width
     height: parent.height
 
     readonly property alias settings: settings
     readonly property alias inventory: inventory
     readonly property alias planning: planning
+    Rectangle{
+        id: blank
+        color: "transparent"
+        width: parent.width
+        height: Interface.options.iconSize
+
+    }
 
     Text {
         id: quickControlsText
@@ -35,7 +42,9 @@ Column {
 
         icon.width: Interface.options.iconSize
         icon.height: Interface.options.iconSize
-        icon.source: Images.inventory
+        icon.text: Images.inventory
+        icon.color: Themes.selectedTheme.colors.appWhite
+        icon.font.pixelSize: Interface.options.iconSize * 0.9
 
         text.text: qsTr("Inventory")
         text.color: Themes.selectedTheme.colors.appWhite
@@ -55,7 +64,9 @@ Column {
 
         icon.width: Interface.options.iconSize
         icon.height: Interface.options.iconSize
-        icon.source: Images.planning
+        icon.text: Images.planning
+        icon.color: Themes.selectedTheme.colors.appWhite
+        icon.font.pixelSize: Interface.options.iconSize
 
         text.text: qsTr("Planning")
         text.color: Themes.selectedTheme.colors.appWhite
@@ -70,12 +81,12 @@ Column {
         states: [
             State {
                 name: "planning"
-                PropertyChanges { target: planning; icon.source: Images.planning
+                PropertyChanges { target: planning; icon.text: Images.planning
                     text.text: qsTr("Planning")}
             },
             State {
                 name: "real"
-                PropertyChanges { target: planning; icon.source: Images.inventory
+                PropertyChanges { target: planning; icon.text: Images.inventory
                     text.text: qsTr("Real time")
                 }
             }
@@ -91,7 +102,9 @@ Column {
 
         icon.width: Interface.options.iconSize
         icon.height: Interface.options.iconSize
-        icon.source: Images.settings
+        icon.text: Images.serving
+        icon.color: Themes.selectedTheme.colors.appWhite
+        icon.font.pixelSize: Interface.options.iconSize * 0.9
 
         text.text: qsTr("Settings")
         text.color: Themes.selectedTheme.colors.appWhite

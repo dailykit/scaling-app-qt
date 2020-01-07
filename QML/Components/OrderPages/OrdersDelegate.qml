@@ -42,20 +42,16 @@ RoundedRectangle {
                 verticalAlignment: Text.AlignVCenter
             }
 
-            Rectangle {
-                id: imageRectangle
+            Text {
+                id: profile
 
+                text: Images.profile
+                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15
-                color: "transparent"
-                Image {
-                    id: user
-
-                    height: parent.height * 0.8
-                    width: parent.width * 0.4
-                    source: Images.profile
-                    anchors.centerIn: parent
-                }
+                color: Themes.selectedTheme.colors.appWhite
+                fontSizeMode:  Text.Fit
+                verticalAlignment: Text.AlignVCenter
             }
 
             Text {
@@ -68,7 +64,6 @@ RoundedRectangle {
                 color: Themes.selectedTheme.colors.appWhite
                 fontSizeMode:  Text.Fit
                 verticalAlignment: Text.AlignVCenter
-
             }
 
             Text {
@@ -86,12 +81,11 @@ RoundedRectangle {
             Text {
                 id: arrowIcon
 
-                text: arrow
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
-                height: parent.height * 0.7
+                text: Images.rightArrow
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
             }

@@ -13,7 +13,7 @@
 #include <QJSEngine>
 
 #include "../Models/itemdetails.h"
-#include "DailyKitCore/External/WebServices/retrievewebappdata.h"
+
 
 class OrderViewModel : public QAbstractListModel
 {
@@ -24,8 +24,6 @@ class OrderViewModel : public QAbstractListModel
         OrderId,
         ItemName,
         ItemServing,
-        UserIcon,
-        RightArrow,
         IngredientCount,
         PackedIngredientCount,
         OrderNumber
@@ -42,13 +40,12 @@ public:
 
 public slots:
 
-    void setQuery();
+    void onOrderDetailsReceived(QList<ItemDetailsPtr>);
 
 private:
 
     int m_recordCount;
     static const QString OrderViewQuery;
-    RetrieveWebAppData *dataPage;
     QList<ItemDetailsPtr> m_itemDetails;
 };
 

@@ -117,5 +117,5 @@ Item {
         }
     }
 
-    Component.onCompleted: orderModel.setQuery()
+    Component.onCompleted: mainModel.getOrders()
 }

@@ -5,7 +5,7 @@
 #include <QQmlContext>
 #include "DailyKitCore/External/WebServices/retrievewebappdata.h"
 #include "DailyKitCore/DatabaseModels/dbmanager.h"
-#include "DailyKitCore/ViewModels/orderviewmodel.h"
+#include "DailyKitCore/ViewModels/mainviewmodel.h"
 #include "DailyKitCore/ViewModels/ingredientviewmodel.h"
 #include "DailyKitCore/ViewModels/weighingscalemodel.h"
 #include "DailyKitCore/ViewModels/recenttabsmodel.h"
@@ -29,7 +29,9 @@ int main(int argc, char *argv[])
     DBManager::connectToDatabase();
     //DbProxy::dbInstance();
 
-    OrderViewModel *m_model = new OrderViewModel();
+
+
+    MainViewModel *m_model = new MainViewModel();
 
     IngredientViewModel* m_ingredient = new IngredientViewModel();
     RecentTabsModel *m_recentTabs = new RecentTabsModel();
@@ -40,7 +42,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty("orderModel", m_model);
+    engine.rootContext()->setContextProperty("mainModel", m_model);
+    engine.rootContext()->setContextProperty("orderModel", m_model->getOrdersModel());
     engine.rootContext()->setContextProperty("ingredientModel", m_ingredient);
     engine.rootContext()->setContextProperty("recentTabs", m_recentTabs);
     engine.rootContext()->setContextProperty("itemsModel", m_itemsModel);

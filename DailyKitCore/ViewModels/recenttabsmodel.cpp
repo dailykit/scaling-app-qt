@@ -31,9 +31,13 @@ QVariant RecentTabsModel::data(const QModelIndex &index, int role) const
 
     switch (role) {
     case OrderId:
+        return m_recentOrderList[index.row()]->m_orderId;
+    case OrderNumber:
         return m_recentOrderList[index.row()]->m_orderNumber;
     case ItemOrderId:
         return m_recentOrderList[index.row()]->m_itemOrderId;
+    case IsCurrentItem:
+        return m_recentOrderList[index.row()]->m_itemOrderId == m_currentItem;
     default:
         return QVariant();
 
@@ -45,12 +49,14 @@ QHash<int, QByteArray> RecentTabsModel::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles.insert(ItemOrderId, "itemOrderId");
+    roles.insert(OrderNumber, "orderNumber");
     roles.insert(OrderId, "orderId");
+    roles.insert(IsCurrentItem, "currentItem");
 
     return roles;
 }
 
-void RecentTabsModel::addRecentItem(QString orderNumber, QString itemOrderId)
+void RecentTabsModel::addRecentItem(QString orderNumber, QString itemOrderId, QString orderId)
 {
     int isItemPresent = searchRecentItem(orderNumber);
     if( isItemPresent == -1) {
@@ -58,11 +64,14 @@ void RecentTabsModel::addRecentItem(QString orderNumber, QString itemOrderId)
         RecentOrderPtr recent (new RecentOrder);
         recent->m_orderNumber = orderNumber;
         recent->m_itemOrderId = itemOrderId;
+        recent->m_orderId = orderId;
         m_recentOrderList.append(recent);
         endResetModel();
     } else {
         m_recentOrderList[isItemPresent]->m_itemOrderId = itemOrderId;
     }
+    setCurrentItem(itemOrderId);
+
 }
 
 void RecentTabsModel::removeRecentItem(int recentIndex)
@@ -71,6 +80,13 @@ void RecentTabsModel::removeRecentItem(int recentIndex)
     m_recentOrderList.removeAt(recentIndex);
     endResetModel();
 
+}
+
+void RecentTabsModel::setCurrentItem(QString itemId)
+{
+    beginResetModel();
+    m_currentItem = itemId;
+    endResetModel();
 }
 
 int RecentTabsModel::searchRecentItem(QString orderId) const

@@ -1,4 +1,8 @@
 #ifndef RECENTTABSMODEL_H
+/***************************************************************************
+ * Class is responsible for handling the recent tabs that were opened by the user
+ ***************************************************************************/
+
 #define RECENTTABSMODEL_H
 
 #include <QObject>
@@ -8,6 +12,7 @@
 struct RecentOrder{
     QString m_itemOrderId;
     QString m_orderNumber;
+    QString m_orderId;
     RecentOrder()
     {
     }
@@ -24,8 +29,10 @@ class RecentTabsModel : public QAbstractListModel
 public:
 
     enum Roles{
+        OrderNumber,
+        ItemOrderId,
         OrderId,
-        ItemOrderId
+        IsCurrentItem
     };
 
     RecentTabsModel(QObject *parent = nullptr);
@@ -35,14 +42,15 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void addRecentItem(QString orderNumber, QString itemOrderId);
+    Q_INVOKABLE void addRecentItem(QString orderNumber, QString itemOrderId, QString orderId);
     Q_INVOKABLE void removeRecentItem(int index);
+    Q_INVOKABLE void setCurrentItem(QString itemId);
 
 
 private:
 
     QList<RecentOrderPtr> m_recentOrderList;
-
+     QString m_currentItem;
    int searchRecentItem(QString orderId) const;
 };
 

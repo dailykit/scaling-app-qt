@@ -24,6 +24,7 @@ SOURCES += \
         DailyKitCore/ViewModels/ingredientprocessmodel.cpp \
         DailyKitCore/ViewModels/ingredientviewmodel.cpp \
         DailyKitCore/ViewModels/itemviewmodel.cpp \
+        DailyKitCore/ViewModels/mainviewmodel.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
         DailyKitCore/ViewModels/planviewitemmodel.cpp \
@@ -66,6 +67,7 @@ HEADERS += \
     DailyKitCore/ViewModels/ingredientprocessmodel.h \
     DailyKitCore/ViewModels/ingredientviewmodel.h \
     DailyKitCore/ViewModels/itemviewmodel.h \
+    DailyKitCore/ViewModels/mainviewmodel.h \
     DailyKitCore/ViewModels/orderviewmodel.h \
     DailyKitCore/External/WebServices/retrievewebappdata.h \
     DailyKitCore/ViewModels/planviewitemmodel.h \

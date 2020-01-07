@@ -10,9 +10,9 @@ Rectangle{
     readonly property alias text: text
     readonly property alias mouseArea: mouseArea
     color: "transparent"
-    Image{
+    Text{
         id: icon
-
+        horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
     }
 

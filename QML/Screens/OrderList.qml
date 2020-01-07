@@ -42,6 +42,8 @@ Item{
 
             width: parent.width * 0.8
             height: Interface.orderView.rowHeight
+
+            list.model: recentTabs
         }
     }
 
@@ -73,7 +75,7 @@ Item{
                         weighingScale.orderId = model.orderId
                         weighingScale.itemName = model.itemName
                         loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                        recentTabs.addRecentItem(model.orderNumber, model.itemOrderId)
+                        recentTabs.addRecentItem(model.orderNumber, model.itemOrderId, model.orderId)
                         itemsModel.setCurrentItem(model.itemOrderId)
                         itemsModel.setQuery(model.orderId)
                         ingredientModel.itemName = model.itemName

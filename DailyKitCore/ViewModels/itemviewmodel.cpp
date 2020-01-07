@@ -2,7 +2,7 @@
 
 const QString ItemViewModel::ItemViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName"
                                              ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
-                                            ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
+                                             ", (SELECT SUM(I2.isPackedComplete) FROM ingredients I2 WHERE I2.ingredientItemId = itemDetails.itemOrderId) as turnover "
                                              " FROM itemDetails WHERE itemDetails.orderId = ? " ;
 
 
@@ -77,30 +77,30 @@ void ItemViewModel::setQuery(QString orderId)
     query.prepare(ItemViewQuery);
     query.addBindValue(orderId);
     if(query.exec()) {
-        qDebug()<<"sql statement exicuted fine items";
+        qDebug()<<"sql statement exicuted fine items" << orderId << query.size();
+
+        m_itemDetails.clear();
+        beginResetModel();
+        while (query.next()){
+            qDebug() << "query next";
+            ItemDetailsPtr ptr(new ItemDetails());
+
+            ptr->setItemOrderId(query.value(0).toString());
+            ptr->setOrderId(query.value(1).toString());
+            ptr->setRecipeName(query.value(2).toString());
+            ptr->setIngredientCount(query.value(3).toInt());
+            ptr->setPackedIngredients(query.value(4).toInt());
+            ptr->setOrderId(orderId);
+
+            m_itemDetails.append(ptr);
+
+        }
+        endResetModel();
     }
     else{
         qDebug() <<"Errors accured with sql statement";
         qDebug() <<query.lastError();
     }
-
-    m_itemDetails.clear();
-    beginResetModel();
-    while (query.next()){
-
-        ItemDetailsPtr ptr(new ItemDetails());
-
-        ptr->setItemOrderId(query.value(0).toString());
-        ptr->setOrderId(query.value(1).toString());
-        ptr->setRecipeName(query.value(2).toString());
-        ptr->setIngredientCount(query.value(3).toInt());
-        ptr->setPackedIngredients(query.value(4).toInt());
-        ptr->setOrderId(orderId);
-
-        m_itemDetails.append(ptr);
-
-    }
-    endResetModel();
 
 }
 

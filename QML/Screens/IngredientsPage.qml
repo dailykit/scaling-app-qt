@@ -59,6 +59,7 @@ Item {
 
                 onClicked: {
                     loader.source = Qt.resolvedUrl("OrderList.qml")
+                    recentTabs.setCurrentItem(-1)
                 }
             }
 
@@ -69,6 +70,7 @@ Item {
 
             width: parent.width * 0.8
             height: Interface.orderView.rowHeight
+            list.model: recentTabs
         }
     }
 
