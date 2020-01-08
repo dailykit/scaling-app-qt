@@ -27,7 +27,7 @@ QtObject{
     readonly property QtObject fontSize: QtObject {
         readonly property real textSizeExtraSmall: screenWidth * (16 / 9) * 0.005
         readonly property real textSizeSmall: screenWidth * (16 / 9) * 0.007
-        readonly property real textSizeMedium: screenWidth * (16 / 9) * 0.0286
+        readonly property real textSizeMedium: screenWidth * (16 / 9) * 0.01
         readonly property real textSizeLarge: tscale(45)
     }
 
@@ -45,5 +45,10 @@ QtObject{
         readonly property real iconSize: screenWidth * 0.018
         readonly property real spacing: screenWidth * 0.007
     }
+
+    readonly property QtObject logo: QtObject {
+       readonly property real iconSize: screenWidth * 0.02
+
+   }
 
 }

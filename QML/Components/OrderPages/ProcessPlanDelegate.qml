@@ -1,9 +1,9 @@
 import QtQuick 2.0
 import "../../ApplicationCore/Style"
 
-Rectangle {
+Item {
     id: root
-    color: Themes.selectedTheme.colors.extremeBlack
+
     height: Interface.orderView.rowHeight
     width: parent.width
 
@@ -40,7 +40,7 @@ Rectangle {
             Text {
                 id: process
                 text: ingredientProcess
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
                 height: parent.height
                 width: parent.width * 0.4
                 color: Themes.selectedTheme.colors.appWhite
@@ -51,7 +51,7 @@ Rectangle {
                 id: weight
                 text: ingredientWeight + " gm"
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
-                height: parent.height * 0.7
+                height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
                 fontSizeMode:  Text.Fit
@@ -60,16 +60,14 @@ Rectangle {
 
             Text {
                 id: next
-                text: nextIcon
+                text: Images.rightArrow
                 font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
-                height: parent.height * 0.7
+                height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
                 verticalAlignment: Text.AlignVCenter
+                font.bold: true
             }
-
-
         }
     }
 }

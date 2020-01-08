@@ -17,7 +17,7 @@ Column {
         id: blank
         color: "transparent"
         width: parent.width
-        height: Interface.options.iconSize
+        height: Interface.options.iconSize * 0.5
 
     }
 
@@ -86,7 +86,7 @@ Column {
             },
             State {
                 name: "real"
-                PropertyChanges { target: planning; icon.text: Images.inventory
+                PropertyChanges { target: planning; icon.text: Images.realTime
                     text.text: qsTr("Real time")
                 }
             }
@@ -102,7 +102,7 @@ Column {
 
         icon.width: Interface.options.iconSize
         icon.height: Interface.options.iconSize
-        icon.text: Images.serving
+        icon.text: Images.settings
         icon.color: Themes.selectedTheme.colors.appWhite
         icon.font.pixelSize: Interface.options.iconSize * 0.9
 

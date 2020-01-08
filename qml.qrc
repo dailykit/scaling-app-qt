@@ -34,5 +34,6 @@
         <file>QML/Components/OrderPages/ProcessPlanDelegate.qml</file>
         <file>QML/Screens/PlanViewItemList.qml</file>
         <file>QML/Components/OrderPages/PlanViewItemDelegate.qml</file>
+        <file>QML/MainPages/TopBar.qml</file>
     </qresource>
 </RCC>

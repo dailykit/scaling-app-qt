@@ -28,9 +28,6 @@ QVariant PlanViewModel::data(const QModelIndex &index, int role) const
         return m_planningViewList[index.row()]->ingredientTotalWeight();
     case IngredientProcessList:
         return QVariant::fromValue(m_processListModel[index.row()]);
-    case NextIcon:
-        return QString::fromUtf8("\u3009");
-
     default:
         return QVariant();
     }
@@ -44,7 +41,6 @@ QHash<int, QByteArray> PlanViewModel::roleNames() const
     roles.insert(IngredientName, "ingredientName");
     roles.insert(IngredientQuantity, "ingredientTotalWeight");
     roles.insert(IngredientProcessList, "processList");
-    roles.insert(NextIcon, "nextIcon");
 
     return roles;
 

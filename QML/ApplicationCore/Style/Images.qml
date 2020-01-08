@@ -14,7 +14,7 @@ QtObject{
     readonly property string orderImage: imagesPath + "order_id.svg";
    // readonly property string inventory: imagesPath + "inventory.svg";
    // readonly property string planning: imagesPath + "planning.svg";
-    readonly property string settings: imagesPath + "settings.svg";
+   // readonly property string settings: imagesPath + "settings.svg";
     readonly property string printer: imagesPath + "print.svg";
 
     readonly property string tear: "\ue900"
@@ -29,7 +29,10 @@ QtObject{
     readonly property string weigh: "\ue909"
     readonly property string label: "\ue90a"
     readonly property string repack: "\ue90b"
-    readonly property string close: "\ue90c?"
+    readonly property string close: "\ue90c"
+    readonly property string order: "\ue90d"
+    readonly property string realTime: "\ue90e"
+    readonly property string settings: "\ue90f"
 
     readonly property FontLoader iconfont: FontLoader {
         id: icons

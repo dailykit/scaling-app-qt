@@ -17,8 +17,7 @@ class PlanViewModel : public QAbstractListModel
         IngredientId,
         IngredientName,
         IngredientQuantity,
-        IngredientProcessList,
-        NextIcon
+        IngredientProcessList
     };
 
 public:

@@ -20,7 +20,7 @@ Item{
         model: planModel
         delegate: PlanningDelegate {
             id: delegateIngredient
-            height: Interface.orderView.rowHeight + detailsList.height + 20
+            height: Interface.orderView.rowHeight + detailsList.height
             width: parent.width
 
         }

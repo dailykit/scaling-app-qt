@@ -2,18 +2,17 @@ import QtQuick 2.0
 import "../../ApplicationCore/Style"
 import "../../ComponentsCore/Views"
 import "../../Components/OrderPages"
+import "../../ComponentsCore/Shapes"
 
 Item {
     id: sectionDelegate1
 
     readonly property alias detailsList: details
 
-  //  property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+    //  property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Column {
         width: parent.width
         height: parent.height
-        spacing: 10 // TODO: remove the magic numbers
-
 
         Rectangle {
             id: title
@@ -57,26 +56,36 @@ Item {
             }
         }
 
-        AppListView {
-            id: details
+        RoundedRectangle {
+            id: externalRect
 
-            width: parent.width
             height: Interface.orderView.rowHeight * details.count
+            width: parent.width
+            color: Themes.selectedTheme.colors.primary
 
-            interactive : false
+            radius: 5
 
-            model: processList
-            delegate: ProcessPlanDelegate {
-                id: delegateIngredientProcess
+            AppListView {
+                id: details
 
-                MouseArea{
-                    anchors.fill: parent
+                width: parent.width
+                height: parent.height
 
-                    onClicked: {
-                        details.currentIndex = index
-                        planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
-                        loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
+                interactive : false
 
+                model: processList
+                delegate: ProcessPlanDelegate {
+                    id: delegateIngredientProcess
+
+                    MouseArea{
+                        anchors.fill: parent
+
+                        onClicked: {
+                            details.currentIndex = index
+                            planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
+                            loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
+
+                        }
                     }
                 }
             }

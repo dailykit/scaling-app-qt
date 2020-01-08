@@ -140,18 +140,21 @@ Item {
                 id: imageRectanglePrint
 
                 height: parent.height
-                width: parent.width * 0.15
+                width: parent.width * 0.08
                 color: "transparent"
                 anchors{
                     left: parent.left
                     leftMargin: parent.width * 0.02
                 }
-                Image {
+                Text {
                     id: printer
 
                     height: parent.height * 0.6
-                    width: parent.width * 0.4
-                    source: Images.printer
+                    width: parent.width
+                    text: Images.label
+                    font.pixelSize: Interface.fontSize.textSizeMedium
+                    color: Themes.selectedTheme.colors.appWhite
+                    verticalAlignment: Text.AlignVCenter
                     anchors.centerIn: parent
                 }
             }
@@ -160,7 +163,7 @@ Item {
                 id: idWeightStateText
                 anchors{
                     left: imageRectanglePrint.right
-                    leftMargin: parent.width * 0.02
+                    leftMargin: parent.width * 0.012
                     top: parent.top
                     topMargin: parent.height * 0.3
                 }

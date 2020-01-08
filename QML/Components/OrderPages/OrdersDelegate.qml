@@ -45,7 +45,7 @@ RoundedRectangle {
             Text {
                 id: profile
 
-                text: Images.profile
+                text: Images.serving
                 font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15

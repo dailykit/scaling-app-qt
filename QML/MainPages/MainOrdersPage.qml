@@ -16,17 +16,23 @@ Item {
     property alias loader: orderLoader
     property alias weighScale: idWeightDetails
 
+    TopBar {
+        id: topBar
+
+        height: parent.width * 0.029
+        width: parent.width
+        anchors.top: parent.top
+        anchors.topMargin: parent.width * 0.008
+        anchors.left: parent.left
+        anchors.leftMargin:  parent.width * 0.02
+    }
 
     Rectangle {
         id: idTopMargin
         height: 2
         width: parent.width
         color: "grey"
-        anchors{
-
-            top: parent.top
-            topMargin: parent.width * 0.029
-        }
+        anchors.top: topBar.bottom
     }
 
     Rectangle {
