@@ -35,5 +35,6 @@
         <file>QML/Screens/PlanViewItemList.qml</file>
         <file>QML/Components/OrderPages/PlanViewItemDelegate.qml</file>
         <file>QML/MainPages/TopBar.qml</file>
+        <file>QML/MainPages/LoginPage.qml</file>
     </qresource>
 </RCC>

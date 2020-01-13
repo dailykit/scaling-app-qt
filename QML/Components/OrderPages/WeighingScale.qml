@@ -197,7 +197,7 @@ Item {
 
                 validator: DoubleValidator
                 {
-                            }
+                }
             }
         }
         Rectangle {
@@ -206,7 +206,7 @@ Item {
             color: "transparent"
         }
 
-        Rectangle{
+        Rectangle {
             id: idSimulator
             width: parent.width * 0.15
             height: parent.height * 0.15
@@ -227,7 +227,7 @@ Item {
                 onClicked: {
                     weighingScale.weightAccuracy(settingsModel.weightAccuracy)
                     if(settingsModel.manualEntry) {
-                         weighingScale.calculateActualWeight(manualText.text)
+                        weighingScale.calculateActualWeight(manualText.text)
                     }
                     else {
                         weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())

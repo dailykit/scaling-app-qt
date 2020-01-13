@@ -17,5 +17,6 @@
         <file>QML/Default/timer.svg</file>
         <file>QML/Default/up.svg</file>
         <file>QML/Default/weight.svg</file>
+        <file>QML/Default/logo.svg</file>
     </qresource>
 </RCC>

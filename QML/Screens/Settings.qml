@@ -229,7 +229,7 @@ Item {
             }
         }
 
-        Button{
+        Button {
             id: saveButton
             width: parent.width * 0.08
             height: parent.height * 0.05
