@@ -36,5 +36,10 @@
         <file>QML/Components/OrderPages/PlanViewItemDelegate.qml</file>
         <file>QML/MainPages/TopBar.qml</file>
         <file>QML/MainPages/LoginPage.qml</file>
+        <file>QML/Components/OrderPages/OrderOptions.qml</file>
+        <file>QML/ComponentsCore/Views/DialogView.qml</file>
+        <file>QML/Components/OptionPages/ReprintDialog.qml</file>
+        <file>QML/Components/OptionPages/DeleteIngredientDialog.qml</file>
+        <file>QML/Components/OptionPages/RepackDialog.qml</file>
     </qresource>
 </RCC>

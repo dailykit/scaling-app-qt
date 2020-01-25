@@ -64,13 +64,15 @@ Item {
                 width: parent.height * 0.8
                 color: "transparent"
 
-                Image {
+                Text {
                     id: user
 
                     height: parent.height * 0.75
                     width: parent.width * 0.75
-                    anchors.centerIn: parent
-                    source: Images.profile //TODO: change the image to person after getting the correct one
+                    text: Images.serving
+                    verticalAlignment: Text.AlignVCenter
+                    color: textColor
+                    font.pixelSize: Interface.fontSize.textSizeSmall
                 }
             }
         }

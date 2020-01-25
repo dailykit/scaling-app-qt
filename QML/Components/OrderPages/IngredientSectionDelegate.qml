@@ -2,19 +2,20 @@ import QtQuick 2.0
 import "../../ApplicationCore/Style"
 import "../../ComponentsCore/Views"
 import "../../Components/OrderPages"
-
+import "../../Components/OptionPages"
 Item {
     id: sectionDelegate1
 
     readonly property alias detailsList: details
     property color textColor: delegateIngredient.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+    property bool optionsVisible: false
 
     Connections {
         target: ingredientModel
 
         onIngredientIndexChanged: {
             if(delegateIngredient.ListView.isCurrentItem)
-            details.currentIndex = ingredientIndex
+                details.currentIndex = ingredientIndex
         }
     }
     Column {
@@ -80,7 +81,7 @@ Item {
                     id: weight
                     width: parent.width * 0.25
                     height: parent.height
-                    visible: details.count === 1
+                    visible: details.count === 1 && !optionsVisible
                     verticalAlignment: Text.AlignVCenter
                     text: quantity + " " + ingredientWeight
                     color: textColor
@@ -91,12 +92,71 @@ Item {
                     id: optionsIcon
                     width: parent.width * 0.2
                     height: parent.height
-                    visible: details.count === 1
                     verticalAlignment: Text.AlignVCenter
-                    text: backIcon
-                    color: Themes.selectedTheme.colors.appWhite
+                    text: Images.leftArrow
+                    color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    visible: !optionsVisible
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onClicked: {
+                            optionsVisible = true
+
+                        }
+                    }
                 }
+            }
+
+            OrderOptions {
+                id: optionsPage
+                height: parent.height
+                width: parent.width * 0.45
+                visible: optionsVisible
+
+                anchors{
+                    right: parent.right
+                    rightMargin: parent.width * 0.03
+                    top: parent.top
+                    topMargin: parent.width * 0.015
+                }
+
+                textColor: textColor
+
+                collapse.onClicked: {
+                    optionsVisible = false
+                }
+
+                reprint.onClicked: {
+                    var component = Qt.createComponent("../../Components/OptionPages/ReprintDialog.qml")
+                    if(component.status === Component.Ready) {
+                        var dialog = component.createObject(sectionDelegate1)
+                        dialog.open()
+                    } else
+                        console.error(component.errorString())
+                }
+
+                repack.onClicked: {
+                    var component = Qt.createComponent("../../Components/OptionPages/RepackDialog.qml")
+                    if(component.status === Component.Ready) {
+                        var dialog = component.createObject(sectionDelegate1)
+                        dialog.open()
+                    } else
+                        console.error(component.errorString())
+                }
+
+                deleteIngredient.onClicked: {
+
+                    var component = Qt.createComponent("../../Components/OptionPages/DeleteIngredientDialog.qml")
+                    if(component.status === Component.Ready) {
+                        var dialog = component.createObject(sectionDelegate1)
+                        dialog.open()
+                    } else
+                        console.error(component.errorString())
+
+                }
+
             }
         }
 
