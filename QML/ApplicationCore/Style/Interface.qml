@@ -44,6 +44,9 @@ QtObject{
      readonly property QtObject options: QtObject {
         readonly property real iconSize: screenWidth * 0.018
         readonly property real spacing: screenWidth * 0.007
+        readonly property real dialogWidth: screenWidth *  0.3
+        readonly property real dialogHeight: screenHeight * 0.09
+        readonly property real columnWidth: screenWidth * 0.02
     }
 
     readonly property QtObject logo: QtObject {

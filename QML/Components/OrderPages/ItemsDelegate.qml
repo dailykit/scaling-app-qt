@@ -61,7 +61,7 @@ Item {
                 id: imageRectangle
 
                 height: parent.height
-                width: parent.height * 0.8
+                width: parent.height
                 color: "transparent"
 
                 Text {

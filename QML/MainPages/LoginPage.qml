@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import "../ApplicationCore/Style"
+import "../ComponentsCore/Shapes"
 
 Rectangle {
 
@@ -54,8 +55,8 @@ Rectangle {
             width: parent.width * 0.95
             height: parent.height * 0.08
             color: "transparent"
-            border.width: 1
-            border.color: Themes.selectedTheme.colors.primaryDark
+          //  border.width: 1
+            //border.color: Themes.selectedTheme.colors.primaryDark
 
             TextInput {
                 id: nameInput
@@ -67,6 +68,13 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 color: Themes.selectedTheme.colors.extremeBlack
 
+            }
+
+            HorizontalLine {
+
+                width: parent.width
+                color: Themes.selectedTheme.colors.appGrey
+                anchors.bottom: parent.bottom
             }
 
         }
@@ -89,8 +97,6 @@ Rectangle {
             width: parent.width * 0.95
             height: parent.height * 0.08
             color: "transparent"
-            border.width: 1
-            border.color: Themes.selectedTheme.colors.primaryDark
 
             TextInput {
                 id: passInput
@@ -126,6 +132,14 @@ Rectangle {
                     }
                 }
             }
+
+            HorizontalLine {
+
+                width: parent.width
+                color: Themes.selectedTheme.colors.appGrey
+                anchors.bottom: parent.bottom
+            }
+
         }
 
 
@@ -136,7 +150,7 @@ Rectangle {
 
             background: Rectangle {
                 implicitWidth: parent.width * 0.08
-                implicitHeight: parent.height * 0.05
+                implicitHeight: parent.height * 0.06
                 color: loginButton.down ? Themes.selectedTheme.colors.appGrey :Themes.selectedTheme.colors.primaryDark
                 border.color: "#26282a"
                 border.width: 1

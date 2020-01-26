@@ -66,26 +66,35 @@ Item {
                     wrapMode: Text.WordWrap
                 }
 
-                Text {
-                    id: process
+                Rectangle {
                     width: parent.width * 0.25
                     height: parent.height
-                    visible: details.count === 1
-                    verticalAlignment: Text.AlignVCenter
-                    text: ingredientProcess
-                    color: textColor
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    color: "transparent"
+                    Text {
+                        id: process
+                        width: parent.width
+                        height: parent.height
+                        visible: details.count === 1
+                        verticalAlignment: Text.AlignVCenter
+                        text: ingredientProcess
+                        color: textColor
+                        font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    }
                 }
-
-                Text {
-                    id: weight
+                Rectangle {
                     width: parent.width * 0.25
                     height: parent.height
-                    visible: details.count === 1 && !optionsVisible
-                    verticalAlignment: Text.AlignVCenter
-                    text: quantity + " " + ingredientWeight
-                    color: textColor
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    color: "transparent"
+                    Text {
+                        id: weight
+                        width: parent.width * 0.25
+                        height: parent.height
+                        visible: details.count === 1 && !optionsVisible
+                        verticalAlignment: Text.AlignVCenter
+                        text: quantity.toFixed(2) + " " + ingredientWeight
+                        color: textColor
+                        font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    }
                 }
 
                 Text {
@@ -147,16 +156,13 @@ Item {
                 }
 
                 deleteIngredient.onClicked: {
-
                     var component = Qt.createComponent("../../Components/OptionPages/DeleteIngredientDialog.qml")
                     if(component.status === Component.Ready) {
                         var dialog = component.createObject(sectionDelegate1)
                         dialog.open()
                     } else
                         console.error(component.errorString())
-
                 }
-
             }
         }
 

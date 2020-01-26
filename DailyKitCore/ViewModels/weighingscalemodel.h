@@ -79,7 +79,7 @@ private:
     QString m_ingredientName;
     QString m_itemName;
     QString m_orderId;
-    QString m_ingredientId;
+    QString m_ingredientDetailId;
     QString m_ingredientWeight;
     QString m_ingredientStatus;
     QString m_scaleStatus;

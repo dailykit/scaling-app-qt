@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.4
+import "../../ApplicationCore/Style"
 
 Dialog {
     id: dialog
@@ -9,71 +10,68 @@ Dialog {
     property string titleText
     property alias yesButton: yesMouseArea
     property alias noButton: noMouseArea
-    // standardButtons: Dialog.Yes | Dialog.No
+
     modal: true
     anchors.centerIn: Overlay.overlay
     background: Rectangle {
-        implicitWidth: 400
+        implicitWidth: Interface.options.dialogWidth
         implicitHeight: dialog.height
-        color: "grey"
+        color: Themes.selectedTheme.colors.primaryDark
     }
 
     contentItem : Column {
-        spacing: 10
+        spacing: Interface.options.spacing
         Text {
             id: titleT
             text: titleText
-            width: 30
-            height: 30
-            color: "white"
-            font.pixelSize: 12
+            width: Interface.options.columnWidth
+            height: Interface.options.columnWidth
+            color: Themes.selectedTheme.colors.appWhite
+            font.pixelSize: Interface.fontSize.textSizeSmall
         }
 
         Label {
             text: labelText
-            font.pixelSize: 14
+            font.pixelSize: Interface.fontSize.textSizeSmall
+            color: Themes.selectedTheme.colors.appGrey
         }
 
         Row {
-            spacing: 10
+            spacing: Interface.options.spacing
             Rectangle {
                 id: blank
-                width: 300
-                height: 30
+                width: Interface.options.dialogWidth * 0.8
+                height: Interface.options.columnWidth
                 color: "transparent"
             }
 
             Text {
                 id: yesButton
                 text: qsTr("Yes")
-                width: 30
-                height: 30
+                width: Interface.options.columnWidth + 10
+                height: Interface.options.columnWidth
                 color: "white"
-                font.pixelSize: 12
+                font.pixelSize: Interface.fontSize.textSizeSmall
 
                 MouseArea {
                     id: yesMouseArea
                     anchors.fill: parent
                 }
-
             }
 
             Text {
                 id: noButton
                 text: qsTr("No")
-                width: 30
-                height: 30
+                width: Interface.options.columnWidth + 10
+                height: Interface.options.columnWidth
                 color: "white"
-                font.pixelSize: 12
+                font.pixelSize: Interface.fontSize.textSizeSmall
 
                 MouseArea {
                     id: noMouseArea
                     anchors.fill: parent
                 }
             }
-
         }
-
     }
-
 }

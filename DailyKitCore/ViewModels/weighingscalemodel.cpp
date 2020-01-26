@@ -150,16 +150,16 @@ void WeighingScaleModel::calculateActualWeight(float quantity)
     checkIfIngredientInWeightRange(quantity);
 }
 
-void WeighingScaleModel::weighItem(QString ingredientId, QString ingredientName, float quantity, QString weight)
+void WeighingScaleModel::weighItem(QString ingredientDetailID, QString ingredientName, float quantity, QString weight)
 {
-    qDebug() << "Weighing" << weight << ingredientId;
+    qDebug() << "Weighing" << weight << ingredientDetailID;
    // setOrderId(orderId);
     setIngredientName(ingredientName);
     setCalculatedQuantity(0);
     setWeight(weight);
     setIngredientStatus(WEIGHINGSTATUS[0]);
     setWeightRange(UnderWeight);
-    m_ingredientId = ingredientId;
+    m_ingredientDetailId = ingredientDetailID;
     m_ingredientQuantity = quantity ;
 }
 
@@ -170,8 +170,8 @@ void WeighingScaleModel::weightAccuracy(float accuracy)
 
 void WeighingScaleModel::ingredientPacked()
 {
-    qDebug() << "timer set" << m_ingredientId;
-    DbProxy::dbInstance()->setIngredientAsPacked(m_ingredientId);
+    qDebug() << "timer set" << m_ingredientDetailId;
+    DbProxy::dbInstance()->setIngredientAsPacked(m_ingredientDetailId);
     setIngredientStatus(WEIGHINGSTATUS[4]);
 }
 

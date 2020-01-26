@@ -38,7 +38,7 @@ Rectangle {
 
         Text {
             id: weight
-            text: quantity + " " +ingredientWeight
+            text: quantity.toFixed(2) + " " +ingredientWeight
             font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
             height: parent.height * 0.7
             width: parent.width * 0.15
