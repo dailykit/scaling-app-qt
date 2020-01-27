@@ -142,6 +142,7 @@ Item {
                     if(component.status === Component.Ready) {
                         var dialog = component.createObject(sectionDelegate1)
                         dialog.open()
+                        optionsVisible = false
                     } else
                         console.error(component.errorString())
                 }
@@ -151,6 +152,7 @@ Item {
                     if(component.status === Component.Ready) {
                         var dialog = component.createObject(sectionDelegate1)
                         dialog.open()
+                        optionsVisible = false
                     } else
                         console.error(component.errorString())
                 }
@@ -158,8 +160,9 @@ Item {
                 deleteIngredient.onClicked: {
                     var component = Qt.createComponent("../../Components/OptionPages/DeleteIngredientDialog.qml")
                     if(component.status === Component.Ready) {
-                        var dialog = component.createObject(sectionDelegate1)
+                        var dialog = component.createObject(sectionDelegate1, {ingredientId: ingredientId})
                         dialog.open()
+                        optionsVisible = false
                     } else
                         console.error(component.errorString())
                 }

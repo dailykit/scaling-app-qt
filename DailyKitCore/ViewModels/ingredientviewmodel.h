@@ -60,6 +60,7 @@ public slots:
 
 private slots:
    void updateIngredientDetail(const QString &indgredientDetailsId);
+   void onIngredientDeleted(const QString ingredientId);
 
 signals:
    void orderNumberChanged();

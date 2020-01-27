@@ -13,6 +13,7 @@ IngredientViewModel::IngredientViewModel(QObject *parent)
       dataPage(new RetrieveWebAppData)
 {
     connect(DbProxy::dbInstance(), &DbProxy::ingredientPackedChanged, this, &IngredientViewModel::updateIngredientDetail);
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientDeleted, this, &IngredientViewModel::onIngredientDeleted);
 }
 
 IngredientViewModel::~IngredientViewModel()
@@ -78,6 +79,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
                     details->IngredientDetails::m_ingredientMeasure = query1.value(3).toString();
                     details->IngredientDetails::m_ingredientProcess =  query1.value(4).toString();
                     details->IngredientDetails::m_isIngredientPacked = query1.value(5).toInt();
+                    details->IngredientDetails::m_ingredientId = query.value(0).toString();
                     ptr->setIngredientDetail(details);
                     model->setIngredientDetails(details);
                 }
@@ -130,6 +132,25 @@ void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetai
     }
 }
 
+void IngredientViewModel::onIngredientDeleted(const QString ingredientId)
+{
+    for(int i = 0; i < m_ingredientsList.count(); ++i) {
+        for(int j = 0; j < m_detailsModel[i]->ingredientList().count(); ++j)
+        {
+            if(m_detailsModel[i]->ingredientList()[j]->IngredientDetails::m_ingredientId == ingredientId) {
+                m_detailsModel.removeAt(j);
+            }
+        }
+
+        if(m_ingredientsList[i]->ingredientId() == ingredientId) {
+            m_ingredientsList.removeAt(i);
+            QModelIndex modelStart = createIndex(i, 0);
+            QModelIndex modelEnd = createIndex(m_ingredientsList.count(), 0);
+            emit dataChanged(modelStart, modelEnd);
+        }
+    }
+}
+
 void IngredientViewModel::selectNextIngredientToPack()
 {
     int isElementFound = 0;
@@ -144,7 +165,7 @@ void IngredientViewModel::selectNextIngredientToPack()
 
                 emit itemIndexChanged(i);
                 if(m_detailsModel.count() > 1)
-                emit ingredientIndexChanged(j);
+                    emit ingredientIndexChanged(j);
                 break;
             }
         }

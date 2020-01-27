@@ -45,8 +45,31 @@ void DbProxy::getOrders()
     m_dataPage->getOrderList();
 }
 
+void DbProxy::deleteIngredient(const QString ingredientId)
+{
+    QSqlQuery deleteIngredientDetailsQuery;
+
+    deleteIngredientDetailsQuery.prepare("DELETE FROM ingredientDetails WHERE ingredientId = ?");
+    deleteIngredientDetailsQuery.addBindValue(ingredientId);
+    if (deleteIngredientDetailsQuery.exec()) {
+        QSqlQuery deleteIngredientsQuery;
+        deleteIngredientsQuery.prepare("DELETE FROM ingredients WHERE ingredientId = ?");
+        deleteIngredientsQuery.addBindValue(ingredientId);
+        if(deleteIngredientsQuery.exec()) {
+            qDebug() << "Ingredient deleted";
+            emit ingredientDeleted(ingredientId);
+        }
+        else {
+            qDebug() << deleteIngredientsQuery.lastError() << ingredientId;
+        }
+    } else {
+       qDebug() <<deleteIngredientDetailsQuery.lastError() << ingredientId;
+    }
+}
+
 void DbProxy::currentOrdersReceived()
-{ QSqlQuery query;
+{
+    QSqlQuery query;
 
     if(query.exec(ORDERVIEWQUERY)) {
         QList<ItemDetailsPtr> itemDetails;

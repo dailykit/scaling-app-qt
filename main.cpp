@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("planModel", m_plan);
     engine.rootContext()->setContextProperty("planningItems", m_planningItems);
 
+
     engine.rootContext()->setContextProperty("weighingScale", WeighingScaleModel::weighScaleInstance());
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

@@ -23,6 +23,7 @@ public:
     void setIngredientAsPacked(const QString &ingredientId);
     void openDatabase();
     void getOrders();
+    void deleteIngredient(const QString ingredientId);
 
     static DbProxy *dbInstance();
 
@@ -31,6 +32,7 @@ public slots:
 
 signals:
     void orderDetailsChanged(QList<ItemDetailsPtr> details);
+    void ingredientDeleted(const QString ingredientId);
 
 private:
     static const QString UPDATEINGREDIENTPACKED ;
