@@ -51,7 +51,7 @@ Item {
             color: currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
             Text {
-                id: orderIdText
+                id: recentText
                 height: parent.height
                 width: parent.width
                 text: model.orderNumber

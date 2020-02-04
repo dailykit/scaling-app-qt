@@ -4,7 +4,8 @@ MainViewModel::MainViewModel(QObject *parent) :
     QObject(parent),
     m_databaseProxy(DbProxy::dbInstance()),
     m_orderModel(new OrderViewModel()),
-    m_ingredientsManipulation(new ManipulateIngredients())
+    m_ingredientsManipulation(new ManipulateIngredients()),
+    m_recentPlanView(new RecentTabsPlanView)
 
 {
     connect(m_databaseProxy, &DbProxy::orderDetailsChanged, m_orderModel, &OrderViewModel::onOrderDetailsReceived);
@@ -31,4 +32,16 @@ ManipulateIngredients* MainViewModel::manipulateIngredients()
         m_ingredientsManipulation = new ManipulateIngredients();
         return m_ingredientsManipulation;
     }
+}
+
+RecentTabsPlanView *MainViewModel::recentIngredients()
+{
+    if(m_recentPlanView != nullptr) {
+        return m_recentPlanView;
+    }
+    else  {
+        m_recentPlanView = new RecentTabsPlanView();
+        return m_recentPlanView;
+    }
+
 }

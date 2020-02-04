@@ -1,6 +1,7 @@
 #ifndef RECENTTABSMODEL_H
 /***************************************************************************
  * Class is responsible for handling the recent tabs that were opened by the user
+ * in the real time
  ***************************************************************************/
 
 #define RECENTTABSMODEL_H

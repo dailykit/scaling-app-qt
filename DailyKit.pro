@@ -31,6 +31,7 @@ SOURCES += \
         DailyKitCore/ViewModels/planviewitemmodel.cpp \
         DailyKitCore/ViewModels/planviewmodel.cpp \
         DailyKitCore/ViewModels/recenttabsmodel.cpp \
+        DailyKitCore/ViewModels/recenttabsplanview.cpp \
         DailyKitCore/ViewModels/settingsmodel.cpp \
         DailyKitCore/ViewModels/weighingscalemodel.cpp \
         main.cpp
@@ -75,6 +76,7 @@ HEADERS += \
     DailyKitCore/ViewModels/planviewitemmodel.h \
     DailyKitCore/ViewModels/planviewmodel.h \
     DailyKitCore/ViewModels/recenttabsmodel.h \
+    DailyKitCore/ViewModels/recenttabsplanview.h \
     DailyKitCore/ViewModels/settingsmodel.h \
     DailyKitCore/ViewModels/weighingscalemodel.h \
 
