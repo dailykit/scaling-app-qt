@@ -77,13 +77,22 @@ Item {
                 }
 
                 Text {
-                    id: back
-                    width: parent.width * 0.15
+                    id: optionsIcon
+                    width: parent.width * 0.2
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
-                    text: backIcon
+                    text: Images.leftArrow
                     color: textColor
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.98
+                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+               //     visible: !optionsVisible
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onClicked: {
+
+                        }
+                    }
                 }
             }
         }

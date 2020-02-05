@@ -70,7 +70,6 @@ Item {
 
             width: parent.width * 0.8
             height: Interface.orderView.rowHeight
-            list.model: recentTabs
         }
     }
 

@@ -43,7 +43,7 @@ Item {
                 text: section
                 color: Themes.selectedTheme.colors.extremeBlack
                 font.pixelSize: Interface.fontSize.textSizeSmall
-                fontSizeMode:  Text.Fit
+                fontSizeMode: Text.Fit
             }
         }
     }

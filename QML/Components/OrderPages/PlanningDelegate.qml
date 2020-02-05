@@ -39,8 +39,8 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientName
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
-                    wrapMode: Text.WordWrap
+                    font.pixelSize: Interface.fontSize.textSizeSmall
+                    fontSizeMode: Text.Fit
                 }
 
                 Text {
@@ -50,7 +50,8 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientTotalWeight + " " + "gm"
                     color: Themes.selectedTheme.colors.extremeBlack
-                    font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+                    font.pixelSize: Interface.fontSize.textSizeSmall
+                    fontSizeMode: Text.Fit
                 }
 
             }
@@ -84,6 +85,7 @@ Item {
                             details.currentIndex = index
                             planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
                             loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
+                            mainModel.recentIngredients.addRecentItem(ingredientName, ingredientProcess, ingredientTotalWeight)
 
                         }
                     }

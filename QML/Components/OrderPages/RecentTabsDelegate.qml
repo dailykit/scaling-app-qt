@@ -9,6 +9,7 @@ Item {
 
     readonly property alias closeTab: closeTab
     readonly property alias showOrder: showOrder
+    property string recentData
 
     property color textColor: currentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     Row {
@@ -54,8 +55,8 @@ Item {
                 id: recentText
                 height: parent.height
                 width: parent.width
-                text: model.orderNumber
-                elide: Text.ElideLeft
+                text: recentData
+                elide: Text.ElideRight
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

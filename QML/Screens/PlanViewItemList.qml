@@ -42,7 +42,7 @@ Item {
             Text {
                 id: allOrderText
                 anchors.fill: parent
-                text: qsTr("All Orders - 12")
+                text: qsTr("All Orders")
                 color: Themes.selectedTheme.colors.extremeBlack
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -61,7 +61,7 @@ Item {
 
         }
 
-        RecentTabsList {
+        RecentTabsPlanViewList {
             id: recentList
 
             width: parent.width * 0.8

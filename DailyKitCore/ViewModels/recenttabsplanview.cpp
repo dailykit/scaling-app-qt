@@ -48,9 +48,9 @@ QHash<int, QByteArray> RecentTabsPlanView::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
-    roles.insert(IngredientName, "itemOrderId");
-    roles.insert(IngredientProcess, "orderNumber");
-    roles.insert(TotalWeight, "orderId");
+    roles.insert(IngredientName, "recentIngredient");
+    roles.insert(IngredientProcess, "ingredientProcess");
+    roles.insert(TotalWeight, "totalWeight");
     roles.insert(IsCurrentItem, "currentItem");
 
     return roles;

@@ -17,7 +17,7 @@ Item {
     RoundedRectangle{
         id: crossOne
 
-        width: packed.contentWidth + item.contentWidth + imageRectangle.width + 30
+        width: packed.contentWidth + item.contentWidth + imageRectangle.width
         height: Interface.orderView.rowHeight
         color: !currentItem ? Themes.selectedTheme.colors.primaryDark :
                               Themes.selectedTheme.colors.appWhite
@@ -57,23 +57,16 @@ Item {
                 font.pixelSize: Interface.fontSize.textSizeSmall
             }
 
-            Rectangle {
-                id: imageRectangle
-
-                height: parent.height
-                width: parent.height
-                color: "transparent"
-
                 Text {
                     id: user
 
-                    height: parent.height * 0.75
+                    height: parent.height
                     width: parent.width * 0.75
                     text: Images.serving
                     verticalAlignment: Text.AlignVCenter
                     color: textColor
                     font.pixelSize: Interface.fontSize.textSizeSmall
-                }
+
             }
         }
     }

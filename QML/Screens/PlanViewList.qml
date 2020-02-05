@@ -8,10 +8,18 @@ import "../ApplicationCore/Style"
 Item{
     id: root
 
+    RecentTabsPlanViewList {
+        id: recentList
+
+        anchors.top: parent.top
+        width: parent.width * 0.8
+        height: Interface.orderView.rowHeight
+    }
+
     AppListView {
         id: listView
 
-        anchors.top: parent.top
+        anchors.top: recentList.bottom
         anchors.topMargin: parent.height * 0.02
 
         width: parent.width

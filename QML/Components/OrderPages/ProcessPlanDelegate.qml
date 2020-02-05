@@ -29,41 +29,48 @@ Item {
 
             Text {
                 id: totalIngredients
-                text: ingredientPackedCount + " / " + ingredientProcessCount
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+
                 height: parent.height
                 width: parent.width * 0.2
+                text: ingredientPackedCount + " / " + ingredientProcessCount
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
             }
 
             Text {
                 id: process
-                text: ingredientProcess
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+
                 height: parent.height
                 width: parent.width * 0.4
+                text: ingredientProcess
                 color: Themes.selectedTheme.colors.appWhite
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
 
             Text {
                 id: weight
-                text: ingredientWeight + " gm"
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+
                 height: parent.height
                 width: parent.width * 0.15
+                text: ingredientWeight + " gm"
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
 
             Text {
                 id: next
-                text: Images.rightArrow
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
+
                 height: parent.height
                 width: parent.width * 0.15
+                text: Images.rightArrow
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true

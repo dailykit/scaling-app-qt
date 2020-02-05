@@ -34,11 +34,11 @@ RoundedRectangle {
                 id: totalIngredient
 
                 text: packedCount + "/" + ingredientCount
-                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -46,11 +46,11 @@ RoundedRectangle {
                 id: profile
 
                 text: Images.serving
-                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
 
@@ -58,11 +58,11 @@ RoundedRectangle {
                 id: servings
 
                 text: itemServing
-                font.pixelSize: Interface.fontSize.textSizeSmall
                 height: parent.height
                 width: parent.width * 0.15
                 color: Themes.selectedTheme.colors.appWhite
-                fontSizeMode:  Text.Fit
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                fontSizeMode: Text.Fit
                 verticalAlignment: Text.AlignVCenter
             }
 
