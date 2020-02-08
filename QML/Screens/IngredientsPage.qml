@@ -20,18 +20,22 @@ Item {
         spacing: parent.width * 0.009
 
         Rectangle {
-            id: imageOrderRectangle
+            id: imagefilterRectangle
 
-            height: parent.height
+            height: Interface.orderView.rowHeight
             width: parent.width * 0.09
             color: "transparent"
-            Image {
-                id: orderImages
 
-                height: parent.height * 0.8
-                width: parent.width * 0.7
-                source: Images.orderImage
-                anchors.centerIn: parent
+            Text {
+                id: filterImage
+
+                height: parent.height
+                width: parent.width
+                verticalAlignment: Text.AlignVCenter
+               // font.family: Images.iconfont.name
+                text: Images.filterIcon
+                font.pixelSize: Interface.fontSize.textSizeMedium
+                color: Themes.selectedTheme.colors.appGrey
             }
         }
 
@@ -106,30 +110,35 @@ Item {
 
 
         Rectangle {
-            id: imageRectangle
+            id: orderImageRectangle
 
             height: parent.height
-            width: parent.width * 0.15
+            width: parent.width * 0.08
+            anchors.left: parent.left
+            anchors.leftMargin: parent.width * 0.06
             color: "transparent"
-            Image {
+
+            Text {
                 id: user
 
-                height: parent.height * 0.8
-                width: parent.width * 0.4
-                source: Images.orderImage
-                anchors.centerIn: parent
+                height: parent.height
+                width: parent.width * 0.03
+                verticalAlignment: Text.AlignVCenter
+                text: Images.order
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                color: Themes.selectedTheme.colors.extremeBlack
             }
         }
 
         Text {
             id: order
+
             height: parent.height
             width: parent.width * 0.03
-            anchors.left: imageRectangle.right
-            anchors.leftMargin: 15
+            anchors.left: orderImageRectangle.right
+            verticalAlignment: Text.AlignVCenter
             text: ingredientModel.orderNumber
             color: Themes.selectedTheme.colors.extremeBlack
-            verticalAlignment: Text.AlignVCenter
             font.pixelSize: Interface.fontSize.textSizeSmall
         }
     }

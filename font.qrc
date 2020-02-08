@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>QML/Default/fonts/icomoon.ttf</file>
+        <file>QML/Default/fonts/Roboto-Regular.ttf</file>
     </qresource>
 </RCC>

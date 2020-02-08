@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QFontDatabase>
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
@@ -14,7 +15,7 @@
 #include "DailyKitCore/ViewModels/planviewitemmodel.h"
 #include "DailyKitCore/ViewModels/settingsmodel.h"
 #include "DailyKitCore/DatabaseModels/dbproxy.h"
-
+#include <QFileInfo>
 
 int main(int argc, char *argv[])
 {
@@ -50,10 +51,16 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("settingsModel", m_settingsModel);
     engine.rootContext()->setContextProperty("planModel", m_plan);
     engine.rootContext()->setContextProperty("planningItems", m_planningItems);
-
-
     engine.rootContext()->setContextProperty("weighingScale", WeighingScaleModel::weighScaleInstance());
 
+    //Add font files
+    qint32 fontId = QFontDatabase::addApplicationFont(QString(":/QML/Default/fonts/Roboto-Regular.ttf"));
+    QString family = QFontDatabase::applicationFontFamilies(fontId).at(0);
+
+    app.setFont(QFont(family));
+
+
+    //load the main QML
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
 

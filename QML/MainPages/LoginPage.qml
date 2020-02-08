@@ -45,18 +45,16 @@ Rectangle {
 
             text: qsTr("UserName")
             color: Themes.selectedTheme.colors.cardViewRed
-            font.pixelSize: Interface.fontSize.textSizeExtraSmall * 0.8
+            font.pixelSize: Interface.fontSize.textSizeExtraSmall * 0.97
             horizontalAlignment: Text.AlignLeft
         }
 
         Rectangle {
             id: nameRect
 
-            width: parent.width * 0.95
+            width: parent.width
             height: parent.height * 0.08
             color: "transparent"
-          //  border.width: 1
-            //border.color: Themes.selectedTheme.colors.primaryDark
 
             TextInput {
                 id: nameInput
@@ -87,14 +85,14 @@ Rectangle {
 
             text: qsTr("Password")
             color: Themes.selectedTheme.colors.cardViewRed
-            font.pixelSize: Interface.fontSize.textSizeExtraSmall * 0.8
+            font.pixelSize: Interface.fontSize.textSizeExtraSmall * 0.97
             horizontalAlignment: Text.AlignLeft
         }
 
         Rectangle {
             id: passRect
 
-            width: parent.width * 0.95
+            width: parent.width
             height: parent.height * 0.08
             color: "transparent"
 
@@ -103,7 +101,7 @@ Rectangle {
 
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width * 0.009
-                width: parent.width * 0.9
+                width: parent.width * 0.95
                 height: parent.height
                 echoMode: TextInput.Password
                 verticalAlignment: Text.AlignVCenter
@@ -113,13 +111,13 @@ Rectangle {
             Text {
                 id: passShow
 
-                text: Images.profile
+                anchors.right: parent.right
+                text: Images.viewPassword
                 verticalAlignment: Text.AlignVCenter
                 height: parent.height
                 width: parent.width * 0.1
-                color: Themes.selectedTheme.colors.extremeBlack
-                anchors.right: parent.right
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.9
+                color: Themes.selectedTheme.colors.appGrey
+                font.pixelSize: Interface.fontSize.textSizeMedium
 
                 MouseArea {
                     anchors.fill: parent
@@ -145,7 +143,7 @@ Rectangle {
 
         Button {
             id: loginButton
-            width: parent.width * 0.95
+            width: parent.width
             height: parent.height * 0.08
 
             background: Rectangle {
@@ -168,7 +166,7 @@ Rectangle {
 
             text: qsTr("Login")
 
-            font.pixelSize: Interface.fontSize.textSizeSmall * 0.7
+            font.pixelSize: Interface.fontSize.textSizeSmall * 0.97
 
 
             onClicked: {

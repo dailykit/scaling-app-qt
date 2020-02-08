@@ -21,6 +21,7 @@ Dialog {
 
     contentItem : Column {
         spacing: Interface.options.spacing
+
         Text {
             id: titleT
             text: titleText

@@ -33,6 +33,9 @@ QtObject{
     readonly property string order: "\ue90d"
     readonly property string realTime: "\ue90e"
     readonly property string settings: "\ue90f"
+    readonly property string alert: "\ue910"
+    readonly property string viewPassword: "\ue911"
+    readonly property string filterIcon: "\ue912"
 
     readonly property FontLoader iconfont: FontLoader {
         id: icons
