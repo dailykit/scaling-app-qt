@@ -9,7 +9,7 @@ Rectangle {
     color: delegateIngredientInternal.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : ingredientIsPacked ? Themes.selectedTheme.colors.primary :
                                                                                                                            Themes.selectedTheme.colors.appBlack
     height: 10
-    enabled: !ingredientIsPacked
+  //  enabled: !ingredientIsPacked
 
     property color textColor: delegateIngredientInternal.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
 

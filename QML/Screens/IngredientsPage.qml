@@ -32,7 +32,7 @@ Item {
                 height: parent.height
                 width: parent.width
                 verticalAlignment: Text.AlignVCenter
-               // font.family: Images.iconfont.name
+                // font.family: Images.iconfont.name
                 text: Images.filterIcon
                 font.pixelSize: Interface.fontSize.textSizeMedium
                 color: Themes.selectedTheme.colors.appGrey
@@ -205,8 +205,11 @@ Item {
                 width: parent.width
 
                 MouseArea {
-                    anchors.fill: parent
+                    width: Interface.orderView.rowWidth * 0.8
+                    height: Interface.orderView.rowHeight
                     propagateComposedEvents: true
+                    enabled: detailsList.count === 1 && !optionsVisible
+
                     onClicked: {
                         trialRect.currentIndex = index
                         if(detailsList.count === 1) {

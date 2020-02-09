@@ -10,5 +10,5 @@ DialogView {
     yesButton.onClicked:  {
         reprintDialog.close()
     }
-    noButton.onClicked: console.log("No Clicked")
+    noButton.onClicked:  reprintDialog.close()
 }

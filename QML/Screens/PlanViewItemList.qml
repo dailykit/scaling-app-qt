@@ -158,11 +158,17 @@ Item {
                 width: parent.width
 
                 MouseArea {
-                    anchors.fill: parent
+                    height: Interface.orderView.rowHeight
+                    width: Interface.orderView.rowWidth * 0.8
+                    enabled: !optionsVisible
+                    propagateComposedEvents: true
+
                     onClicked: {
                         trialRect.currentIndex = index
                         weighingScale.itemName = itemName
+                        if(orderId !== "") {
                         weighingScale.orderId = orderId
+                        }
                         weighingScale.weighItem(ingredientDetailId, planningItems.ingredientName, ingredientWeight, "gm")
                     }
                 }

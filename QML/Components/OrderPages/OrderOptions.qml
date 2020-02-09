@@ -12,14 +12,12 @@ Item {
     property alias deleteIngredient: deleteIngredient
     property alias repack: repack
     property alias reprint: reprint
-    property alias reweigh: reweigh
-
 
     Row {
 
         width: parent.width
         height: parent.height
-        spacing: parent.width * 0.019
+        spacing: parent.width * 0.025
 
         RoundedRectangle {
             id: closeOptions
@@ -124,33 +122,6 @@ Item {
             MouseArea {
                id: reprint
                anchors.fill: parent
-            }
-        }
-
-        RoundedRectangle {
-            id: reweighRect
-
-            width: parent.width * 0.11
-            height: parent.height * 0.55
-            color: Themes.selectedTheme.colors.primary
-
-            Text {
-                id: reweighText
-
-                width: parent.width
-                height: parent.height
-                anchors.centerIn: parent
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                text: Images.weigh
-                color: Themes.selectedTheme.colors.appWhite
-                font.pixelSize: Interface.fontSize.textSizeSmall * 0.9
-                font.family: Images.iconfont.name
-            }
-
-            MouseArea {
-                id: reweigh
-                anchors.fill: parent
             }
         }
     }

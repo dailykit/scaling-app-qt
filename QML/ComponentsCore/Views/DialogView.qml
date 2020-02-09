@@ -22,13 +22,27 @@ Dialog {
     contentItem : Column {
         spacing: Interface.options.spacing
 
-        Text {
-            id: titleT
-            text: titleText
-            width: Interface.options.columnWidth
-            height: Interface.options.columnWidth
-            color: Themes.selectedTheme.colors.appWhite
-            font.pixelSize: Interface.fontSize.textSizeSmall
+        Row {
+            spacing: Interface.options.spacing
+
+            Text {
+                id: alertImage
+                text: Images.alert
+                width: Interface.options.columnWidth
+                height: Interface.options.columnWidth
+                color: Themes.selectedTheme.colors.appWhite
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+
+            Text {
+                id: titleT
+                text: titleText
+                width: Interface.options.columnWidth
+                height: Interface.options.columnWidth
+                color: Themes.selectedTheme.colors.appWhite
+                font.pixelSize: Interface.fontSize.textSizeSmall
+            }
+
         }
 
         Label {

@@ -30,7 +30,6 @@ Item {
             height: Interface.orderView.rowHeight
             width: parent.width
             color: delegateIngredient.ListView.isCurrentItem  ? "white" : !model.ingredientPacked ? Themes.selectedTheme.colors.primaryDark : Themes.selectedTheme.colors.appBlack
-            enabled: details.count === 1 ? !model.ingredientPacked : true
 
             Row {
                 id: ingredientsRow
@@ -150,7 +149,8 @@ Item {
                 repack.onClicked: {
                     var component = Qt.createComponent("../../Components/OptionPages/RepackDialog.qml")
                     if(component.status === Component.Ready) {
-                        var dialog = component.createObject(sectionDelegate1)
+                        var dialog = component.createObject(sectionDelegate1,  {itemName: ingredientModel.itemName, ingredientName:ingredientSlipName, ingredientDetailId: ingredientDetailId
+                                                           ,orderId: weighingScale.orderId, ingredientQuantity: quantity, ingredientWeight: "gm"})
                         dialog.open()
                         optionsVisible = false
                     } else
