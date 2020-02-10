@@ -11,6 +11,18 @@ public:
     ~PlanItemDetails();
 
     /**
+     * @brief setIngredientId - set ingredient Id for each detail ingredient
+     * @param ingredientId - QString
+     */
+    void setIngredientId(const QString ingredientId);
+
+    /**
+     * @brief ingredientId - ingredient id
+     * @return - QString
+     */
+    QString ingredientId() const;
+
+    /**
      * @brief setItemId - set the item id
      * @param itemId - QString
      */
@@ -78,7 +90,9 @@ private:
     QString m_orderId;
     QString m_itemName;
     QString m_ingredientDetailId;
+    QString m_ingredientId;
     float m_ingredientWeight;
+
 };
 
 Q_DECLARE_METATYPE(PlanItemDetails)

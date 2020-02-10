@@ -1,7 +1,5 @@
 #include "ingredientdetailviewmodel.h"
 
-//const QString IngredientDetailViewModel::IngredientDetailViewQuery = "select * from ingredient_detail";
-//const QString IngredientDetailViewModel::TAG ="IngredientDetailViewModel.cpp : ";
 
 IngredientDetailViewModel::IngredientDetailViewModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -11,7 +9,6 @@ IngredientDetailViewModel::IngredientDetailViewModel(QObject *parent)
 
 IngredientDetailViewModel::~IngredientDetailViewModel()
 {
-    //    qDebug() <<TAG<<"deleted";
 }
 
 

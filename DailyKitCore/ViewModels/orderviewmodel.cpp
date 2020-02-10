@@ -21,23 +21,29 @@ OrderViewModel::~OrderViewModel()
     qDebug() << "deleted";
 }
 
+
+int OrderViewModel::orderCount() const
+{
+    return m_itemDetails.count();
+}
+
+
 int OrderViewModel::rowCount(const QModelIndex &parent) const
 {
     if(parent.isValid())
         return 0;
 
     return m_itemDetails.count();
-
 }
+
 
 void OrderViewModel::onOrderDetailsReceived(QList<ItemDetailsPtr> itemDetails)
 {
     beginResetModel();
-            m_itemDetails = itemDetails;
-   endResetModel();
-
+    m_itemDetails = itemDetails;
+    orderCountChanged();
+    endResetModel();
 }
-
 
 
 QHash<int, QByteArray> OrderViewModel::roleNames() const

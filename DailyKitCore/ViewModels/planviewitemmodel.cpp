@@ -1,13 +1,14 @@
 #include "planviewitemmodel.h"
-
+#include "../DatabaseModels/dbproxy.h"
 
 
 PlanViewItemModel::PlanViewItemModel(QObject *parent) :
     QAbstractListModel(parent),
     m_totalWeight(0.0)
 {
-
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientDeleted, this, &PlanViewItemModel::onIngredientDeleted);
 }
+
 
 PlanViewItemModel::~PlanViewItemModel()
 {
@@ -55,6 +56,8 @@ QVariant PlanViewItemModel::data(const QModelIndex &index, int role) const
         return m_planItemDetailsList[index.row()]->ingredientWeight();
     case IngredientDetailId:
         return m_planItemDetailsList[index.row()]->ingredientDetailId();
+    case IngredientId:
+        return m_planItemDetailsList[index.row()]->ingredientId();
     default:
         return QVariant();
     }
@@ -105,7 +108,7 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
             ingredientQuery.prepare("SELECT ingredientItemId FROM ingredients WHERE ingredientId = ? ");
             ingredientQuery.addBindValue(query.value(0).toString());
             ingredientQuery.exec();
-
+            ptr->setIngredientId(query.value(0).toString());
 
             while(ingredientQuery.next())
             {
@@ -116,7 +119,8 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
                 itemsQuery.addBindValue(ingredientQuery.value(0).toString());
                 itemsQuery.exec();
 
-                while(itemsQuery.next()){
+                while(itemsQuery.next())
+                {
                     ptr->setOrderId(itemsQuery.value(0).toString());
                     ptr->setItemName(itemsQuery.value(1).toString());
                     ptr->setIngredientWeight(query.value(1).toFloat());
@@ -128,6 +132,24 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
 
     } else {
         qDebug() << "query failed";
+    }
+
+}
+
+void PlanViewItemModel::onIngredientDeleted(const QString ingredientId)
+{
+    qDebug() << "ingredient delete received" << ingredientId;
+    for(int index = 0; index < m_planItemDetailsList.count(); ++index)
+    {
+        if(m_planItemDetailsList.at(index)->ingredientId() == ingredientId)
+        {
+            qDebug() << "ingredient delete received" << "found";
+            QModelIndex modelIndex = createIndex(index, 0);
+            beginRemoveRows(modelIndex.parent(), modelIndex.row(), modelIndex.row());
+            m_planItemDetailsList.removeAt(index);
+            endRemoveRows();
+
+        }
     }
 
 }

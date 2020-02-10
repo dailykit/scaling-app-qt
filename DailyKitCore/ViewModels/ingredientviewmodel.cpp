@@ -143,10 +143,10 @@ void IngredientViewModel::onIngredientDeleted(const QString ingredientId)
         }
 
         if(m_ingredientsList[i]->ingredientId() == ingredientId) {
-            m_ingredientsList.removeAt(i);
             QModelIndex modelStart = createIndex(i, 0);
-            QModelIndex modelEnd = createIndex(m_ingredientsList.count(), 0);
-            emit dataChanged(modelStart, modelEnd);
+            beginRemoveRows(modelStart.parent(), modelStart.row(), modelStart.row());
+            m_ingredientsList.removeAt(i);
+            endRemoveRows();
         }
     }
 }

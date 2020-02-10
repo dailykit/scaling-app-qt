@@ -8,8 +8,7 @@ import "../ApplicationCore/Style"
 Item {
     id: root
 
-    property int orderNumber
-    property string itemName
+    property int orderCount
 
     Row {
         id: allOrders
@@ -32,7 +31,6 @@ Item {
                 height: parent.height
                 width: parent.width
                 verticalAlignment: Text.AlignVCenter
-                // font.family: Images.iconfont.name
                 text: Images.filterIcon
                 font.pixelSize: Interface.fontSize.textSizeMedium
                 color: Themes.selectedTheme.colors.appGrey
@@ -49,7 +47,7 @@ Item {
             Text {
                 id: allOrderText
                 anchors.fill: parent
-                text: qsTr("All Orders - 12")
+                text: qsTr("All Orders - ") + orderModel.orderCount
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

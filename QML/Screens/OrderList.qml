@@ -56,7 +56,7 @@ Item{
         anchors.topMargin: parent.height * 0.02
 
         AppListView {
-            id: trialRect
+            id: orderList
             anchors.fill: parent
 
             model: orderModel

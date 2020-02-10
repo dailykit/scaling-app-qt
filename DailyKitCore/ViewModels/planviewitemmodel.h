@@ -43,6 +43,9 @@ public:
 
     Q_INVOKABLE void getItems(QString ingredientProcess, QString ingredientName, float totalWeight);
 
+private slots:
+    void onIngredientDeleted(const QString ingredientId);
+
 signals:
     void ingredientNameChanged();
     void totalWeightChanged();

@@ -11,6 +11,16 @@ PlanItemDetails::~PlanItemDetails()
 
 }
 
+void PlanItemDetails::setIngredientId(const QString ingredientId)
+{
+    m_ingredientId = ingredientId;
+}
+
+QString PlanItemDetails::ingredientId() const
+{
+    return m_ingredientId;
+}
+
 void PlanItemDetails::setItemId(const QString itemId)
 {
     m_itemId = itemId;

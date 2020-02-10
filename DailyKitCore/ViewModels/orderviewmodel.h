@@ -19,6 +19,8 @@ class OrderViewModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(int orderCount READ orderCount NOTIFY orderCountChanged)
+
     enum MyRoles {
         ItemOrderId = Qt::UserRole + 1,
         OrderId,
@@ -34,6 +36,8 @@ public:
     explicit OrderViewModel(QObject *parent = nullptr);
     virtual ~OrderViewModel() override;
 
+    int orderCount() const;
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
@@ -41,6 +45,9 @@ public:
 public slots:
 
     void onOrderDetailsReceived(QList<ItemDetailsPtr>);
+
+signals:
+    void orderCountChanged();
 
 private:
 
