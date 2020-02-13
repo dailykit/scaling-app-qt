@@ -15,6 +15,9 @@ public:
 public slots:
     Q_INVOKABLE void deleteIngredient(const QString ingredientId);
 
+private:
+    void setAsIngredientPacked(const QString ingredientDetailId);
+
 };
 
 #endif // MANIPULATEINGREDIENTS_H

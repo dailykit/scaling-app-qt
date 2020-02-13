@@ -37,9 +37,10 @@ public:
 
 
 public slots:
-void setQuery(QString orderId);
+    void setQuery(QString orderId);
 
-void setCurrentItem(QString itemOrderId);
+    void setCurrentItem(QString itemOrderId);
+    void onIngredientPackingCompleted(QString itemId);
 
 private:
 

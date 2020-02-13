@@ -1,4 +1,5 @@
 #include "itemviewmodel.h"
+#include "../DatabaseModels/dbproxy.h"
 
 const QString ItemViewModel::ItemViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName"
                                              ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
@@ -9,7 +10,7 @@ const QString ItemViewModel::ItemViewQuery = "SELECT  itemDetails.itemOrderId, i
 ItemViewModel::ItemViewModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-
+   connect(DbProxy::dbInstance(), &DbProxy::ingredientPackingCompleted, this, &ItemViewModel::onIngredientPackingCompleted);
 }
 
 ItemViewModel::~ItemViewModel()
@@ -109,6 +110,23 @@ void ItemViewModel::setCurrentItem(QString itemOrderId)
     beginResetModel();
     m_currentItem = itemOrderId;
     endResetModel();
+
+}
+
+void ItemViewModel::onIngredientPackingCompleted(QString itemId)
+{
+    qDebug() << itemId << Q_FUNC_INFO;
+    for(int item = 0; item < m_itemDetails.count(); ++item) {
+        if(itemId == m_itemDetails[item]->itemOrderId()) {
+           int packedTotal =  m_itemDetails[item]->packedIngredients() + 1;
+           m_itemDetails[item]->setPackedIngredients(packedTotal);
+           QModelIndex index = createIndex(item, 0);
+           QVector<int> roles;
+           roles.append(ItemViewModel::PackedIngredientCount);
+            dataChanged(index, index, roles);
+           break;
+        }
+    }
 
 }
 

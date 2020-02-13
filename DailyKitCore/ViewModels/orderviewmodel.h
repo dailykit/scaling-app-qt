@@ -45,6 +45,7 @@ public:
 public slots:
 
     void onOrderDetailsReceived(QList<ItemDetailsPtr>);
+    void onIngredientPackingCompleted(QString itemId);
 
 signals:
     void orderCountChanged();

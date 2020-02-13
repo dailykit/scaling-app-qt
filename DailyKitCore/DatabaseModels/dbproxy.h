@@ -15,15 +15,13 @@ class DbProxy : public QObject
 {
     Q_OBJECT
 
-signals:
-    void ingredientPackedChanged(const QString &ingredientDetailId);
-
 public:
 
-    void setIngredientAsPacked(const QString &ingredientId);
+    void setIngredientAsWeighed(const QString &ingredientId);
     void openDatabase();
     void getOrders();
     void deleteIngredient(const QString ingredientId);
+    void setIngredientAsPackedCompleted(const QString ingredientDetailId);
 
     static DbProxy *dbInstance();
 
@@ -31,8 +29,10 @@ public slots:
    void currentOrdersReceived();
 
 signals:
+   void ingredientWeighedChanged(const QString &ingredientDetailId);
     void orderDetailsChanged(QList<ItemDetailsPtr> details);
     void ingredientDeleted(const QString ingredientId);
+    void ingredientPackingCompleted(const QString itemId);
 
 private:
     static const QString UPDATEINGREDIENTPACKED ;

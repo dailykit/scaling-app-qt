@@ -1,5 +1,5 @@
 #include "orderviewmodel.h"
-
+#include "../DatabaseModels/dbproxy.h"
 
 const QString OrderViewModel::OrderViewQuery = "SELECT  itemDetails.itemOrderId, itemDetails.orderId, itemDetails.itemName, itemDetails.itemServing"
                                                ", (SELECT Count(I1.ingredientId) FROM ingredients I1 WHERE I1.ingredientItemId = itemDetails.itemOrderId) as counttotal"
@@ -13,6 +13,8 @@ OrderViewModel::OrderViewModel(QObject *parent) :
     m_recordCount(0)
 
 {   
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientPackingCompleted, this, &OrderViewModel::onIngredientPackingCompleted);
+
 }
 
 
@@ -43,6 +45,21 @@ void OrderViewModel::onOrderDetailsReceived(QList<ItemDetailsPtr> itemDetails)
     m_itemDetails = itemDetails;
     orderCountChanged();
     endResetModel();
+}
+
+void OrderViewModel::onIngredientPackingCompleted(QString itemId)
+{
+    for(int item = 0; item < m_itemDetails.count(); ++item) {
+        if(itemId == m_itemDetails[item]->itemOrderId()) {
+           int packedTotal =  m_itemDetails[item]->packedIngredients() + 1;
+           m_itemDetails[item]->setPackedIngredients(packedTotal);
+           QModelIndex index = createIndex(item, 0);
+           QVector<int> roles;
+           roles.append(OrderViewModel::PackedIngredientCount);
+            dataChanged(index, index, roles);
+           break;
+        }
+    }
 }
 
 

@@ -12,7 +12,7 @@ IngredientViewModel::IngredientViewModel(QObject *parent)
       m_orderNumber(0),
       dataPage(new RetrieveWebAppData)
 {
-    connect(DbProxy::dbInstance(), &DbProxy::ingredientPackedChanged, this, &IngredientViewModel::updateIngredientDetail);
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientWeighedChanged, this, &IngredientViewModel::updateIngredientDetail);
     connect(DbProxy::dbInstance(), &DbProxy::ingredientDeleted, this, &IngredientViewModel::onIngredientDeleted);
 }
 

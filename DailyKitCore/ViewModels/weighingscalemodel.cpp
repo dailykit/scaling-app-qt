@@ -171,7 +171,7 @@ void WeighingScaleModel::weightAccuracy(float accuracy)
 void WeighingScaleModel::ingredientPacked()
 {
     qDebug() << "timer set" << m_ingredientDetailId;
-    DbProxy::dbInstance()->setIngredientAsPacked(m_ingredientDetailId);
+    DbProxy::dbInstance()->setIngredientAsWeighed(m_ingredientDetailId);
     setIngredientStatus(WEIGHINGSTATUS[4]);
 }
 
