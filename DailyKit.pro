@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         DailyKitCore/DatabaseModels/dbmanager.cpp \
         DailyKitCore/DatabaseModels/dbproxy.cpp \
+        DailyKitCore/External/WebServices/loginaccessmanager.cpp \
         DailyKitCore/Models/ingredients.cpp \
         DailyKitCore/Models/itemdetails.cpp \
         DailyKitCore/Models/orderdetails.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
         DailyKitCore/ViewModels/ingredientprocessmodel.cpp \
         DailyKitCore/ViewModels/ingredientviewmodel.cpp \
         DailyKitCore/ViewModels/itemviewmodel.cpp \
+        DailyKitCore/ViewModels/loginhandler.cpp \
         DailyKitCore/ViewModels/mainviewmodel.cpp \
         DailyKitCore/ViewModels/manipulateingredients.cpp \
         DailyKitCore/ViewModels/orderviewmodel.cpp \
@@ -60,6 +62,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     DailyKitCore/DatabaseModels/dbmanager.h \
     DailyKitCore/DatabaseModels/dbproxy.h \
+    DailyKitCore/External/WebServices/loginaccessmanager.h \
     DailyKitCore/Models/ingredients.h \
     DailyKitCore/Models/itemdetails.h \
     DailyKitCore/Models/orderdetails.h \
@@ -69,6 +72,7 @@ HEADERS += \
     DailyKitCore/ViewModels/ingredientprocessmodel.h \
     DailyKitCore/ViewModels/ingredientviewmodel.h \
     DailyKitCore/ViewModels/itemviewmodel.h \
+    DailyKitCore/ViewModels/loginhandler.h \
     DailyKitCore/ViewModels/mainviewmodel.h \
     DailyKitCore/ViewModels/manipulateingredients.h \
     DailyKitCore/ViewModels/orderviewmodel.h \

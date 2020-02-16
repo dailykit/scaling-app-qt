@@ -64,7 +64,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width * 0.009
                 verticalAlignment: Text.AlignVCenter
-                color: Themes.selectedTheme.colors.extremeBlack
+                color: Themes.selectedTheme.colors.appWhite
 
             }
 
@@ -105,7 +105,7 @@ Rectangle {
                 height: parent.height
                 echoMode: TextInput.Password
                 verticalAlignment: Text.AlignVCenter
-                color: Themes.selectedTheme.colors.extremeBlack
+                color: Themes.selectedTheme.colors.appWhite
             }
 
             Text {
@@ -170,13 +170,58 @@ Rectangle {
 
 
             onClicked: {
+                loginAccess.sendLoginRequest(nameInput.text, passInput.text)
+                busy.running = true
+                loginError.visible = false
+            }
+        }
+
+        Item {
+            width: parent.width
+            height:  parent.height * 0.08
+            BusyIndicator{
+                id: busy
+                running: false
+                anchors.centerIn: parent
+            }
+
+            Text {
+                id: loginError
+
+                visible: false
+                height: parent.height * 0.08
+                width: parent.width
+
+                text: qsTr("Please enter correct UserName and Password")
+                color: Themes.selectedTheme.colors.cardViewRed
+                font.pixelSize: Interface.fontSize.textSizeExtraSmall * 0.97
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+
+
+            }
+        }
+
+    }
+
+    Item {
+        Connections {
+            target: loginAccess
+
+            onLoginSucessfullyCompleted: {
+                busy.running = false
                 var component = Qt.createComponent(Qt.resolvedUrl("MainOrdersPage.qml"))
                 if (component.status === Component.Ready) {
                     component.createObject(parent);
                     stackView.push(component)
                 }
             }
-        }
-    }
 
+            onLoginFailed: {
+                busy.running = false
+                loginError.visible = true
+            }
+        }
+
+    }
 }

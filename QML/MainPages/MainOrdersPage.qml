@@ -86,7 +86,7 @@ Item {
                 visible: status == Loader.Ready
             }
 
-            Connections{
+            Connections {
                 target: orderModel
                 onModelReset:{
                     if(busy.running) {

@@ -7,7 +7,8 @@ const QString RetrieveWebAppData::WEB_APP_URL = "http://ec2-18-188-115-230.us-ea
 const QString RetrieveWebAppData::CONTENT_HEADER ="application/json";
 const QString RetrieveWebAppData::TAG ="retrievewebappdata.cpp : ";
 
-RetrieveWebAppData::RetrieveWebAppData(QObject *parent) : QObject(parent),m_AccessManager(new QNetworkAccessManager)
+RetrieveWebAppData::RetrieveWebAppData(QObject *parent) : QObject(parent)
+  ,m_AccessManager(new QNetworkAccessManager)
 {
     if(m_AccessManager)
     {

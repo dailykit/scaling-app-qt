@@ -14,7 +14,9 @@
 #include "DailyKitCore/ViewModels/planviewmodel.h"
 #include "DailyKitCore/ViewModels/planviewitemmodel.h"
 #include "DailyKitCore/ViewModels/settingsmodel.h"
+#include "DailyKitCore/ViewModels/loginhandler.h"
 #include "DailyKitCore/DatabaseModels/dbproxy.h"
+#include "DailyKitCore/External/WebServices/loginaccessmanager.h"
 #include <QFileInfo>
 
 int main(int argc, char *argv[])
@@ -26,6 +28,10 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("Scaling");
     QCoreApplication::setApplicationName("DailyKit");
+    QQmlApplicationEngine engine;
+
+    LoginHandler* m_login = new LoginHandler;
+    engine.rootContext()->setContextProperty("loginAccess", m_login);
 
     DBManager::connectToDatabase();
     //DbProxy::dbInstance();
@@ -41,7 +47,6 @@ int main(int argc, char *argv[])
     PlanViewModel * m_plan = new PlanViewModel();
     PlanViewItemModel *m_planningItems = new PlanViewItemModel();
 
-    QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty("mainModel", m_model);
     engine.rootContext()->setContextProperty("orderModel", m_model->getOrdersModel());
