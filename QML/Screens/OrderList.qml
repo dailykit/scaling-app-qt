@@ -43,7 +43,7 @@ Item{
             width: parent.width * 0.8
             height: Interface.orderView.rowHeight
 
-            list.model: recentTabs
+            list.model: mainModel.recentTabs
         }
     }
 
@@ -59,7 +59,7 @@ Item{
             id: orderList
             anchors.fill: parent
 
-            model: orderModel
+            model: mainModel.ordersViewModel
 
             delegate: OrdersDelegate
             {
@@ -71,15 +71,15 @@ Item{
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        ingredientModel.getIngredients(model.itemOrderId)
-                        weighingScale.orderId = model.orderId
-                        weighingScale.itemName = model.itemName
+                        mainModel.ingredientsModel.getIngredients(model.itemOrderId)
+                        mainModel.weighingScale.orderId = model.orderId
+                        mainModel.weighingScale.itemName = model.itemName
                         loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                        recentTabs.addRecentItem(model.orderNumber, model.itemOrderId, model.orderId)
-                        itemsModel.setCurrentItem(model.itemOrderId)
-                        itemsModel.setQuery(model.orderId)
-                        ingredientModel.itemName = model.itemName
-                        ingredientModel.orderNumber = model.orderNumber
+                        mainModel.recentTabs.addRecentItem(model.orderNumber, model.itemOrderId, model.orderId)
+                        mainModel.itemsModel.setCurrentItem(model.itemOrderId)
+                        mainModel.itemsModel.setQuery(model.orderId)
+                        mainModel.ingredientsModel.itemName = model.itemName
+                        mainModel.ingredientsModel.orderNumber = model.orderNumber
                         mouse.accepted  = true
                     }
                 }

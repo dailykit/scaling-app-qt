@@ -15,9 +15,9 @@ DialogView {
     titleText: qsTr("Repack Label")
 
     yesButton.onClicked: {
-        weighingScale.itemName = itemName
-        weighingScale.orderId = orderId
-        weighingScale.weighItem(ingredientDetailId, ingredientName, ingredientQuantity, ingredientWeight)
+        mainModel.weighingScale.itemName = itemName
+        mainModel.weighingScale.orderId = orderId
+        mainModel.weighingScale.weighItem(ingredientDetailId, ingredientName, ingredientQuantity, ingredientWeight)
         repackDialog.close()
     }
 

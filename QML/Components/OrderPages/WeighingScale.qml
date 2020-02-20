@@ -30,21 +30,21 @@ Item {
                     width: parent.width
                     height: parent.height * 0.3
                     font.pixelSize: idTextIngredient.height * 0.5
-                    text: weighingScale.orderId
+                    text: mainModel.weighingScale.orderId
                 }
 
                 Text{
                     id: idTextIngredient
                     height: parent.height * 0.3
                     font.pixelSize: idTextIngredient.height * 0.5
-                    text: weighingScale.itemName
+                    text: mainModel.weighingScale.itemName
                 }
 
                 Text{
                     id: idIngredientSelected
                     height:  parent.height * 0.3
                     font.pixelSize: idIngredientSelected.height * 0.6
-                    text: weighingScale.ingredientName
+                    text: mainModel.weighingScale.ingredientName
                 }
             }
 
@@ -54,8 +54,8 @@ Item {
             id: idShowWeight
             width: parent.width
             height: parent.height * 0.3
-            color: weighingScale.weightRange === 2 ? Themes.selectedTheme.colors.cardViewRed
-                                                   : weighingScale.weightRange === 1
+            color: mainModel.weighingScale.weightRange === 2 ? Themes.selectedTheme.colors.cardViewRed
+                                                   : mainModel.weighingScale.weightRange === 1
                                                      ? Themes.selectedTheme.colors.cardViewGreen
                                                      : Themes.selectedTheme.colors.cardViewYellow
 
@@ -94,7 +94,7 @@ Item {
                     top: parent.top
                     topMargin: parent.height * 0.2
                 }
-                text: weighingScale.calculatedQuantity
+                text: mainModel.weighingScale.calculatedQuantity
                 font.pixelSize: idGramsText.height * 0.12
             }
 
@@ -108,7 +108,7 @@ Item {
                     top: parent.top
                     topMargin: parent.height * 0.2
                 }
-                text: weighingScale.weight
+                text: mainModel.weighingScale.weight
                 font.pixelSize: idGramsText.height * 0.12
             }
 
@@ -122,11 +122,10 @@ Item {
                     top: imageRectangleWeight.bottom
                     topMargin: parent.height * 0.1
                 }
-                text:  weighingScale.scaleStatus
+                text:  mainModel.weighingScale.scaleStatus
                 font.pixelSize: idStateText.height * 0.09
                 color: Themes.selectedTheme.colors.appWhite
             }
-
         }
 
         Rectangle{
@@ -167,7 +166,7 @@ Item {
                     top: parent.top
                     topMargin: parent.height * 0.3
                 }
-                text: weighingScale.ingredientStatus
+                text: mainModel.weighingScale.ingredientStatus
                 font.pixelSize: parent.height * 0.4
                 color: Themes.selectedTheme.colors.appWhite
             }
@@ -184,7 +183,7 @@ Item {
             width: parent.width * 0.1
             height: parent.height * 0.1
             color: Themes.selectedTheme.colors.appWhite
-            visible: settingsModel.manualEntry
+            visible: mainModel.settingsModel.manualEntry
 
             TextInput {
                 id: manualText
@@ -212,7 +211,7 @@ Item {
             height: parent.height * 0.15
 
             color: Themes.selectedTheme.colors.primaryDark
-            visible: settingsModel.simulator
+            visible: mainModel.settingsModel.simulator
 
             Text {
                 id: simulatorText
@@ -225,16 +224,15 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    weighingScale.weightAccuracy(settingsModel.weightAccuracy)
-                    if(settingsModel.manualEntry) {
-                        weighingScale.calculateActualWeight(manualText.text)
+                    mainModel.weighingScale.weightAccuracy(mainModel.settingsModel.weightAccuracy)
+                    if(mainModel.settingsModel.manualEntry) {
+                        mainModel.weighingScale.calculateActualWeight(manualText.text)
                     }
                     else {
-                        weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
+                        mainModel.weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
                     }
                 }
             }
         }
-
     }
 }

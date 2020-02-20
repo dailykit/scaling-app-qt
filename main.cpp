@@ -22,7 +22,7 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     QGuiApplication app(argc, argv);
 
 
@@ -34,29 +34,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("loginAccess", m_login);
 
     DBManager::connectToDatabase();
-    //DbProxy::dbInstance();
-
-
 
     MainViewModel *m_model = new MainViewModel();
 
-    IngredientViewModel* m_ingredient = new IngredientViewModel();
-    RecentTabsModel *m_recentTabs = new RecentTabsModel();
-    ItemViewModel *m_itemsModel = new ItemViewModel();
-    SettingsModel *m_settingsModel = new SettingsModel();
-    PlanViewModel * m_plan = new PlanViewModel();
-    PlanViewItemModel *m_planningItems = new PlanViewItemModel();
-
-
     engine.rootContext()->setContextProperty("mainModel", m_model);
-    engine.rootContext()->setContextProperty("orderModel", m_model->getOrdersModel());
-    engine.rootContext()->setContextProperty("ingredientModel", m_ingredient);
-    engine.rootContext()->setContextProperty("recentTabs", m_recentTabs);
-    engine.rootContext()->setContextProperty("itemsModel", m_itemsModel);
-    engine.rootContext()->setContextProperty("settingsModel", m_settingsModel);
-    engine.rootContext()->setContextProperty("planModel", m_plan);
-    engine.rootContext()->setContextProperty("planningItems", m_planningItems);
-    engine.rootContext()->setContextProperty("weighingScale", WeighingScaleModel::weighScaleInstance());
+
 
     //Add font files
     qint32 fontId = QFontDatabase::addApplicationFont(QString(":/QML/Default/fonts/Roboto-Regular.ttf"));

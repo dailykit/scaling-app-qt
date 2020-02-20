@@ -11,7 +11,7 @@ Item {
     property bool optionsVisible: false
 
     Connections {
-        target: ingredientModel
+        target: mainModel.ingredientsModel
 
         onIngredientIndexChanged: {
             if(delegateIngredient.ListView.isCurrentItem)
@@ -149,8 +149,8 @@ Item {
                 repack.onClicked: {
                     var component = Qt.createComponent("../../Components/OptionPages/RepackDialog.qml")
                     if(component.status === Component.Ready) {
-                        var dialog = component.createObject(sectionDelegate1,  {itemName: ingredientModel.itemName, ingredientName:ingredientSlipName, ingredientDetailId: ingredientDetailId
-                                                           ,orderId: weighingScale.orderId, ingredientQuantity: quantity, ingredientWeight: "gm"})
+                        var dialog = component.createObject(sectionDelegate1,  {itemName: mainModel.ingredientsModel.itemName, ingredientName:ingredientSlipName, ingredientDetailId: ingredientDetailId
+                                                           ,orderId: mainModel.weighingScale.orderId, ingredientQuantity: quantity, ingredientWeight: "gm"})
                         dialog.open()
                         optionsVisible = false
                     } else
@@ -187,8 +187,8 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         details.currentIndex = index
-                        weighingScale.ingredientName = ingredientName
-                        weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
+                        mainModel.weighingScale.ingredientName = ingredientName
+                        mainModel.weighingScale.weighItem(model.ingredientDetailId, ingredientName, quantity, ingredientWeight)
                     }
                 }
             }
@@ -203,8 +203,8 @@ Item {
                     detailsList.currentIndex = -1
                 else if(index1 === index) {
                     if(details.count > 1) {
-                        weighingScale.ingredientName =  details.currentItem.myData.ingredientName
-                        weighingScale.weighItem( details.currentItem.myData.ingredientDetailId,  details.currentItem.myData.ingredientName,  details.currentItem.myData.quantity,  details.currentItem.myData.ingredientWeight)
+                        mainModel.weighingScale.ingredientName =  details.currentItem.myData.ingredientName
+                        mainModel.weighingScale.weighItem( details.currentItem.myData.ingredientDetailId,  details.currentItem.myData.ingredientName,  details.currentItem.myData.quantity,  details.currentItem.myData.ingredientWeight)
                     }
                 }
             }

@@ -131,7 +131,7 @@ Item {
                 repack.onClicked: {
                     var component = Qt.createComponent("../../Components/OptionPages/RepackDialog.qml")
                     if(component.status === Component.Ready) {
-                        var dialog = component.createObject(root, {itemName: itemName, ingredientName: planningItems.ingredientName, ingredientDetailId: ingredientDetailId,
+                        var dialog = component.createObject(root, {itemName: itemName, ingredientName: mainModel.planViewItemModel.ingredientName, ingredientDetailId: ingredientDetailId,
                                                             orderId: orderId, ingredientQuantity: ingredientWeight, ingredientWeight: "gm"})
                         dialog.open()
                         optionsVisible = false

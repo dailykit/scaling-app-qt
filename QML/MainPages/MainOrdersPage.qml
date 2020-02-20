@@ -87,7 +87,7 @@ Item {
             }
 
             Connections {
-                target: orderModel
+                target: mainModel.ordersViewModel
                 onModelReset:{
                     if(busy.running) {
                         busy.running = false
@@ -113,7 +113,7 @@ Item {
 
         options.planning.mouseArea.onClicked: {
             if(options.planning.state == "planning") {
-                planModel.getIngredients()
+                mainModel.planViewModel.getIngredients()
                 loader.source = Qt.resolvedUrl( "../Screens/PlanViewList.qml")
                 options.planning.state = "real"
             } else if(options.planning.state == "real") {

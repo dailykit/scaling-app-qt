@@ -17,7 +17,7 @@ Item{
         width: parent.width
         height: parent.height
         orientation: Qt.Horizontal
-        model: recentTabs
+        model: mainModel.recentTabs
 
         delegate: RecentTabsDelegate {
             id: recentDelegate
@@ -27,18 +27,18 @@ Item{
 
 
             showOrder.onClicked: {
-                itemsModel.setQuery(model.orderId)
-                itemsModel.setCurrentItem(model.itemOrderId)
+                mainModel.itemsModel.setQuery(model.orderId)
+                mainModel.itemsModel.setCurrentItem(model.itemOrderId)
 
-                weighingScale.orderId = model.itemOrderId
-                ingredientModel.getIngredients(model.itemOrderId)
+                mainModel.weighingScale.orderId = model.itemOrderId
+                mainModel.ingredientsModel.getIngredients(model.itemOrderId)
 
                 loader.source = Qt.resolvedUrl("IngredientsPage.qml")
-                recentTabs.setCurrentItem(model.itemOrderId)
+                mainModel.recentTabs.setCurrentItem(model.itemOrderId)
             }
 
             closeTab.onClicked: {
-                recentTabs.removeRecentItem(index)
+                mainModel.recentTabs.removeRecentItem(index)
             }
         }
     }

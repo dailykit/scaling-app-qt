@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
+
 import "../ApplicationCore/Style"
 import "../ComponentsCore/Shapes"
 
@@ -106,6 +107,7 @@ Rectangle {
                 echoMode: TextInput.Password
                 verticalAlignment: Text.AlignVCenter
                 color: Themes.selectedTheme.colors.appWhite
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhSensitiveData
             }
 
             Text {

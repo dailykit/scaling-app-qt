@@ -47,7 +47,7 @@ Item {
             Text {
                 id: allOrderText
                 anchors.fill: parent
-                text: qsTr("All Orders - ") + orderModel.orderCount
+                text: qsTr("All Orders - ") + mainModel.ordersViewModel.orderCount
                 color: Themes.selectedTheme.colors.appWhite
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -61,7 +61,7 @@ Item {
 
                 onClicked: {
                     loader.source = Qt.resolvedUrl("OrderList.qml")
-                    recentTabs.setCurrentItem(-1)
+                    mainModel.recentTabs.setCurrentItem(-1)
                 }
             }
 
@@ -135,7 +135,7 @@ Item {
             width: parent.width * 0.03
             anchors.left: orderImageRectangle.right
             verticalAlignment: Text.AlignVCenter
-            text: ingredientModel.orderNumber
+            text: mainModel.ingredientsModel.orderNumber
             color: Themes.selectedTheme.colors.extremeBlack
             font.pixelSize: Interface.fontSize.textSizeSmall
         }
@@ -196,7 +196,7 @@ Item {
 
             signal indexChanged(var index1)
 
-            model: ingredientModel
+            model: mainModel.ingredientsModel
             delegate: IngredientSectionDelegate {
                 id: delegateIngredient
                 height: Interface.orderView.rowHeight + detailsList.height
@@ -211,8 +211,8 @@ Item {
                     onClicked: {
                         trialRect.currentIndex = index
                         if(detailsList.count === 1) {
-                            weighingScale.itemName = ingredientModel.itemName
-                            weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
+                            mainModel.weighingScale.itemName = mainModel.ingredientsModel.itemName
+                            mainModel.weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
                         } else {
                             detailsList.currentIndex = 0
                         }
@@ -226,7 +226,7 @@ Item {
     }
 
     Connections {
-        target: ingredientModel
+        target: mainModel.ingredientsModel
 
         onItemIndexChanged: {
             trialRect.currentIndex = itemIndex

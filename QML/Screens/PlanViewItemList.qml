@@ -102,7 +102,7 @@ Item {
             width: parent.width * 0.5
             anchors.left: imageRectangle.right
             anchors.leftMargin: 20
-            text: planningItems.ingredientName
+            text: mainModel.planViewItemModel.ingredientName
             color: Themes.selectedTheme.colors.extremeBlack
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: Interface.fontSize.textSizeSmall
@@ -115,7 +115,7 @@ Item {
             width: parent.width * 0.03
             anchors.left: name.right
             anchors.leftMargin: 20
-            text: planningItems.totalWeight + " gm"
+            text: mainModel.planViewItemModel.totalWeight + " gm"
             color: Themes.selectedTheme.colors.extremeBlack
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: Interface.fontSize.textSizeSmall
@@ -149,7 +149,7 @@ Item {
             width: parent.width * 0.8
             height: parent.height * 0.75
 
-            model: planningItems
+            model: mainModel.planViewItemModel
             header: headerComponent
 
             delegate: PlanViewItemDelegate {
@@ -165,11 +165,11 @@ Item {
 
                     onClicked: {
                         trialRect.currentIndex = index
-                        weighingScale.itemName = itemName
+                        mainModel.weighingScale.itemName = itemName
                         if(orderId !== "") {
-                        weighingScale.orderId = orderId
+                        mainModel.weighingScale.orderId = orderId
                         }
-                        weighingScale.weighItem(ingredientDetailId, planningItems.ingredientName, ingredientWeight, "gm")
+                        mainModel.weighingScale.weighItem(ingredientDetailId, mainModel.planViewItemModel.ingredientName, ingredientWeight, "gm")
                     }
                 }
             }

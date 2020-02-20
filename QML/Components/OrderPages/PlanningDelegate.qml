@@ -83,7 +83,7 @@ Item {
 
                         onClicked: {
                             details.currentIndex = index
-                            planningItems.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
+                            mainModel.planViewItemModel.getItems(ingredientProcess, ingredientName, ingredientTotalWeight)
                             loader.source = Qt.resolvedUrl("../../Screens/PlanViewItemList.qml")
                             mainModel.recentIngredients.addRecentItem(ingredientName, ingredientProcess, ingredientTotalWeight)
 

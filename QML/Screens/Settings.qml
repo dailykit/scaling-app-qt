@@ -110,7 +110,7 @@ Item {
                         text: weight
 
                         onTextEdited: {
-                            settingsModel.weightAccuracy = weightAccuracyText.text
+                            mainModel.settingsModel.weightAccuracy = weightAccuracyText.text
                         }
                     }
 
@@ -149,7 +149,7 @@ Item {
                         text: printing
 
                         onTextEdited: {
-                            settingsModel.printingTime = printingTimeText.text
+                            mainModel.settingsModel.printingTime = printingTimeText.text
                         }
                     }
 
@@ -176,10 +176,10 @@ Item {
                 }
                 ToggleButton {
                     id: simulatorToggle
-                    checked: settingsModel.simulator
+                    checked: mainModel.settingsModel.simulator
 
                     onClicked: {
-                        settingsModel.simulator = simulatorToggle.checked
+                        mainModel.settingsModel.simulator = simulatorToggle.checked
                     }
                 }
             }
@@ -198,10 +198,10 @@ Item {
                 }
                 ToggleButton {
                     id: manualWeightToggle
-                    checked: settingsModel.manualEntry
+                    checked: mainModel.settingsModel.manualEntry
 
                     onClicked: {
-                        settingsModel.manualEntry = manualWeightToggle.checked
+                        mainModel.settingsModel.manualEntry = manualWeightToggle.checked
                     }
                 }
             }
@@ -220,10 +220,10 @@ Item {
 
                 ToggleButton {
                     id: printerToggle
-                    checked: settingsModel.printerTest
+                    checked: mainModel.settingsModel.printerTest
 
                     onClicked: {
-                        settingsModel.printerTest = printerToggle.checked
+                        mainModel.settingsModel.printerTest = printerToggle.checked
                     }
                 }
             }
@@ -261,14 +261,14 @@ Item {
 
 
             onClicked: {
-                settingsModel.saveSettings()
+                mainModel.settingsModel.saveSettings()
             }
 
         }
     }
 
     Component.onCompleted: {
-        weight = settingsModel.weightAccuracy
-        printing = settingsModel.printingTime
+        weight = mainModel.settingsModel.weightAccuracy
+        printing = mainModel.settingsModel.printingTime
     }
 }

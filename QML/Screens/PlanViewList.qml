@@ -25,7 +25,7 @@ Item{
         width: parent.width
         height: parent.height * 0.89
 
-        model: planModel
+        model: mainModel.planViewModel
         delegate: PlanningDelegate {
             id: delegateIngredient
             height: Interface.orderView.rowHeight + detailsList.height

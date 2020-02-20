@@ -18,7 +18,7 @@ Item{
         orientation: Qt.Horizontal
         snapMode: ListView.SnapToItem
 
-        model: itemsModel
+        model: mainModel.itemsModel
         delegate: ItemsDelegate {
             id: delegateIngredient
             height: Interface.orderView.rowHeight
@@ -27,10 +27,10 @@ Item{
                 anchors.fill: parent
                 enabled: !currentItem
                 onClicked: {
-                    ingredientModel.getIngredients(model.itemOrderId)
-                    weighingScale.orderId = model.itemOrderId
-                    weighingScale.itemName = model.itemName
-                    itemsModel.setCurrentItem(model.itemOrderId)
+                    mainModel.ingredientsModel.getIngredients(model.itemOrderId)
+                    mainModel.weighingScale.orderId = model.itemOrderId
+                    mainModel.weighingScale.itemName = model.itemName
+                    mainModel.itemsModel.setCurrentItem(model.itemOrderId)
                 }
             }
         }
