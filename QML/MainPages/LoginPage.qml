@@ -212,7 +212,7 @@ Rectangle {
                 busy.running = false
                 var component = Qt.createComponent(Qt.resolvedUrl("MainOrdersPage.qml"))
                 if (component.status === Component.Ready) {
-                    component.createObject(parent);
+                    component.createObject(rootLogin);
                     stackView.push(component)
                 }
             }
