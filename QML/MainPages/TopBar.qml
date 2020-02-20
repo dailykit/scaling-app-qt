@@ -75,7 +75,7 @@ Item {
             height: Interface.options.iconSize
 
             verticalAlignment: Text.AlignHCenter
-            text: qsTr("John")
+            text: loginAccess.userName
             color: Themes.selectedTheme.colors.appWhite
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
