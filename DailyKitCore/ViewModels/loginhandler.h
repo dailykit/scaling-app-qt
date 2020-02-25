@@ -19,11 +19,14 @@ signals:
     void loginSucessfullyCompleted();
     void loginFailed();
     void userNameChanged();
+    void loggedOut();
 
 public slots:
-   Q_INVOKABLE void sendLoginRequest(const QString userName, const QString password);
+    Q_INVOKABLE void sendLoginRequest(const QString userName, const QString password);
+    Q_INVOKABLE void sendLogoutRequest();
     void onLoginSuccessful();
     void onLoginFailed();
+    void onLoggedOut();
 
 private:
     LoginAccessManager *m_loginmanager;

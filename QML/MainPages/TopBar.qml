@@ -66,6 +66,16 @@ Item {
             color: Themes.selectedTheme.colors.appWhite
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
+
+            MouseArea  {
+                anchors.fill: parent
+
+                onClicked: {
+                    console.log("logout stater")
+                    loginAccess.sendLogoutRequest()
+
+                }
+            }
         }
 
         Text {
@@ -79,6 +89,8 @@ Item {
             color: Themes.selectedTheme.colors.appWhite
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
+
+
         }
     }
 }

@@ -8,6 +8,7 @@ LoginHandler::LoginHandler(QObject *parent) :
     if(m_loginmanager != nullptr) {
         connect(m_loginmanager, &LoginAccessManager::loginResponseSucceeded, this, &LoginHandler::onLoginSuccessful);
         connect(m_loginmanager, &LoginAccessManager::loginResponseFailed,  this, &LoginHandler::onLoginFailed);
+        connect(m_loginmanager, &LoginAccessManager::loggedOut,  this, &LoginHandler::onLoggedOut);
     }
 }
 
@@ -51,6 +52,16 @@ void LoginHandler::sendLoginRequest(const QString userName, const QString passwo
 
 
 /**
+ * @brief LoginHandler::sendLogoutRequest - request for a logout from the session
+ */
+void LoginHandler::sendLogoutRequest()
+{
+    qDebug() << Q_FUNC_INFO;
+    m_loginmanager->sendLogoutRequest();
+}
+
+
+/**
  * @brief LoginHandler::onLoginSuccessful - slot invoked when login successful response is received and
  * in return emits a signal to QML to open the mainpage
  */
@@ -67,4 +78,13 @@ void LoginHandler::onLoginSuccessful()
 void LoginHandler::onLoginFailed()
 {
     emit loginFailed();
+}
+
+
+/**
+ * @brief LoginHandler::onLoggedOut - slot invoked when user logsout of the current session
+ */
+void LoginHandler::onLoggedOut()
+{
+    emit loggedOut();
 }

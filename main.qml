@@ -54,4 +54,20 @@ Window {
             PropertyAction { property: "y"; value: popEnter.ViewTransition.item.pos }
         }
     }
+
+    Item {
+        Connections {
+            target: loginAccess
+
+            onLoggedOut: {
+                stackView.pop()
+                var component = Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LoginPage.qml"))
+                if (component.status === Component.Ready) {
+                    component.createObject(stackView);
+                    stackView.push(component)
+                }
+            }
+        }
+    }
+
 }
