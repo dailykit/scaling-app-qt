@@ -60,12 +60,15 @@ Window {
             target: loginAccess
 
             onLoggedOut: {
+                //keeping this code for now as commented
+//                var component = Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LoginPage.qml"))
+//                if (component.status === Component.Ready) {
+//                    component.createObject(null, {width: stackView.width, height: stackView.height});
+//                    stackView.push(component, {replace: true, destroyOnPop: true})
+//                    console.log("depppppppppppppppp", stackView.depth)
+
+            //}
                 stackView.pop()
-                var component = Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LoginPage.qml"))
-                if (component.status === Component.Ready) {
-                    component.createObject(stackView);
-                    stackView.push(component)
-                }
             }
         }
     }

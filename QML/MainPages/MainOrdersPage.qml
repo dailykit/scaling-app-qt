@@ -50,7 +50,6 @@ Item {
     Row{
         id: middleScreen
 
-
         width: parent.width * 0.9
         height: parent.height * 0.8
         spacing: parent.width * 0.03

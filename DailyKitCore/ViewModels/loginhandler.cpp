@@ -67,6 +67,7 @@ void LoginHandler::sendLogoutRequest()
  */
 void LoginHandler::onLoginSuccessful()
 {
+    qDebug() << Q_FUNC_INFO;
     emit loginSucessfullyCompleted();
 }
 

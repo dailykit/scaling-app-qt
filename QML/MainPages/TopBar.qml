@@ -71,9 +71,12 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
-                    console.log("logout stater")
+                    userIcon.color = Themes.selectedTheme.colors.appGrey
                     loginAccess.sendLogoutRequest()
+                }
 
+                onReleased: {
+                    userIcon.color = Themes.selectedTheme.colors.appWhite
                 }
             }
         }

@@ -78,6 +78,7 @@ void LoginAccessManager::sendLogoutRequest()
 
     query.addQueryItem("client_id", "device1");
     query.addQueryItem("refresh_token", m_refreshToken);
+    query.addQueryItem("client_secret","1d200852-5567-46c8-b479-b63a714e11ee");
 
     QByteArray postData;
     postData = query.toString(QUrl::FullyEncoded).toUtf8();
@@ -105,10 +106,6 @@ void LoginAccessManager::onDataReceived(QNetworkReply *loggedinData)
         case LOGIN:
             emit loginResponseFailed();
             break;
-        case LOGOUT:
-            qDebug() << "logout emitted";
-            emit loggedOut();
-            break;
         case REFRESH:
         case NONE:
         default:
@@ -126,15 +123,16 @@ void LoginAccessManager::onDataReceived(QNetworkReply *loggedinData)
         switch (m_requestType) {
 
         case LOGIN:
+
             m_accessToken = jsonObject.value("access_token").toString();
             m_refreshToken = jsonObject.value("refresh_token").toString();
-
 
             emit loginResponseSucceeded();
             break;
 
         case LOGOUT:
-            qDebug() <<"logout done";
+            qDebug() << "logout emitted";
+            emit loggedOut();
             break;
 
         case REFRESH:
