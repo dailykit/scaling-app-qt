@@ -84,6 +84,20 @@ public:
     QString ingredientDetailId() const;
 
 
+    /**
+     * @brief setIngredientIsWeighed - set if the ingredient is weighed already
+     * @param isWeighed - int
+     */
+    void setIngredientIsWeighed(const int isWeighed);
+
+
+    /**
+     * @brief ingredientIsWeighed - get if the ingredient is weighed
+     * @return - int
+     */
+    int ingredientIsWeighed() const;
+
+
 private:
     //QString m_ingredientId;
     QString m_itemId;
@@ -92,6 +106,7 @@ private:
     QString m_ingredientDetailId;
     QString m_ingredientId;
     float m_ingredientWeight;
+    int m_isWeighed;
 
 };
 

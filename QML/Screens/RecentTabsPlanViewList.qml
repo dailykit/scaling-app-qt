@@ -27,8 +27,7 @@ Item{
 
 
             showOrder.onClicked: {
-                console.log("ingredient process", ingredientProcess)
-                planningItems.getItems(ingredientProcess, recentIngredient, totalWeight)
+                mainModel.planViewItemModel.getItems(ingredientProcess, recentIngredient, totalWeight)
                 loader.source = Qt.resolvedUrl("PlanViewItemList.qml")
             }
 

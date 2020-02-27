@@ -1,7 +1,8 @@
 #include "planitemdetails.h"
 
 PlanItemDetails::PlanItemDetails() :
-    m_ingredientWeight(0.0)
+    m_ingredientWeight(0.0),
+    m_isWeighed(0)
 {
 
 }
@@ -69,5 +70,15 @@ void PlanItemDetails::setIngredientDetailId(QString detailId)
 QString PlanItemDetails::ingredientDetailId() const
 {
     return m_ingredientDetailId;
+}
+
+void PlanItemDetails::setIngredientIsWeighed(const int isWeighed)
+{
+    m_isWeighed = isWeighed;
+}
+
+int PlanItemDetails::ingredientIsWeighed() const
+{
+    return m_isWeighed;
 }
 

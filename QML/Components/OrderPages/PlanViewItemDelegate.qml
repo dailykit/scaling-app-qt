@@ -6,7 +6,7 @@ import "../../Components/OrderPages"
 Item {
     id: root
 
-    property color textColor: planItemDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+    property color textColor: planItemDelegate.ListView.isCurrentIndex ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
     property bool optionsVisible: false
 
     Column {
@@ -19,7 +19,8 @@ Item {
             id: title
             height: Interface.orderView.rowHeight * 1.2
             width: parent.width
-            color: planItemDelegate.ListView.isCurrentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.appBlack
+            color: planItemDelegate.ListView.isCurrentIndex ? Themes.selectedTheme.colors.appWhite : isIngredientWeighed ? Themes.selectedTheme.colors.primary :
+                                                                                                                        Themes.selectedTheme.colors.appBlack
 
             Row {
                 id: ingredientsRow
@@ -69,7 +70,7 @@ Item {
 
                 Text {
                     id: weight
-                    width: parent.width * 0.12
+                    width: parent.width * 0.15
                     height: parent.height
                     verticalAlignment: Text.AlignVCenter
                     text: ingredientWeight + " " + "gm"

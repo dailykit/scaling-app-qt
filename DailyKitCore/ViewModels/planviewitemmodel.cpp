@@ -6,6 +6,7 @@ PlanViewItemModel::PlanViewItemModel(QObject *parent) :
     QAbstractListModel(parent),
     m_totalWeight(0.0)
 {
+    connect(DbProxy::dbInstance(), &DbProxy::ingredientWeighedChanged, this, &PlanViewItemModel::updateIngredientDetail);
     connect(DbProxy::dbInstance(), &DbProxy::ingredientDeleted, this, &PlanViewItemModel::onIngredientDeleted);
 }
 
@@ -58,6 +59,8 @@ QVariant PlanViewItemModel::data(const QModelIndex &index, int role) const
         return m_planItemDetailsList[index.row()]->ingredientDetailId();
     case IngredientId:
         return m_planItemDetailsList[index.row()]->ingredientId();
+    case IsWeighed:
+        return m_planItemDetailsList[index.row()]->ingredientIsWeighed();
     default:
         return QVariant();
     }
@@ -73,6 +76,7 @@ QHash<int, QByteArray> PlanViewItemModel::roleNames() const
     roles.insert(IngredientWeight, "ingredientWeight");
     roles.insert(ItemsId, "itemId");
     roles.insert(IngredientDetailId, "ingredientDetailId");
+    roles.insert(IsWeighed, "isIngredientWeighed");
 
     return roles;
 }
@@ -93,9 +97,10 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
 
     m_planItemDetailsList.clear();
     QSqlQuery query;
-    query.prepare("SELECT ingredientId, ingredientQuantity, ingredientDetailId FROM ingredientDetails WHERE ingredientName = ? AND ingredientProcess=? ");
+    query.prepare("SELECT ingredientId, ingredientQuantity, ingredientDetailId, isWeighed FROM ingredientDetails WHERE ingredientName = ? AND ingredientProcess=? ");
     query.addBindValue(ingredientName);
     query.addBindValue(ingredientProcess);
+
     if(query.exec())
     {
         beginResetModel();
@@ -109,6 +114,8 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
             ingredientQuery.addBindValue(query.value(0).toString());
             ingredientQuery.exec();
             ptr->setIngredientId(query.value(0).toString());
+            ptr->setIngredientIsWeighed(query.value(3).toInt());
+
 
             while(ingredientQuery.next())
             {
@@ -151,5 +158,20 @@ void PlanViewItemModel::onIngredientDeleted(const QString ingredientId)
 
         }
     }
+}
 
+void PlanViewItemModel::updateIngredientDetail(const QString &indgredientDetailsId)
+{
+
+    for(int i = 0; i < m_planItemDetailsList.count(); ++i) {
+
+        if(m_planItemDetailsList[i]->ingredientDetailId() == indgredientDetailsId) {
+            m_planItemDetailsList[i]->setIngredientIsWeighed(1);
+
+            QModelIndex model = createIndex(i, 0);
+
+            emit dataChanged(model, model);
+            break;
+        }
+    }
 }

@@ -64,7 +64,7 @@ void IngredientViewModel::setQuery(const QString &itemId)
             ptr->setIngredientId(query.value(0).toString());
             ptr->setIngredientName(query.value(1).toString());
             query1.prepare("SELECT ingredientDetails.ingredientDetailId, ingredientDetails.ingredientName, "
-                           "ingredientDetails.ingredientQuantity, ingredientDetails.ingredientMsr, ingredientDetails.ingredientProcess, ingredientDetails.isPacked"
+                           "ingredientDetails.ingredientQuantity, ingredientDetails.ingredientMsr, ingredientDetails.ingredientProcess, ingredientDetails.isWeighed"
                            " FROM ingredientDetails WHERE ingredientDetails.ingredientId = ?");
             query1.addBindValue(ptr->ingredientId());
             if (query1.exec()) {
@@ -103,8 +103,6 @@ void IngredientViewModel::setQuery(const QString &itemId)
 
 void IngredientViewModel::updateIngredientDetail(const QString &indgredientDetailsId)
 {
-
-
     int isElementFound = 0;
     for(int i = 0; i < m_ingredientsList.count(); ++i) {
         if(isElementFound == 1 || isElementFound == 2) {

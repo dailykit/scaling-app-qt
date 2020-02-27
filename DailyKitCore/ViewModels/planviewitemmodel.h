@@ -22,7 +22,8 @@ class PlanViewItemModel : public QAbstractListModel
         IngredientId,
         IngredientDetailId,
         ItemName,
-        IngredientWeight
+        IngredientWeight,
+        IsWeighed
     };
 
 public:
@@ -45,6 +46,9 @@ public:
 
 private slots:
     void onIngredientDeleted(const QString ingredientId);
+
+public slots:
+    void updateIngredientDetail(const QString &indgredientDetailsId);
 
 signals:
     void ingredientNameChanged();

@@ -47,7 +47,7 @@ Item {
         RoundedRectangle{
             id: orderIdBack
 
-            width: parent.width * 0.5
+            width: parent.width * 0.7
             height: Interface.orderView.rowHeight
             color: currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.primaryDark
 
@@ -60,7 +60,7 @@ Item {
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Interface.fontSize.textSizeSmall
+                font.pixelSize: Interface.fontSize.textSizeSmall * 0.8
             }
 
             MouseArea{
