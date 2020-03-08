@@ -8,6 +8,10 @@ import "../ApplicationCore/Style"
 Item {
     id: root
 
+    property variant itemModel
+    property string ingredientName
+    property int itemIndex
+
     Row {
         id: allOrders
         anchors.top: parent.top
@@ -122,7 +126,7 @@ Item {
         }
     }
 
-    ItemsList {
+    PlanningItemsList {
         id: allItems
 
         width: parent.width
@@ -130,6 +134,8 @@ Item {
 
         anchors.top: idOrderNumber.bottom
         anchors.topMargin: parent.height * 0.02
+        recentList.model: itemModel
+        ingredientName: ingredientName
     }
 
     RoundedRectangle {
@@ -143,7 +149,7 @@ Item {
         anchors.topMargin: parent.height * 0.02
 
         AppListView {
-            id: trialRect
+            id: planningViewList
             anchors.fill: parent
 
             width: parent.width * 0.8
@@ -164,7 +170,7 @@ Item {
                     propagateComposedEvents: true
 
                     onClicked: {
-                        trialRect.currentIndex = index
+                        planningViewList.currentIndex = index
                         mainModel.weighingScale.itemName = itemName
                         if(orderId !== "") {
                         mainModel.weighingScale.orderId = orderId
@@ -236,7 +242,5 @@ Item {
                 elide: Text.Left
             }
         }
-
     }
-
 }

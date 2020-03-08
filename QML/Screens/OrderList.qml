@@ -74,7 +74,7 @@ Item{
                         mainModel.ingredientsModel.getIngredients(model.itemOrderId)
                         mainModel.weighingScale.orderId = model.orderId
                         mainModel.weighingScale.itemName = model.itemName
-                        loader.source = Qt.resolvedUrl("IngredientsPage.qml")
+                        loader.setSource(Qt.resolvedUrl("IngredientsPage.qml"))
                         mainModel.recentTabs.addRecentItem(model.orderNumber, model.itemOrderId, model.orderId)
                         mainModel.itemsModel.setCurrentItem(model.itemOrderId)
                         mainModel.itemsModel.setQuery(model.orderId)

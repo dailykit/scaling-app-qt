@@ -42,5 +42,6 @@
         <file>QML/Components/OptionPages/DeleteIngredientDialog.qml</file>
         <file>QML/Components/OptionPages/RepackDialog.qml</file>
         <file>QML/Screens/RecentTabsPlanViewList.qml</file>
+        <file>QML/Screens/PlanningItemsList.qml</file>
     </qresource>
 </RCC>

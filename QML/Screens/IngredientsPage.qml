@@ -9,6 +9,7 @@ Item {
     id: root
 
     property int orderCount
+    property int itemIndex
 
     Row {
         id: allOrders
@@ -183,7 +184,7 @@ Item {
         anchors.topMargin: parent.height * 0.02
 
         AppListView {
-            id: trialRect
+            id: ingredientsList
 
 
             anchors.left: parent.left
@@ -209,15 +210,16 @@ Item {
                     enabled: detailsList.count === 1 && !optionsVisible
 
                     onClicked: {
-                        trialRect.currentIndex = index
+                        ingredientsList.currentIndex = index
                         if(detailsList.count === 1) {
                             mainModel.weighingScale.itemName = mainModel.ingredientsModel.itemName
+                            mainModel.weighingScale.ingredientWeightString = quantity.toFixed(2) + " " + ingredientWeight
                             mainModel.weighingScale.weighItem(ingredientDetailId, ingredientSlipName, quantity, ingredientWeight)
                         } else {
                             detailsList.currentIndex = 0
                         }
 
-                        trialRect.indexChanged(index)
+                        ingredientsList.indexChanged(index)
                         mouse.accepted = false
                     }
                 }
@@ -229,7 +231,7 @@ Item {
         target: mainModel.ingredientsModel
 
         onItemIndexChanged: {
-            trialRect.currentIndex = itemIndex
+            ingredientsList.currentIndex = itemIndex
         }
     }
 

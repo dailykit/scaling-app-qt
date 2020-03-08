@@ -28,6 +28,7 @@ WeighingScaleModel::WeighingScaleModel(QObject *parent) :
     m_ingredientCalculatedWeight(0),
     m_ingredientQuantity(0),
     m_weighAccuracyRange(0),
+    m_tearWeight(0),
     m_weightRange(UnderWeight),
     m_ingredientPackedTimer(new QTimer(this))
 {
@@ -130,6 +131,17 @@ void WeighingScaleModel::setScaleStatus(QString status)
     emit scaleStatusChanged();
 }
 
+QString WeighingScaleModel::ingredientWeightString() const
+{
+    return m_ingredientWeightString;
+}
+
+void WeighingScaleModel::setIngredientWeightString(const QString weight)
+{
+    m_ingredientWeightString = weight;
+    emit ingredientWeightStringChanged();
+}
+
 float WeighingScaleModel::ingredientQuantity() const
 {
     return m_ingredientQuantity;
@@ -146,8 +158,9 @@ WeighingScaleModel *WeighingScaleModel::weighScaleInstance()
 void WeighingScaleModel::calculateActualWeight(float quantity)
 {
     setWeightRange(UnderWeight);
+    float afterTearQuantity = quantity - tearWeight();
     setCalculatedQuantity(abs(quantity));
-    checkIfIngredientInWeightRange(quantity);
+    checkIfIngredientInWeightRange(afterTearQuantity);
 }
 
 void WeighingScaleModel::weighItem(QString ingredientDetailID, QString ingredientName, float quantity, QString weight)
@@ -168,6 +181,26 @@ void WeighingScaleModel::weightAccuracy(float accuracy)
     m_weighAccuracyRange = accuracy;
 }
 
+
+/**
+ * @brief WeighingScaleModel::setTearWeight - set the tear weight of the packets
+ * @param tearWeight - float
+ */
+void WeighingScaleModel::setTearWeight(float tearWeight)
+{
+    m_tearWeight = tearWeight;
+}
+
+
+/**
+ * @brief WeighingScaleModel::tearWeight - tear weight to give exact quantity
+ * @return
+ */
+float WeighingScaleModel::tearWeight() const
+{
+    return m_tearWeight;
+}
+
 void WeighingScaleModel::ingredientPacked()
 {
     qDebug() << "timer set" << m_ingredientDetailId;
@@ -177,6 +210,7 @@ void WeighingScaleModel::ingredientPacked()
 
 void WeighingScaleModel::checkIfIngredientInWeightRange(float quantity)
 {
+
     if(abs(ingredientQuantity() - quantity) >= 0 && abs(ingredientQuantity() - quantity) <= m_weighAccuracyRange) {
         setIngredientStatus(WEIGHINGSTATUS[3]);
         setWeightRange(WeightInRange);

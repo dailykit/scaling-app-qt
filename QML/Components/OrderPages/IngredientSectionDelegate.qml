@@ -197,7 +197,7 @@ Item {
         }
 
         Connections {
-            target: trialRect
+            target: ingredientsList
             onIndexChanged:{
                 if(index1 !== index)
                     detailsList.currentIndex = -1

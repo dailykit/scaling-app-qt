@@ -12,6 +12,15 @@ PlanDetails::PlanDetails(const PlanDetails &plan) :
 {
 }
 
+PlanDetails &PlanDetails::operator =(PlanDetails &details)
+{
+    m_ingredientDetailId = details.m_ingredientDetailId;
+    m_ingredientName = details.m_ingredientName;
+    m_ingredientTotalWeight = details.m_ingredientTotalWeight;
+
+    return *this;
+}
+
 PlanDetails::~PlanDetails()
 {
 }

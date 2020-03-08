@@ -10,6 +10,8 @@ Item{
     width: parent.width
     height: parent.height
 
+    property alias recentList: recentList
+
     AppListView {
         id: recentList
 
@@ -22,6 +24,9 @@ Item{
         delegate: ItemsDelegate {
             id: delegateIngredient
             height: Interface.orderView.rowHeight
+
+            item.text: model.itemName
+            packed.text: packedCount + "/" + ingredientCount
 
             MouseArea {
                 anchors.fill: parent

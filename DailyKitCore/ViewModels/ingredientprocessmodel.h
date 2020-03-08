@@ -7,14 +7,18 @@
 
 class IngredientProcessModel : public QAbstractListModel
 {
+    Q_OBJECT
 
     enum {
         IngredientId,
         IngredientQuantity,
         IngredientProcessName,
         IngredientPackedCount,
-        IngredientProcessCount
+        IngredientProcessCount,
+        CurrentItem
     };
+
+    Q_PROPERTY(QString currentItem READ currentItem WRITE setCurrentItem NOTIFY currentItemChanged)
 
 public:
     IngredientProcessModel(QObject *parent = nullptr);
@@ -27,8 +31,15 @@ public:
     void setIngredientProcess(IngredientProcessPtr details);
     QList <IngredientProcessPtr> ingredientProcessList();
 
+   Q_INVOKABLE void setCurrentItem(QString ingredientProcess);
+    QString currentItem() const;
+
+signals:
+    void currentItemChanged();
+
 private:
     QList <IngredientProcessPtr> m_ingredientProcessList;
+    QString m_currentItem;
 
 };
 

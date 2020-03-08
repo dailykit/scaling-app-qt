@@ -11,7 +11,8 @@ MainViewModel::MainViewModel(QObject *parent) :
     m_itemsModel(new ItemViewModel),
     m_settingsModel(new SettingsModel),
     m_planViewModel(new PlanViewModel),
-    m_planViewItemModel(new PlanViewItemModel)
+    m_planViewItemModel(new PlanViewItemModel),
+    m_ingredientProcessModel(new IngredientProcessModel)
 {
     connect(m_databaseProxy, &DbProxy::orderDetailsChanged, m_orderModel, &OrderViewModel::onOrderDetailsReceived);
 
@@ -86,4 +87,14 @@ PlanViewItemModel *MainViewModel::planViewItemModel()
 WeighingScaleModel *MainViewModel::weighingScale()
 {
     return  WeighingScaleModel::weighScaleInstance();
+}
+
+/**
+ * @brief MainViewModel::ingredientProcess - returns the pointer to ingredient process model,
+ * this model object is used to show the process list in planview items model
+ * @return - IngredientProcessModel*
+ */
+IngredientProcessModel *MainViewModel::ingredientProcess()
+{
+    return m_ingredientProcessModel;
 }

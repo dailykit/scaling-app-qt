@@ -8,6 +8,32 @@ struct IngredientProcess {
     int m_ingredientProcessWeight;
     int m_ingredientProcessCount;
     int m_ingredientPackedCount;
+
+    IngredientProcess() :
+        m_ingredientProcessWeight(0),
+        m_ingredientProcessCount(0),
+        m_ingredientPackedCount(0)
+    {
+    }
+
+    IngredientProcess(const IngredientProcess &process) :
+        m_ingredientProcess(process.m_ingredientProcess),
+        m_ingredientProcessWeight(process.m_ingredientProcessWeight),
+        m_ingredientProcessCount(process.m_ingredientProcessCount),
+        m_ingredientPackedCount(process.m_ingredientPackedCount)
+    {
+    }
+
+    ~IngredientProcess() {}
+
+    IngredientProcess &operator =(IngredientProcess &process) {
+        m_ingredientProcess = process.m_ingredientProcess;
+        m_ingredientProcessWeight = process.m_ingredientProcessWeight;
+        m_ingredientProcessCount = process.m_ingredientProcessCount;
+        m_ingredientPackedCount = process.m_ingredientPackedCount;
+
+        return *this;
+    }
 };
 typedef  QSharedPointer<IngredientProcess> IngredientProcessPtr;
 
@@ -16,6 +42,7 @@ class PlanDetails
 public:
     explicit PlanDetails();
     PlanDetails(const PlanDetails &plan);
+    PlanDetails &operator = (PlanDetails &details);
     ~PlanDetails();
     void registerTypes();
 

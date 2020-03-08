@@ -1,10 +1,12 @@
 #include "ingredientprocessmodel.h"
+#include <QDebug>
 
 IngredientProcessModel::IngredientProcessModel(QObject *parent) :
     QAbstractListModel(parent)
 {
 
 }
+
 
 QVariant IngredientProcessModel::data(const QModelIndex &index, int role) const
 {
@@ -23,6 +25,8 @@ QVariant IngredientProcessModel::data(const QModelIndex &index, int role) const
         return m_ingredientProcessList[index.row()]->m_ingredientPackedCount;
     case IngredientProcessCount:
         return m_ingredientProcessList[index.row()]->m_ingredientProcessCount;
+    case CurrentItem:
+        return m_ingredientProcessList[index.row()]->m_ingredientProcess == m_currentItem;
     default:
         return QVariant();
     }
@@ -36,6 +40,7 @@ QHash<int, QByteArray> IngredientProcessModel::roleNames() const
     roles.insert(IngredientProcessName, "ingredientProcess");
     roles.insert(IngredientPackedCount, "ingredientPackedCount");
     roles.insert(IngredientProcessCount, "ingredientProcessCount");
+    roles.insert(CurrentItem, "currentItem");
 
     return roles;
 }
@@ -56,4 +61,19 @@ void IngredientProcessModel::setIngredientProcess(IngredientProcessPtr details)
 QList<IngredientProcessPtr> IngredientProcessModel::ingredientProcessList()
 {
     return m_ingredientProcessList;
+}
+
+void IngredientProcessModel::setCurrentItem(QString ingredientProcess)
+{
+   qDebug() << "current item" << ingredientProcess;
+    beginResetModel();
+    m_currentItem = ingredientProcess;
+    emit currentItemChanged();
+    endResetModel();
+
+}
+
+QString IngredientProcessModel::currentItem() const
+{
+    return m_currentItem;
 }

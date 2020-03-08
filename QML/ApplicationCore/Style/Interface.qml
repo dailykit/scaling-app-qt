@@ -31,6 +31,14 @@ QtObject{
         readonly property real textSizeLarge: tscale(45)
     }
 
+    readonly property QtObject toggleButtons: QtObject {
+        readonly property int toggleCircle: screenHeight * 0.001
+        readonly property real toggleCircleHeight: screenHeight * 0.022
+        readonly property real toggleCircleWidth: screenWidth * 0.01
+        readonly property real toggleRectangleHeight: screenHeight * 0.02
+        readonly property real toggleRectangleWidth: screenWidth * 0.03
+    }
+
 
     readonly property QtObject orderView: QtObject {
         readonly property real ingredientRowSpacing: hscale(15)
@@ -51,7 +59,10 @@ QtObject{
 
     readonly property QtObject logo: QtObject {
        readonly property real iconSize: screenWidth * 0.02
-
    }
+
+    readonly property QtObject icons: QtObject {
+        readonly property real tearIconSize: screenWidth * 0.01
+    }
 
 }

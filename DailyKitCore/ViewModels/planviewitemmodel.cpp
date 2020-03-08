@@ -93,7 +93,7 @@ void PlanViewItemModel::getItems(QString ingredientProcess, QString ingredientNa
 {
     setTotalWeight(totalWeight);
     setIngredientName(ingredientName);
-    qDebug() << "get Items" << ingredientProcess;
+    qDebug() << "get Items" << ingredientProcess << ingredientName;
 
     m_planItemDetailsList.clear();
     QSqlQuery query;

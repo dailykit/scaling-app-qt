@@ -28,6 +28,7 @@ class MainViewModel : public QObject
     Q_PROPERTY(PlanViewModel* planViewModel READ planViewModel NOTIFY planViewModelChanged)
     Q_PROPERTY(PlanViewItemModel* planViewItemModel READ planViewItemModel NOTIFY planViewItemModelChanged)
     Q_PROPERTY(WeighingScaleModel* weighingScale READ weighingScale NOTIFY weighingScaleChanged)
+    Q_PROPERTY(IngredientProcessModel* ingredientProcess READ ingredientProcess NOTIFY ingredientProcessChanged)
 
 
 public:
@@ -44,6 +45,7 @@ signals:
    void planViewModelChanged();
    void planViewItemModelChanged();
    void weighingScaleChanged();
+   void ingredientProcessChanged();
 
 public slots:
     ManipulateIngredients* manipulateIngredients();
@@ -56,20 +58,22 @@ public slots:
     PlanViewModel *planViewModel();
     PlanViewItemModel *planViewItemModel();
     WeighingScaleModel *weighingScale();
+    IngredientProcessModel *ingredientProcess();
 
     Q_INVOKABLE void getOrders();
 
 private:
-    DbProxy *m_databaseProxy;
-    OrderViewModel *m_orderModel;
-    ManipulateIngredients *m_ingredientsManipulation;
-    RecentTabsPlanView *m_recentPlanView;
-    IngredientViewModel *m_ingredientsModel;
+    DbProxy* m_databaseProxy;
+    OrderViewModel* m_orderModel;
+    ManipulateIngredients* m_ingredientsManipulation;
+    RecentTabsPlanView* m_recentPlanView;
+    IngredientViewModel* m_ingredientsModel;
     RecentTabsModel* m_recentTabs;
     ItemViewModel* m_itemsModel;
     SettingsModel* m_settingsModel;
     PlanViewModel* m_planViewModel;
-    PlanViewItemModel *m_planViewItemModel;
+    PlanViewItemModel* m_planViewItemModel;
+    IngredientProcessModel* m_ingredientProcessModel;
 };
 
 #endif // MAINVIEWMODEL_H

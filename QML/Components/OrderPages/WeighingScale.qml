@@ -44,7 +44,7 @@ Item {
                     id: idIngredientSelected
                     height:  parent.height * 0.3
                     font.pixelSize: idIngredientSelected.height * 0.6
-                    text: mainModel.weighingScale.ingredientName
+                    text: mainModel.weighingScale.ingredientName + " " + mainModel.weighingScale.ingredientWeightString
                 }
             }
 
@@ -125,6 +125,42 @@ Item {
                 text:  mainModel.weighingScale.scaleStatus
                 font.pixelSize: idStateText.height * 0.09
                 color: Themes.selectedTheme.colors.appWhite
+            }
+            
+            Text {
+                id: tearIcon
+                width: Interface.icons.tearIconSize
+                height: Interface.icons.tearIconSize
+                anchors{
+                    right: parent.right
+                    rightMargin: parent.width * 0.14
+                    bottom: imageRectangleWeight.bottom
+                    bottomMargin: parent.height * 0.006
+                }
+
+                text: Images.tear
+                font.pixelSize: Interface.fontSize.textSizeSmall
+                color: Themes.selectedTheme.colors.appWhite
+
+                MouseArea {
+                    id: tearMouseArea
+                    anchors.fill: parent
+
+                    onClicked: {
+                        tearIcon.color = Themes.selectedTheme.colors.appWhite
+                        if(mainModel.settingsModel.manualEntry) {
+                            mainModel.weighingScale.setTearWeight(manualText.text)
+                        }
+                        else {
+                           mainModel.weighingScale.setTearWeight(5.0)
+                        }
+                    }
+
+                    onPressed: {
+                        tearIcon.color = Themes.selectedTheme.colors.appWhite
+                    }
+                }
+
             }
         }
 
@@ -229,7 +265,7 @@ Item {
                         mainModel.weighingScale.calculateActualWeight(manualText.text)
                     }
                     else {
-                        mainModel.weighingScale.calculateActualWeight(weighingScale.ingredientQuantity())
+                       mainModel.weighingScale.calculateActualWeight(mainModel.weighingScale.ingredientQuantity() + mainModel.weighingScale.tearWeight())
                     }
                 }
             }

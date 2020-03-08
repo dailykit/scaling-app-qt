@@ -11,16 +11,17 @@ Item {
     height: Interface.orderView.rowHeight
     width: crossOne.width + 20
 
-    property color textColor: !currentItem ? Themes.selectedTheme.colors.appWhite : Themes.selectedTheme.colors.extremeBlack
-
+    property color textColor: (currentItem || delegateIngredient.ListView.isCurrentItem) ? Themes.selectedTheme.colors.extremeBlack : Themes.selectedTheme.colors.appWhite
+    property alias packed: packed
+    property alias item: item
 
     RoundedRectangle{
         id: crossOne
 
         width: packed.contentWidth + item.contentWidth + user.width
         height: Interface.orderView.rowHeight
-        color: !currentItem ? Themes.selectedTheme.colors.primaryDark :
-                              Themes.selectedTheme.colors.appWhite
+        color: (currentItem || delegateIngredient.ListView.isCurrentItem) ? Themes.selectedTheme.colors.appWhite :
+                                                                             Themes.selectedTheme.colors.primaryDark
 
         Row {
 
@@ -37,7 +38,7 @@ Item {
                 height: parent.height
                 width: packed.contentWidth
 
-                text: packedCount + "/" + ingredientCount
+
                 color: textColor
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -50,7 +51,7 @@ Item {
                 height: parent.height
                 width: item.contentWidth
 
-                text: model.itemName
+           //     text:
                 color: textColor
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -70,4 +71,5 @@ Item {
             }
         }
     }
+    Component.onCompleted: console.log("current",delegateIngredient.ListView.isCurrentItem )
 }
