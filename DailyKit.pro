@@ -44,17 +44,11 @@ RESOURCES += qml.qrc \
     font.qrc \
     images.qrc
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
 
-
-INCLUDEPATH +=
 INCLUDEPATH += \                         # <-
     include \                            # <- Without these 3 lines the compile fails
     External \
 
-
-# Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -99,5 +93,11 @@ DISTFILES += \
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
+ }
 }
+
+win32 {
+ contains(QMAKE_TARGET.arch, x86_64) {
+  QT += webengine
+ }
 }

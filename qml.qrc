@@ -43,5 +43,8 @@
         <file>QML/Components/OptionPages/RepackDialog.qml</file>
         <file>QML/Screens/RecentTabsPlanViewList.qml</file>
         <file>QML/Screens/PlanningItemsList.qml</file>
+        <file>QML/Screens/AppsList.qml</file>
+        <file>QML/MainPages/WebAppsPage.qml</file>
+        <file>QML/MainPages/LandingPage.qml</file>
     </qresource>
 </RCC>
