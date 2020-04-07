@@ -5,9 +5,7 @@ import QtQuick.Controls 2.5
 WebEngineView {
     id: webView
 
-    // Make sure focus is not taken by the web view, so user can continue navigating
-    // recipes with the keyboard.
-    settings.focusOnNavigationEnabled: false
+    property string urlLink
 
     onContextMenuRequested: function(request) {
         request.accepted = true
@@ -16,10 +14,11 @@ WebEngineView {
     property bool firstLoadComplete: false
     onLoadingChanged: function(loadRequest) {
         if (loadRequest.status === WebEngineView.LoadSucceededStatus
-                && !firstLoadComplete) {
+                ) {
             // Debounce the showing of the web content, so images are more likely
             // to have loaded completely.
-            showTimer.start()
+          //  showTimer.start()
+            webView.show(true)
         }
     }
 
@@ -30,7 +29,7 @@ WebEngineView {
         onTriggered: {
             webView.show(true)
             webView.firstLoadComplete = true
-            recipeList.showHelp()
+          //  recipeList.showHelp()
         }
     }
 
@@ -38,7 +37,7 @@ WebEngineView {
         id: webViewPlaceholder
         anchors.fill: parent
         z: 1
-        color: "white"
+        color: "pink"
 
         BusyIndicator {
             id: busy
@@ -58,6 +57,10 @@ WebEngineView {
             webViewPlaceholder.visible = true
             busy.running = true
         }
+    }
+    Component.onCompleted: {
+     console.log("urllink----------------", urlLink)
+        showRecipe(urlLink)
     }
 }
 

@@ -65,4 +65,12 @@ QtObject{
         readonly property real tearIconSize: screenWidth * 0.01
     }
 
+    readonly property QtObject landingPages: QtObject {
+        readonly property real outerRectWidth: screenWidth * 0.1831
+        readonly property real outerRectHeight: screenHeight * 0.223
+        readonly property real innerRect: screenWidth * 0.063
+        readonly property real appNameTextWidth: screenWidth * 0.074
+        readonly property real appNameTextHeight: screenHeight * 0.0248
+   }
+
 }

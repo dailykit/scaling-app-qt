@@ -7,6 +7,7 @@ import "QML/Components/OrderPages"
 import "QML/ComponentsCore/Views"
 import "QML/MainPages"
 import "QML/Screens"
+import "QML/MainPages"
 
 Window {
     visible: true
@@ -18,13 +19,14 @@ Window {
     property alias stackView: stackView
 
 
+
     StackView {
         id: stackView
         property real offset: 10
         width: parent.width
         height: parent.height
 
-        initialItem: Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LoginPage.qml")).createObject()
+        initialItem: Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LandingPage.qml")).createObject()
 
         pushEnter: Transition {
             id: pushEnter
@@ -54,6 +56,7 @@ Window {
             PropertyAction { property: "y"; value: popEnter.ViewTransition.item.pos }
         }
     }
+
 
     Item {
         Connections {

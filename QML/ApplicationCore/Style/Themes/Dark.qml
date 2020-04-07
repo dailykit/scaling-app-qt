@@ -14,5 +14,14 @@ QtObject {
         readonly property color appGrey: "#AAAAAA";
         readonly property color appWhite: "#FFFFFF";
         readonly property color extremeBlack: "#000000";
-    }
+        readonly property color orderAppColor: "#136f63"
+        readonly property color inventoryAppColor: "#58355e"
+        readonly property color shopManagementColor: "#ffba08"
+        readonly property color receipeAppColor: "#fe4a49"
+        readonly property color brAppColor: "#3066be"
+        readonly property color rmkDashboardColor: "#72195a"
+        readonly property color crmColor: "#1a1b41"
+        readonly property color snaColor: "#3f88c5"
+        readonly property color settingsColor: "#2d3047"
+        }
 }
