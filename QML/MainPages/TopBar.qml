@@ -1,11 +1,11 @@
 import QtQuick 2.0
 import "../ApplicationCore/Style"
-Item {
+Rectangle {
 
     Row {
         id: topBar
 
-        spacing: 10
+        spacing: 20
 
         Rectangle {
             id: logoRect
@@ -21,17 +21,42 @@ Item {
             }
         }
 
-        Text {
-            id: appName
 
-            width: parent.width * 0.2
-            height: parent.height * 0.8
+        Rectangle {
+            id: launchPadRect
 
-            verticalAlignment: Text.AlignHCenter
-            text: qsTr("DAILYKIT")
-            color: Themes.selectedTheme.colors.appWhite
-            font.pixelSize: Interface.fontSize.textSizeSmall
+            width: Interface.logo.iconSize
+            height: Interface.logo.iconSize
+
+            Image {
+                id: launchPadImage
+
+                anchors.fill: parent
+                source: Images.launchPad
+            }
+            MouseArea{
+                id: launch
+                anchors.fill: parent
+                onReleased: {
+                    console.log("presssssssssssssssssss")
+
+                        stackView.push(Qt.resolvedUrl("LandingPage.qml"))
+
+                }
+            }
         }
+
+//        Text {
+//            id: appName
+
+//            width: parent.width * 0.2
+//            height: parent.height * 0.8
+
+//            verticalAlignment: Text.AlignHCenter
+//            text: qsTr("DAILYKIT")
+//            color: Themes.selectedTheme.colors.appWhite
+//            font.pixelSize: Interface.fontSize.textSizeSmall
+//        }
 
         Rectangle {
             id: blank

@@ -18,16 +18,18 @@
 #include "DailyKitCore/DatabaseModels/dbproxy.h"
 #include "DailyKitCore/External/WebServices/loginaccessmanager.h"
 #include <QFileInfo>
+#include <qtwebengineglobal.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setApplicationName("DailyKit");
+    QCoreApplication::setOrganizationName("Scaling");
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    QtWebEngine::initialize();
     QGuiApplication app(argc, argv);
 
 
-    QCoreApplication::setOrganizationName("Scaling");
-    QCoreApplication::setApplicationName("DailyKit");
     QQmlApplicationEngine engine;
 
     LoginHandler* m_login = new LoginHandler;

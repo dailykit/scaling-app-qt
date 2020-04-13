@@ -7,6 +7,7 @@ QtObject{
     readonly property string imagesPath: "qrc:/QML/Default/"
     readonly property string background: imagesPath + "background.jpg";
     readonly property string logo: imagesPath + "logo.svg";
+    readonly property string launchPad: imagesPath + "icLaunchPad.svg"
     readonly property string orderNumber: imagesPath + "ic_order_number.png";
     readonly property string orderTime: imagesPath + "ic_order_time.png";
     readonly property string weight: imagesPath + "weight.png";

@@ -18,5 +18,6 @@
         <file>QML/Default/up.svg</file>
         <file>QML/Default/weight.svg</file>
         <file>QML/Default/logo.svg</file>
+        <file>QML/Default/icLaunchPad.svg</file>
     </qresource>
 </RCC>
