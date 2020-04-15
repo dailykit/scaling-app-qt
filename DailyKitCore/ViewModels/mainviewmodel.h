@@ -13,6 +13,7 @@
 #include "planviewmodel.h"
 #include "planviewitemmodel.h"
 #include "weighingscalemodel.h"
+#include "recentappsmodel.h"
 
 class MainViewModel : public QObject
 {
@@ -29,7 +30,7 @@ class MainViewModel : public QObject
     Q_PROPERTY(PlanViewItemModel* planViewItemModel READ planViewItemModel NOTIFY planViewItemModelChanged)
     Q_PROPERTY(WeighingScaleModel* weighingScale READ weighingScale NOTIFY weighingScaleChanged)
     Q_PROPERTY(IngredientProcessModel* ingredientProcess READ ingredientProcess NOTIFY ingredientProcessChanged)
-
+    Q_PROPERTY(RecentAppsModel* recentApps READ recentApps NOTIFY recentAppsChanged)
 
 public:
     explicit MainViewModel(QObject *parent = nullptr);
@@ -46,6 +47,7 @@ signals:
    void planViewItemModelChanged();
    void weighingScaleChanged();
    void ingredientProcessChanged();
+   void recentAppsChanged();
 
 public slots:
     ManipulateIngredients* manipulateIngredients();
@@ -59,6 +61,7 @@ public slots:
     PlanViewItemModel *planViewItemModel();
     WeighingScaleModel *weighingScale();
     IngredientProcessModel *ingredientProcess();
+    RecentAppsModel *recentApps();
 
     Q_INVOKABLE void getOrders();
 
@@ -74,6 +77,7 @@ private:
     PlanViewModel* m_planViewModel;
     PlanViewItemModel* m_planViewItemModel;
     IngredientProcessModel* m_ingredientProcessModel;
+    RecentAppsModel* m_recentApps;
 };
 
 #endif // MAINVIEWMODEL_H

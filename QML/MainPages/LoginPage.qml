@@ -213,11 +213,11 @@ Rectangle {
             onLoginSucessfullyCompleted: {
                 busy.running = false
 
-                var component = Qt.createComponent(Qt.resolvedUrl("MainOrdersPage.qml"))
-                if (component.status === Component.Ready) {
-                    component.createObject(null,  {replace: true, destroyOnPop: true, width: stackView.width, height: stackView.height});
-                    stackView.push(component)
-                }
+                stackView.push(Qt.resolvedUrl("LandingPage.qml"), {replace: true, destroyOnPop: true, width: stackView.width, height: stackView.height})
+//                if (component.status === Component.Ready) {
+//                    component.createObject(,  {replace: true, destroyOnPop: true, width: stackView.width, height: stackView.height});
+//                    stackView.push(component)
+//                }
 
                 nameInput.text = ""
                 passInput.text = ""

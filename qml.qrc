@@ -47,5 +47,7 @@
         <file>QML/MainPages/WebAppsPage.qml</file>
         <file>QML/MainPages/LandingPage.qml</file>
         <file>QML/Components/Delegates/AppsDelegate.qml</file>
+        <file>QML/Components/Delegates/RecentAppsDelegate.qml</file>
+        <file>QML/Screens/RecentAppsList.qml</file>
     </qresource>
 </RCC>

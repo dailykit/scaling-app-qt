@@ -10,19 +10,21 @@ Item {
     Column {
         height: parent.height
         width: parent.width
-        spacing: 20
 
         TopBar {
             id: topBar
 
             height: parent.width * 0.029
             width: parent.width
+            recentAppsList.onAppClicked: {
+                webView.show(false)
+                webView.url = url
+            }
         }
-
 
         WebEngineView {
             id: webView
-            height: 600
+            height: parent.height * 0.8
             width: parent.width
 
 
@@ -49,26 +51,27 @@ Item {
                 z: 1
                 color: "white"
 
-//                BusyIndicator {
-//                    id: busy
-//                    anchors.centerIn: parent
-//                }
+                BusyIndicator {
+                    id: busy
+                    anchors.centerIn: parent
+                }
             }
             Component.objectName: {
-                 webView.url = urlLink
+                webView.url = urlLink
             }
 
-            function showRecipe(url) {
+
+            function showURL(url) {
                 webView.url = url
             }
 
             function show(show) {
                 if (show === true) {
-             //       busy.running = false
+                    busy.running = false
                     webViewPlaceholder.visible = false
                 } else {
                     webViewPlaceholder.visible = true
-               //     busy.running = true
+                    busy.running = true
                 }
             }
         }

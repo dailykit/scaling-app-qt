@@ -61,17 +61,14 @@ Item {
                             var component = Qt.createComponent(Qt.resolvedUrl(model.url))
                             if (component.status === Component.Ready) {
                                 component.createObject(null,  {replace: true, destroyOnPop: true, width: stackView.width, height: stackView.height});
-                              //  stackView.pop()
+                                stackView.pop()
                                 stackView.push(component)
                             }
                         }else {
-//                            var component1 = Qt.createComponent(Qt.resolvedUrl("WebAppsPage.qml"))
-//                            if (component1.status === Component.Ready) {
-                              //  component1.createObject(null,  {replace: true, destroyOnPop: true, width: stackView.width, height: stackView.height, urlLink: model.url});
-                           // stackView.pop()
+                            stackView.pop()
                             stackView.push( "WebAppsPage.qml",
                                                   {urlLink: model.url, width: stackView.width, height: stackView.height})
-//                            }
+                            mainModel.recentApps.addRecentItem(model.url, model.name, index, model.appColor)
                         }
                     }
                 }
@@ -79,6 +76,3 @@ Item {
         }
     }
 }
-
-
-

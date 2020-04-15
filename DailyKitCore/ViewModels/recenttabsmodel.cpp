@@ -79,7 +79,6 @@ void RecentTabsModel::removeRecentItem(int recentIndex)
     beginResetModel();
     m_recentOrderList.removeAt(recentIndex);
     endResetModel();
-
 }
 
 void RecentTabsModel::setCurrentItem(QString itemId)

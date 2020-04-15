@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setApplicationName("DailyKit");
     QCoreApplication::setOrganizationName("Scaling");
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+  //  qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     QtWebEngine::initialize();
     QGuiApplication app(argc, argv);
 

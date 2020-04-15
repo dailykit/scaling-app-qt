@@ -26,7 +26,7 @@ Window {
         width: parent.width
         height: parent.height
 
-        initialItem: Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LandingPage.qml")).createObject()
+        initialItem: Qt.createComponent(Qt.resolvedUrl("QML/MainPages/LoginPage.qml")).createObject()
 
         pushEnter: Transition {
             id: pushEnter

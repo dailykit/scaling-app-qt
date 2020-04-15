@@ -12,7 +12,8 @@ MainViewModel::MainViewModel(QObject *parent) :
     m_settingsModel(new SettingsModel),
     m_planViewModel(new PlanViewModel),
     m_planViewItemModel(new PlanViewItemModel),
-    m_ingredientProcessModel(new IngredientProcessModel)
+    m_ingredientProcessModel(new IngredientProcessModel),
+    m_recentApps(new RecentAppsModel)
 {
     connect(m_databaseProxy, &DbProxy::orderDetailsChanged, m_orderModel, &OrderViewModel::onOrderDetailsReceived);
 
@@ -97,4 +98,14 @@ WeighingScaleModel *MainViewModel::weighingScale()
 IngredientProcessModel *MainViewModel::ingredientProcess()
 {
     return m_ingredientProcessModel;
+}
+
+
+/**
+ * @brief MainViewModel::recentApps - used to show the recent apps in the top bar from launch pad
+ * @return - RecentAppsModel*
+ */
+RecentAppsModel *MainViewModel::recentApps()
+{
+    return m_recentApps;
 }

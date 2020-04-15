@@ -34,6 +34,7 @@ SOURCES += \
         DailyKitCore/External/WebServices/retrievewebappdata.cpp \
         DailyKitCore/ViewModels/planviewitemmodel.cpp \
         DailyKitCore/ViewModels/planviewmodel.cpp \
+        DailyKitCore/ViewModels/recentappsmodel.cpp \
         DailyKitCore/ViewModels/recenttabsmodel.cpp \
         DailyKitCore/ViewModels/recenttabsplanview.cpp \
         DailyKitCore/ViewModels/settingsmodel.cpp \
@@ -75,6 +76,7 @@ HEADERS += \
     DailyKitCore/External/WebServices/retrievewebappdata.h \
     DailyKitCore/ViewModels/planviewitemmodel.h \
     DailyKitCore/ViewModels/planviewmodel.h \
+    DailyKitCore/ViewModels/recentappsmodel.h \
     DailyKitCore/ViewModels/recenttabsmodel.h \
     DailyKitCore/ViewModels/recenttabsplanview.h \
     DailyKitCore/ViewModels/settingsmodel.h \

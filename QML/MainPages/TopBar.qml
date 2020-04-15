@@ -1,6 +1,9 @@
 import QtQuick 2.0
 import "../ApplicationCore/Style"
+import "../Screens/"
 Rectangle {
+
+    readonly property alias recentAppsList: recentAppsList
 
     Row {
         id: topBar
@@ -8,7 +11,16 @@ Rectangle {
         spacing: 20
 
         Rectangle {
+            id: emptyRect
+
+
+            width: 10
+            height: 10
+        }
+
+        Rectangle {
             id: logoRect
+
 
             width: Interface.logo.iconSize
             height: Interface.logo.iconSize
@@ -38,9 +50,8 @@ Rectangle {
                 id: launch
                 anchors.fill: parent
                 onReleased: {
-                    console.log("presssssssssssssssssss")
 
-                        stackView.push(Qt.resolvedUrl("LandingPage.qml"))
+                    stackView.push(Qt.resolvedUrl("LandingPage.qml"))
 
                 }
             }
@@ -58,12 +69,12 @@ Rectangle {
 //            font.pixelSize: Interface.fontSize.textSizeSmall
 //        }
 
-        Rectangle {
-            id: blank
+        RecentAppsList {
+            id: recentAppsList
 
-            width: parent.width * 0.68
+            width: parent.width * 0.8
             height: parent.height
-            color: "transparent"
+
         }
 
 
@@ -75,7 +86,7 @@ Rectangle {
 
             verticalAlignment: Text.AlignHCenter
             text: Images.menu
-            color: Themes.selectedTheme.colors.appWhite
+            color: Themes.selectedTheme.colors.appGrey
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
         }
@@ -88,7 +99,7 @@ Rectangle {
 
             verticalAlignment: Text.AlignHCenter
             text: Images.serving
-            color: Themes.selectedTheme.colors.appWhite
+            color: Themes.selectedTheme.colors.appGrey
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
 
@@ -114,7 +125,7 @@ Rectangle {
 
             verticalAlignment: Text.AlignHCenter
             text: loginAccess.userName
-            color: Themes.selectedTheme.colors.appWhite
+            color: Themes.selectedTheme.colors.appGrey
             font.pixelSize: Interface.fontSize.textSizeSmall
             font.bold: true
 

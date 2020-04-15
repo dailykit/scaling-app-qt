@@ -8,8 +8,8 @@ Rectangle {
     property color outerRectColor: "white"
     property string applicationText
 
-    width: Interface.landingPages.outerRectWidth
-    height: Interface.landingPages.outerRectHeight
+    width: 250 //keeping constant so even though screen size increases this box will be stay constant
+    height: 171
     color: outerRectColor
 
 
@@ -23,8 +23,8 @@ Rectangle {
             rightMargin: 20
         }
 
-        width: Interface.landingPages.innerRect
-        height: Interface.landingPages.innerRect
+        width: 86
+        height: 86
         color: Themes.selectedTheme.colors.appWhite
         opacity: 0.4
     }
@@ -47,7 +47,7 @@ Rectangle {
             anchors.fill: parent
             text: applicationText
             color: Themes.selectedTheme.colors.appWhite
-            font.pixelSize: Interface.fontSize.textSizeSmall
+            font.pixelSize: 16
         }
 
     }
